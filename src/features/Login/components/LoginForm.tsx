@@ -78,6 +78,7 @@ const LoginForm = ({ handleSubmit }: ILoginForm) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: "start",
         }}
       >
         {!isMobileScreen && (
@@ -85,8 +86,10 @@ const LoginForm = ({ handleSubmit }: ILoginForm) => {
             {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar> */}
-            <Typography component="h1" variant="h5">
-              Sign in
+            <Typography component="h1" variant="h3">
+              Welcome!
+              <br />
+              Nice to see you again.
             </Typography>
           </>
         )}
@@ -95,7 +98,7 @@ const LoginForm = ({ handleSubmit }: ILoginForm) => {
           component="form"
           noValidate
           onSubmit={formik.handleSubmit}
-          sx={{ mt: 1 }}
+          sx={{ mt: 1, px: 3.5 }}
         >
           <AppTextField formik={formik} value="Email" />
           <AppTextField formik={formik} value="Password" />
