@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StepContext } from "../context/setContext";
+import { StepContext } from "../context/stepContext";
 import { ICompleted } from "../types";
 import PasswordInfoForm from "./steps/PasswordInfoForm";
 import PersonalInformationForm from "./steps/PersonalInformationForm";

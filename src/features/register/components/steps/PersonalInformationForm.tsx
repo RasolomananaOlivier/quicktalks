@@ -14,21 +14,26 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { IRegisterValues } from "../../types";
-import { StepContext } from "../../context/setContext";
+import { StepContext } from "../../context/stepContext";
 import { validateSignup } from "../../utils/validateRegister";
+import { UserRegistrationContext } from "../../context/userRegistrationContext";
 
 export default function PersonalInformationForm() {
   const { handleComplete, completed, activeStep } = useContext(StepContext);
+  const { setUserPersonalInfo } = useContext(UserRegistrationContext);
 
   const formik = useFormik<IRegisterValues>({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      firstname: "",
+      lastname: "",
       birthday: "",
       email: "",
     },
     validate: validateSignup,
     onSubmit: (values) => {
+      if (setUserPersonalInfo) {
+        setUserPersonalInfo(values);
+      }
       handleComplete();
     },
   });
@@ -37,7 +42,7 @@ export default function PersonalInformationForm() {
    * An errors occurs
    */
   const handleErrorFirstName = () => {
-    return !!formik.touched.firstName && !!formik.errors.firstName;
+    return !!formik.touched.firstname && !!formik.errors.firstname;
   };
 
   /**
@@ -45,7 +50,7 @@ export default function PersonalInformationForm() {
    * An errors occurs
    */
   const handleErrorLastName = () => {
-    return !!formik.touched.lastName && !!formik.errors.lastName;
+    return !!formik.touched.lastname && !!formik.errors.lastname;
   };
 
   /**
@@ -77,7 +82,7 @@ export default function PersonalInformationForm() {
               sx={{ pr: { xs: 0, lg: 2 }, mb: { xs: 3, lg: 5 } }}
             >
               <TextField
-                name="firstName"
+                name="firstname"
                 label="First Name"
                 fullWidth
                 required
@@ -86,7 +91,7 @@ export default function PersonalInformationForm() {
                 onBlur={formik.handleBlur}
                 error={handleErrorFirstName() ? true : false}
                 helperText={
-                  handleErrorFirstName() ? `${formik.errors.firstName}` : null
+                  handleErrorFirstName() ? `${formik.errors.firstname}` : null
                 }
               />
             </Grid>
@@ -97,7 +102,7 @@ export default function PersonalInformationForm() {
               sx={{ pr: { xs: 0, lg: 2 }, mb: { xs: 3, lg: 5 } }}
             >
               <TextField
-                name="lastName"
+                name="lastname"
                 label="Last Name"
                 fullWidth
                 required
@@ -106,7 +111,7 @@ export default function PersonalInformationForm() {
                 onBlur={formik.handleBlur}
                 error={handleErrorLastName() ? true : false}
                 helperText={
-                  handleErrorLastName() ? `${formik.errors.lastName}` : null
+                  handleErrorLastName() ? `${formik.errors.lastname}` : null
                 }
               />
             </Grid>

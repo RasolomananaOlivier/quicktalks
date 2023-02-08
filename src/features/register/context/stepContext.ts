@@ -5,7 +5,6 @@ export interface IStepContextValue {
   activeStep: number;
   completed: { [key: number]: boolean };
   totalSteps: () => number;
-  completedSteps: () => number;
   allStepsCompleted: () => boolean;
   isLastStep: () => boolean;
   handleStep: (step: number) => void;
@@ -18,7 +17,6 @@ export const StepContext = React.createContext<IStepContextValue>({
   activeStep: 0,
   completed: {},
   totalSteps: () => 0,
-  completedSteps: () => 0,
   allStepsCompleted: () => false,
   isLastStep: () => false,
   handleStep: (step: number) => {},

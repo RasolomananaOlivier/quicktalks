@@ -1,11 +1,12 @@
 import { Box, Button, Typography } from "@mui/material";
 import { AnimatePresence } from "framer-motion";
 import React, { useContext } from "react";
-import { StepContext } from "../context/setContext";
+import { StepContext } from "../context/stepContext";
 import StepActiveView from "./StepActiveView";
 
 const StepViewContainer: React.FC = () => {
   const { allStepsCompleted, handleReset } = useContext(StepContext);
+  // console.log(allStepsCompleted());
   return (
     <div>
       {allStepsCompleted() ? (

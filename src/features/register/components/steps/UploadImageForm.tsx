@@ -8,25 +8,26 @@ import {
   Avatar,
 } from "@mui/material";
 import { useFormik } from "formik";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useRegistration } from "../../hooks/useRegistration";
+import { Register } from "../../../../services/register";
+import { UserRegistrationContext } from "../../context/userRegistrationContext";
 
-export default function Step3() {
+export default function UploadImageForm() {
   // STATE FOR SELECTED FILES
   const [selectedFiles, setselectedFiles] = useState<
     string | ArrayBuffer | undefined
   >(undefined);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const ref = useRef(null);
 
-  const addImage = (e: Event) => {
+  const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
 
-    const files = (e.target as HTMLInputElement).files;
+    const files = e.target.files;
     if (files && files[0]) {
       reader.readAsDataURL(files[0]);
     }
@@ -37,12 +38,17 @@ export default function Step3() {
     };
   };
 
+  const { user } = useContext(UserRegistrationContext);
   const formik = useFormik({
     initialValues: {
       bio: "",
     },
-
-    onSubmit: (values) => {},
+    onSubmit: async (values) => {
+      if (user) {
+        const res = await Register(user);
+        console.log(res.data);
+      }
+    },
   });
 
   return (
@@ -85,7 +91,7 @@ export default function Step3() {
             sx={{ pr: 2, mb: 5, display: "flex", justifyContent: "flex-start" }}
           >
             <Avatar
-              src={selectedFiles}
+              src={"selectedFiles"}
               alt="user pdp"
               style={{ height: 80, width: 80 }}
             />

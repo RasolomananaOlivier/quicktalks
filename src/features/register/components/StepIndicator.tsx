@@ -1,7 +1,7 @@
 import { Step, StepButton, Stepper } from "@mui/material";
 import { FC, useContext } from "react";
 import { useMobileSize } from "../../../hooks/useMobileSize";
-import { StepContext } from "../context/setContext";
+import { StepContext } from "../context/stepContext";
 import { ICompleted } from "../types";
 
 interface IStepIndicatorProps {

@@ -16,15 +16,15 @@ import {
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import React, { useContext, useState } from "react";
-import { useDispatch } from "react-redux";
-import { StepContext } from "../../context/setContext";
+import { StepContext } from "../../context/stepContext";
+import { UserRegistrationContext } from "../../context/userRegistrationContext";
 import { IPasswordValues } from "../../types";
 import { validatePassword } from "../../utils/validatePassword";
 
 export default function PasswordInfoForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
   const { handleComplete, completed, activeStep } = useContext(StepContext);
+  const { setUserPassword } = useContext(UserRegistrationContext);
 
   const formik = useFormik<IPasswordValues>({
     initialValues: {
@@ -33,6 +33,9 @@ export default function PasswordInfoForm() {
     },
     validate: validatePassword,
     onSubmit: (values) => {
+      if (setUserPassword) {
+        setUserPassword(values.password);
+      }
       handleComplete();
     },
   });
@@ -145,10 +148,7 @@ export default function PasswordInfoForm() {
               }
             />
           </Grid>
-          <Grid
-            xs={12}
-            sx={{ display: "flex", justifyContent: "space-between" }}
-          >
+          <Grid sx={{ display: "flex", justifyContent: "space-between" }}>
             {" "}
             <Button variant="contained" href="/login" hidden>
               Back to sign in

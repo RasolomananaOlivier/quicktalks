@@ -3,14 +3,14 @@ export interface ICompleted {
 }
 
 export interface IRegisterValues {
-  firstName: string;
-  lastName: string;
-  birthday: string;
+  firstname: string;
+  lastname: string;
+  birthday?: string;
   email: string;
 }
 
 export interface IRegisterErrors {
-  firstName?: string;
+  firstname?: string;
   lastName?: string;
   birthday?: string;
   email?: string;
