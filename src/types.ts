@@ -5,3 +5,14 @@ export interface IUser {
   password: string;
   friends?: string[];
 }
+
+export interface IUserServer {
+  firstname: string;
+  lastname: string;
+  email: {
+    address: string;
+    verified: boolean;
+  };
+  password: string;
+  friends?: string[];
+}
