@@ -98,7 +98,7 @@ const LoginForm = ({ handleSubmit }: ILoginForm) => {
           component="form"
           noValidate
           onSubmit={formik.handleSubmit}
-          sx={{ mt: 1, px: 3.5 }}
+          sx={{ mt: 1, px: { md: 3.5, xs: 0 } }}
         >
           <AppTextField formik={formik} value="Email" />
           <AppTextField formik={formik} value="Password" />
