@@ -21,7 +21,7 @@ export interface IMessageItem {
   _id: string;
   auth: string;
   type: "text" | "image" | "video";
-  content: string;
+  content?: string;
   timeStamp: Date;
   authorizedUser: string[];
   imageUrl?: string;

@@ -22,31 +22,38 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
+interface BigAvatarProps {}
+
+const BigAvatar: React.FC<BigAvatarProps> = () => {
+  return (
+    <Box
+      display={{ xs: "none", md: "flex" }}
+      justifyContent={"center"}
+      alignItems="center"
+      sx={{ p: { xs: 0, md: 2 }, mt: { xs: 0, md: 2 } }}
+    >
+      <StyledBadge
+        overlap="circular"
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        variant="dot"
+      >
+        <Avatar alt="Remy Sharp" src={""} sx={{ width: 50, height: 50 }} />
+      </StyledBadge>
+    </Box>
+  );
+};
+
 function SideNavigation() {
   return (
     <Stack
       direction={{ xs: "row", md: "column" }}
       sx={{
         height: { xs: "auto", md: "100vh" },
-        bgcolor: "rgb(25, 25, 80)",
-        width: "100%",
       }}
+      className="side-navigation"
     >
-      <Box
-        display={{ xs: "none", md: "flex" }}
-        justifyContent={"center"}
-        alignItems="center"
-        sx={{ p: { xs: 0, md: 2 }, mt: { xs: 0, md: 2 } }}
-      >
-        <StyledBadge
-          overlap="circular"
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          variant="dot"
-        >
-          <Avatar alt="Remy Sharp" src={""} sx={{ width: 50, height: 50 }} />
-        </StyledBadge>
-      </Box>
-
+      <div className="side-navigation-overlay"></div>
+      <BigAvatar />
       <VerticalTabs />
     </Stack>
   );

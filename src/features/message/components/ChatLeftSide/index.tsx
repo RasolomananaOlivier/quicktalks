@@ -6,7 +6,7 @@ import { ChatRootLeftSideContext } from "../../context/leftSideContext";
 import ChatRoomLeftSideContent from "./ChatRoomLeftSideContent";
 
 interface ChatLeftSideProps {
-  width: number;
+  width?: number;
 }
 
 const ChatLeftSide: React.FC<ChatLeftSideProps> = ({ width }) => {

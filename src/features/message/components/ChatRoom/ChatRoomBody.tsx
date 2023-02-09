@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
-import { useMessageById } from "../../hooks/useGetMessageById";
+import { useGetMessageById } from "../../hooks/useGetMessageById";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import ChatRoomMessagesList from "./ChatRoomMessagesList";
 
@@ -151,7 +151,7 @@ const ChatRoomBody: React.FC<ChatRoomBodyProps> = ({
 
   // FIXME: Give default messageId when there'isnt
   const params = useParams();
-  const messageData = useMessageById(params.messageId ?? "100");
+  const messageData = useGetMessageById(params.messageId ?? "1");
 
   const dispatch = useDispatch();
   // TODO: Intergrate fetchMore to the backend

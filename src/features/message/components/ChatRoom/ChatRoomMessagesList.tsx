@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 
-import NoMessageIllustration from "src/Assets/img/message.webp";
+import NoMessageIllustration from "../../../../assets/img/no-message.svg";
 
 import { IMessage } from "../../../../types";
 import MessageBox from "../MessageBox";

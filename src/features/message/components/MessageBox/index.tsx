@@ -56,7 +56,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({
 
         {message.type === "text" ? (
           <MessageTextContent
-            content={message.content}
+            content={message.content!}
             isUserMessage={isUserMessage}
           />
         ) : (

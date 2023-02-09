@@ -2,13 +2,15 @@ import { Box } from "@mui/material";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 
-
 interface MessageTextContentProps {
   content: string;
   isUserMessage: boolean;
 }
 
-const MessageTextContent: React.FC<MessageTextContentProps> = ({ content, isUserMessage  }) => {
+const MessageTextContent: React.FC<MessageTextContentProps> = ({
+  content,
+  isUserMessage,
+}) => {
   return (
     <Box>
       <Box
@@ -26,9 +28,9 @@ const MessageTextContent: React.FC<MessageTextContentProps> = ({ content, isUser
       >
         {content}
       </Box>
-      <AnimatePresence>
-      </AnimatePresence>
+      <AnimatePresence></AnimatePresence>
     </Box>
+  );
 };
 
 export default MessageTextContent;

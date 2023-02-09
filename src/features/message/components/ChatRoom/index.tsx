@@ -15,6 +15,8 @@ import { ArrowBackIos, Menu } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
 import ChatRoomHeader from "./ChatRoomHeader";
+import ChatRoomBody from "./ChatRoomBody";
+import ChatRoomFooter from "./ChatRoomFooter";
 
 const messageFriendVariants = {
   hidden: {
@@ -55,7 +57,6 @@ export default function ChatRoom() {
   //   scrollToTheEnd();
   // }, [MessagesRedux]);
 
-  // Test branch
   const headerHeight = 50;
   const footerHeight = 80;
   const isMobileScreen = useMobileSize();
@@ -76,8 +77,8 @@ export default function ChatRoom() {
           left: 21,
         }}
       />
-      {/* <ChatRoomBody headerHeight={headerHeight} footerHeight={footerHeight} />
-      <ChatRoomFooter height={footerHeight} /> */}
+      <ChatRoomBody headerHeight={headerHeight} footerHeight={footerHeight} />
+      <ChatRoomFooter height={footerHeight} />
     </Stack>
   );
 }
