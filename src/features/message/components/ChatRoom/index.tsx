@@ -42,9 +42,10 @@ const userFriendVariants = {
 };
 
 export default function ChatRoom() {
+  const isMobileScreen = useMobileSize();
   const headerHeight = 50;
   const footerHeight = 80;
-  const isMobileScreen = useMobileSize();
+
   return (
     <Stack
       sx={{

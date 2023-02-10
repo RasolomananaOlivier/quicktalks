@@ -4,11 +4,7 @@ import { messagesSelector } from "../../../redux/selectors/messagesSelector";
 import { getMessageById } from "../../../services/getMessageById";
 import { IMessage } from "../../../types";
 
-export const useGetMessageById = (messageId: string | undefined) => {
-  if (messageId === undefined) {
-    return { message: [] };
-  }
-
+export const useGetMessageById = (messageId: string) => {
   const [message, setMessage] = useState<IMessage>();
   const messages = useAppSelector(messagesSelector);
 

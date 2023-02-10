@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../../../hooks/redux";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
+import { currentMessageSelector } from "../../../../redux/selectors/currentMessageSelector";
 import { useGetMessageById } from "../../hooks/useGetMessageById";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import ChatRoomMessagesList from "./ChatRoomMessagesList";
@@ -151,7 +153,7 @@ const ChatRoomBody: React.FC<ChatRoomBodyProps> = ({
 
   // FIXME: Give default messageId when there'isnt
   const params = useParams();
-  const { message } = useGetMessageById(params.messageId);
+  // const { message } = useGetMessageById(params.messageId);
 
   // TODO: Intergrate fetchMore to the backend
   const fetchMore = () => {
@@ -165,39 +167,29 @@ const ChatRoomBody: React.FC<ChatRoomBodyProps> = ({
 
   // test
   const InfiniteScrollHeight = innerHeight - (headerHeight + footerHeight + 20);
-
-  console.log("message", message);
-
-  if (!message) {
-    return <div>No msg</div>;
-  } else {
-    if (message.messages) {
-      return (
-        <InfiniteScroll
-          inverse={true}
-          style={{ display: "flex", flexDirection: "column-reverse" }}
-          dataLength={message.messages.length ?? 0}
-          next={() => fetchMore()}
-          hasMore={message.messages.length !== newMessage.items.length}
-          height={`${InfiniteScrollHeight}px`}
-          loader={<h4>Loading</h4>}
-        >
-          <div
-            style={{
-              backgroundColor: "#f2f2f2",
-              display: "flex",
-              flexDirection: "column-reverse",
-              paddingBottom: "10px",
-            }}
-          >
-            <ChatRoomMessagesList messageEntity={message} />
-          </div>
-        </InfiniteScroll>
-      );
-    } else {
-      return <div>messageData.messages undefined</div>;
-    }
-  }
+  const currentMessage = useAppSelector(currentMessageSelector);
+  return (
+    <InfiniteScroll
+      inverse={true}
+      style={{ display: "flex", flexDirection: "column-reverse" }}
+      dataLength={currentMessage.messages.length}
+      next={() => fetchMore()}
+      hasMore={false}
+      height={`${InfiniteScrollHeight}px`}
+      loader={<h4>Loading</h4>}
+    >
+      <div
+        style={{
+          backgroundColor: "#f2f2f2",
+          display: "flex",
+          flexDirection: "column-reverse",
+          paddingBottom: "10px",
+        }}
+      >
+        <ChatRoomMessagesList messageEntity={currentMessage} />
+      </div>
+    </InfiniteScroll>
+  );
 };
 
 export default ChatRoomBody;

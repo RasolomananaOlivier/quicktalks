@@ -6,11 +6,9 @@ export default function FriendsList() {
   const friends = useAppSelector(friendsSelector);
   return (
     <>
-      {friends.map((friend) => {
-        if (friend._id) {
-          return <Userbox friendId={friend._id} />;
-        }
-      })}
+      {friends.map((friend) => (
+        <Userbox key={friend._id} user={friend} />
+      ))}
     </>
   );
 }
