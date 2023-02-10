@@ -26,7 +26,7 @@ export const AppNavigation: FC<IAppNavigationProps> = (props) => {
           />
           <Route path="messages" element={<MessagesPage />}>
             <Route index element={<ChatRoom />} />
-            {/* <Route path=":messageId" element={<ChatRoom />} /> */}
+            <Route path=":messageId" element={<ChatRoom />} />
           </Route>
           {/* <Route path="requests" element={<RequestsPage />} />
           <Route path="notifications" element={<NotificationsPage />} />

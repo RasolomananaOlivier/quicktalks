@@ -42,21 +42,6 @@ const userFriendVariants = {
 };
 
 export default function ChatRoom() {
-  // const showMenu = () => {
-  //   handleOpenMessageDetail();
-  // };
-
-  /**
-   * Get the parent element to make to child slide in it
-   */
-  const messageEnd = React.useRef(null);
-  // const scrollToTheEnd = () => {
-  //   messageEnd.current?.scrollIntoView({ behavior: "smooth" });
-  // };
-  // useEffect(() => {
-  //   scrollToTheEnd();
-  // }, [MessagesRedux]);
-
   const headerHeight = 50;
   const footerHeight = 80;
   const isMobileScreen = useMobileSize();

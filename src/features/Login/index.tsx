@@ -5,6 +5,8 @@ import LoginForm from "./components/LoginForm";
 import { Login } from "../../services/login";
 import { useAppDispatch } from "../../hooks/redux";
 import { setUser } from "../../redux/reducers/userSlice";
+import { saveToken } from "../../utils/saveToken";
+import { routes } from "../../data/routes";
 
 export const ConnectedLoginForm: FC = () => {
   const navigate = useNavigate();
@@ -13,14 +15,19 @@ export const ConnectedLoginForm: FC = () => {
   const handleSubmit = async (values: ILoginValues) => {
     const { data, token } = await Login(values);
 
+    saveToken(token);
     dispatch(
       setUser({
+        _id: data._id,
         email: data.email.address,
         lastname: data.lastname,
         firstname: data.firstname,
         password: data.password,
+        friends: data.friends,
       })
     );
+
+    navigate(routes.HOME);
   };
   return <LoginForm handleSubmit={handleSubmit} />;
 };

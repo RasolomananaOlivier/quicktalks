@@ -151,9 +151,8 @@ const ChatRoomBody: React.FC<ChatRoomBodyProps> = ({
 
   // FIXME: Give default messageId when there'isnt
   const params = useParams();
-  const messageData = useGetMessageById(params.messageId ?? "1");
+  const { message } = useGetMessageById(params.messageId);
 
-  const dispatch = useDispatch();
   // TODO: Intergrate fetchMore to the backend
   const fetchMore = () => {
     // dispatch(
@@ -167,28 +166,38 @@ const ChatRoomBody: React.FC<ChatRoomBodyProps> = ({
   // test
   const InfiniteScrollHeight = innerHeight - (headerHeight + footerHeight + 20);
 
-  return (
-    <InfiniteScroll
-      inverse={true}
-      style={{ display: "flex", flexDirection: "column-reverse" }}
-      dataLength={messageData.messages.length}
-      next={() => fetchMore()}
-      hasMore={messageData.messages.length !== newMessage.items.length}
-      height={`${InfiniteScrollHeight}px`}
-      loader={<h4>Loading</h4>}
-    >
-      <div
-        style={{
-          backgroundColor: "#f2f2f2",
-          display: "flex",
-          flexDirection: "column-reverse",
-          paddingBottom: "10px",
-        }}
-      >
-        <ChatRoomMessagesList messageEntity={messageData} />
-      </div>
-    </InfiniteScroll>
-  );
+  console.log("message", message);
+
+  if (!message) {
+    return <div>No msg</div>;
+  } else {
+    if (message.messages) {
+      return (
+        <InfiniteScroll
+          inverse={true}
+          style={{ display: "flex", flexDirection: "column-reverse" }}
+          dataLength={message.messages.length ?? 0}
+          next={() => fetchMore()}
+          hasMore={message.messages.length !== newMessage.items.length}
+          height={`${InfiniteScrollHeight}px`}
+          loader={<h4>Loading</h4>}
+        >
+          <div
+            style={{
+              backgroundColor: "#f2f2f2",
+              display: "flex",
+              flexDirection: "column-reverse",
+              paddingBottom: "10px",
+            }}
+          >
+            <ChatRoomMessagesList messageEntity={message} />
+          </div>
+        </InfiniteScroll>
+      );
+    } else {
+      return <div>messageData.messages undefined</div>;
+    }
+  }
 };
 
 export default ChatRoomBody;

@@ -13,7 +13,7 @@ const initialState: IMessage[] = [
         type: "text",
         authorizedUser: ["1", "2"],
         content: "hello",
-        timeStamp: new Date(),
+        timeStamp: new Date().toString(),
       },
       {
         _id: "1",
@@ -21,7 +21,7 @@ const initialState: IMessage[] = [
         type: "text",
         authorizedUser: ["1", "2"],
         content: "hello",
-        timeStamp: new Date(),
+        timeStamp: new Date().toString(),
       },
 
       {
@@ -29,7 +29,7 @@ const initialState: IMessage[] = [
         auth: "2",
         type: "image",
         authorizedUser: ["1", "2"],
-        timeStamp: new Date(),
+        timeStamp: new Date().toString(),
         imageUrl: "",
       },
 
@@ -39,7 +39,7 @@ const initialState: IMessage[] = [
         type: "text",
         authorizedUser: ["1", "2"],
         content: "hello",
-        timeStamp: new Date(),
+        timeStamp: new Date().toString(),
       },
     ],
     isRead: false,
@@ -49,9 +49,13 @@ const initialState: IMessage[] = [
 export const userSlice = createSlice({
   name: "messages",
   initialState,
-  reducers: {},
+  reducers: {
+    setMessages: (state, action: PayloadAction<IMessage[]>) => {
+      return [...action.payload];
+    },
+  },
 });
 
-export const {} = userSlice.actions;
+export const { setMessages } = userSlice.actions;
 
 export default userSlice.reducer;

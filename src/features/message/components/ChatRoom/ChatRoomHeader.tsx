@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { useMobileSize } from "../../../../hooks/useMobileSize";
 import { ChatRootLeftSideContext } from "../../context/leftSideContext";
+import { useGetMessageById } from "../../hooks/useGetMessageById";
 
 interface ChatRoomHeaderProps {
   height: number;
@@ -14,6 +15,9 @@ const ChatRoomHeader: React.FC<ChatRoomHeaderProps> = ({ height }) => {
   const isMobileScreen = useMobileSize();
   const params = useParams();
   const navigate = useNavigate();
+
+  const message = useGetMessageById(params.messageId ?? "1");
+  console.log(message);
 
   const chatRoomLeftSideContext = useContext(ChatRootLeftSideContext);
   return (

@@ -1,4 +1,5 @@
 export interface IUser {
+  _id?: string;
   firstname: string;
   lastname: string;
   email: string;
@@ -7,6 +8,7 @@ export interface IUser {
 }
 
 export interface IUserServer {
+  _id?: string;
   firstname: string;
   lastname: string;
   email: {
@@ -22,7 +24,7 @@ export interface IMessageItem {
   auth: string;
   type: "text" | "image" | "video";
   content?: string;
-  timeStamp: Date;
+  timeStamp: string;
   authorizedUser: string[];
   imageUrl?: string;
 }

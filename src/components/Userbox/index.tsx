@@ -15,13 +15,29 @@ import {
 
 import UserboxAvatar from "./UserboxAvatar";
 import UserboxDetails from "./UserboxDetails";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../hooks/redux";
+import { userSelector } from "../../redux/selectors/userSelector";
+import { Client } from "../../lib/Client";
+import { useFilterMessage } from "../../features/message/hooks/userFilterMessages";
 
 interface IUserboxContext {
   handleOpenMessage: () => void;
 }
 const UserboxContext = React.createContext({});
 
-export default function Userbox() {
+interface IUserBox {
+  friendId: string;
+}
+
+export default function Userbox({ friendId }: IUserBox) {
+  const navigate = useNavigate();
+  const message = useFilterMessage(friendId);
+  const handleClick = () => {
+    console.log(message, friendId);
+
+    navigate(`/home/messages/${message._id}`);
+  };
   return (
     <>
       <ListItemButton
@@ -29,7 +45,7 @@ export default function Userbox() {
           borderRadius: 3,
           mb: 1,
         }}
-        // onClick={handleClick}
+        onClick={handleClick}
       >
         <UserboxAvatar />
         <UserboxDetails />

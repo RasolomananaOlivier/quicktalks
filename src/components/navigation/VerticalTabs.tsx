@@ -36,6 +36,8 @@ function a11yProps(index: number) {
 }
 
 export default function VerticalTabs() {
+  const [value, setvalue] = React.useState(0);
+
   const isMobileScreen = useMobileSize();
   const route = useNavigate();
 
@@ -60,12 +62,9 @@ export default function VerticalTabs() {
           backgroundColor: "#ed1545",
         },
       }}
-      // onChange={handleChange}
+      value={value}
+      onChange={(e, val) => setvalue(val)}
       sx={{
-        /*         display: "flex",
-        flexDirection: "column", */
-        // borderLeft: 0,
-        // borderColor: "divider" ,
         ".MuiTabs-indicator": {
           display: "none",
         },
