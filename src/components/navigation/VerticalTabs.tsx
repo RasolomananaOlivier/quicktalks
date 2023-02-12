@@ -13,6 +13,7 @@ import {
 import { Badge } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useMobileSize } from "../../hooks/useMobileSize";
+import { ChatAnimatedIcon } from "../lottieIcons/chatAnimatedIcon";
 
 export const iconsStyleSmall = {
   borderRadius: "50%",
@@ -33,6 +34,16 @@ function a11yProps(index: number) {
     id: `vertical-tab-${index}`,
     "aria-controls": `vertical-tabpanel-${index}`,
   };
+}
+{
+  /* <Badge
+  // badgeContent={unreadMessages.length}
+  max={99}
+  color="error"
+  sx={{ fontSize: 10 }}
+>
+  <ChatBubble sx={{ fontSize: 20, color: "white" }} />
+</Badge>; */
 }
 
 export default function VerticalTabs() {
@@ -79,16 +90,7 @@ export default function VerticalTabs() {
             left: "10%",
           }),
         }}
-        icon={
-          <Badge
-            // badgeContent={unreadMessages.length}
-            max={99}
-            color="error"
-            sx={{ fontSize: 10 }}
-          >
-            <ChatBubble sx={{ fontSize: 20, color: "white" }} />
-          </Badge>
-        }
+        icon={<ChatAnimatedIcon />}
         iconPosition="start"
         onClick={() => route("/home/messages")}
         {...a11yProps(0)}

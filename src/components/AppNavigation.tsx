@@ -1,7 +1,9 @@
 import React, { FC, Suspense } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import ChatRoom from "../features/message/components/ChatRoom";
+import ChatRoomSection from "../features/message/components/ChatRoomSection";
 import MessagesPage from "../pages/MessagesPage";
+import NotificationPage from "../pages/NotificationPage";
+import RequestPage from "../pages/RequestPage";
 import { Layout } from "./Layout";
 
 const LoginPage = React.lazy(() => import("../pages/LoginPage"));
@@ -25,12 +27,12 @@ export const AppNavigation: FC<IAppNavigationProps> = (props) => {
             element={<Navigate to="/home/messages" replace={true} />}
           />
           <Route path="messages" element={<MessagesPage />}>
-            <Route index element={<ChatRoom />} />
-            <Route path=":messageId" element={<ChatRoom />} />
+            <Route index element={<ChatRoomSection />} />
+            <Route path=":messageId" element={<ChatRoomSection />} />
           </Route>
-          {/* <Route path="requests" element={<RequestsPage />} />
-          <Route path="notifications" element={<NotificationsPage />} />
-          <Route path="settings" element={<SettingPage />} /> */}
+          <Route path="requests" element={<RequestPage />} />
+          <Route path="notifications" element={<NotificationPage />} />
+          {/* <Route path="settings" element={<SettingPage />} /> */}
         </Route>
       </Routes>
     </Suspense>

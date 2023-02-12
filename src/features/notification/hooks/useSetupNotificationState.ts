@@ -1,19 +1,19 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { setFriendsState } from "../../../redux/reducers/friendsSlice";
+import { setRequestState } from "../../../redux/reducers/requestSlice";
 import { userSelector } from "../../../redux/selectors/userSelector";
-import { getUserFriends } from "../../../services/getUserFriends";
+import { getRequestsList } from "../../../services/getRequestsList";
 
-export const useSetupFriendsState = () => {
+export const useSetupNotificationState = () => {
   const user = useAppSelector(userSelector);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const getFriends = async () => {
       if (user._id) {
-        const friends = await getUserFriends(user._id);
+        const requests = await getRequestsList(user._id);
 
-        dispatch(setFriendsState(friends));
+        dispatch(setRequestState(requests.data));
       }
     };
 

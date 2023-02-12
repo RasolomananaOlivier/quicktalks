@@ -1,12 +1,15 @@
 import { CameraAlt, Send } from "@mui/icons-material";
 import { Box, IconButton, TextField } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
+import { ChatRoomContext } from ".";
 
-interface ChatRoomFooterProps {
-  height: number;
-}
+interface ChatRoomFooterProps {}
 
-const ChatRoomFooter: React.FC<ChatRoomFooterProps> = ({ height }) => {
+const Footer: React.FC<ChatRoomFooterProps> = () => {
+  const { footerHeight } = useContext(ChatRoomContext);
+  if (!footerHeight) {
+    throw new Error("ChatRoomContext required");
+  }
   return (
     <Box
       sx={{
@@ -15,7 +18,7 @@ const ChatRoomFooter: React.FC<ChatRoomFooterProps> = ({ height }) => {
         py: 1,
         px: 2,
         width: "95%",
-        height: `${height}px`,
+        height: `${footerHeight}px`,
       }}
     >
       <TextField
@@ -100,4 +103,4 @@ const ChatRoomFooter: React.FC<ChatRoomFooterProps> = ({ height }) => {
   );
 };
 
-export default ChatRoomFooter;
+export default Footer;

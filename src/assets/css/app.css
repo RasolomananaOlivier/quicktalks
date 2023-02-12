@@ -19,3 +19,17 @@ body {
   /* filter: blur(2px);1 */
   opacity: 0.75;
 }
+
+.no-message-illustration {
+  width: 180px;
+  height: 220px;
+}
+
+.disable-scrollbar {
+  scrollbar-width: none;
+}
+
+
+.disable-scrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -1,22 +1,13 @@
-/* eslint-disable array-callback-return */
-import {
-  Box,
-  Avatar,
-  IconButton,
-  Divider,
-  Typography,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
-import React, { useEffect } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import { ArrowBackIos, Menu } from "@mui/icons-material";
 
 import { useParams } from "react-router-dom";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
-import ChatRoomHeader from "./ChatRoomHeader";
-import ChatRoomBody from "./ChatRoomBody";
-import ChatRoomFooter from "./ChatRoomFooter";
+import Header from "./Header";
+import Body from "./Body";
+import Footer from "./Footer";
+import { useWindowSize } from "../../hooks/useWindowSize";
 
 const messageFriendVariants = {
   hidden: {
@@ -41,30 +32,43 @@ const userFriendVariants = {
   exit: { scale: 0, x: 300, opacity: 0, transition: { duration: 0.2 } },
 };
 
-export default function ChatRoom() {
+export const ChatRoomContext = React.createContext({
+  headerHeight: 0,
+  footerHeight: 0,
+  bodyHeight: 0,
+});
+
+interface IChatRoom extends PropsWithChildren {}
+export default function ChatRoom({ children }: IChatRoom) {
   const isMobileScreen = useMobileSize();
-  const headerHeight = 50;
-  const footerHeight = 80;
+  const { innerHeight } = useWindowSize();
+
+  const headerHeight = 50,
+    footerHeight = 80;
+  const bodyHeight = innerHeight - (headerHeight + footerHeight + 20);
+
+  const chatRoomContextValue = {
+    headerHeight,
+    footerHeight,
+    bodyHeight,
+  };
 
   return (
-    <Stack
-      sx={{
-        width: isMobileScreen ? "100vw" : "100%",
-        height: "100vh",
-        overflow: "hidden",
-        position: "relative",
-      }}
-    >
-      <ChatRoomHeader height={headerHeight} />
-      <Divider
+    <ChatRoomContext.Provider value={chatRoomContextValue}>
+      <Stack
         sx={{
-          width: "93%",
+          width: isMobileScreen ? "100vw" : "100%",
+          height: "100vh",
+          overflow: "hidden",
           position: "relative",
-          left: 21,
         }}
-      />
-      <ChatRoomBody headerHeight={headerHeight} footerHeight={footerHeight} />
-      <ChatRoomFooter height={footerHeight} />
-    </Stack>
+      >
+        {children}
+      </Stack>
+    </ChatRoomContext.Provider>
   );
 }
+
+ChatRoom.Header = Header;
+ChatRoom.Body = Body;
+ChatRoom.Footer = Footer;

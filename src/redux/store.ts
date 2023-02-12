@@ -4,6 +4,7 @@ import messageReducer from "./reducers/messageSlice";
 import friendReducer from "./reducers/friendsSlice";
 import currentFriendReducer from "./reducers/currentFriendSlice";
 import currentMessageReducer from "./reducers/currentMessageSlice";
+import requestReducer from "./reducers/requestSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     friends: friendReducer,
     currentFriend: currentFriendReducer,
     currentMessage: currentMessageReducer,
+    requests: requestReducer,
   },
 });
 

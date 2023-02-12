@@ -1,14 +1,15 @@
 import { Box, Stack } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { ChatRoomContext } from ".";
 import { useAppSelector } from "../../../../hooks/redux";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
 import { currentMessageSelector } from "../../../../redux/selectors/currentMessageSelector";
 import { useGetMessageById } from "../../hooks/useGetMessageById";
 import { useWindowSize } from "../../hooks/useWindowSize";
-import ChatRoomMessagesList from "./ChatRoomMessagesList";
+import ChatRoomMessagesList from "./MessagesList";
 
 const newMessage = {
   access: ["1", "2"],
@@ -133,19 +134,17 @@ const newMessage = {
   ],
 };
 
-interface ChatRoomBodyProps {
-  headerHeight: number;
-  footerHeight: number;
-}
+interface ChatRoomBodyProps {}
 
-const ChatRoomBody: React.FC<ChatRoomBodyProps> = ({
-  headerHeight,
-  footerHeight,
-}) => {
+const Body: React.FC<ChatRoomBodyProps> = () => {
+  const { bodyHeight } = useContext(ChatRoomContext);
+  if (!bodyHeight) {
+    throw new Error("ChatRoomContext required");
+  }
+
   const containerRef = React.useRef(null);
 
   const isMobileScreen = useMobileSize();
-  const { innerHeight } = useWindowSize();
 
   const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const [items, setitems] = useState(data);
@@ -166,16 +165,18 @@ const ChatRoomBody: React.FC<ChatRoomBodyProps> = ({
   };
 
   // test
-  const InfiniteScrollHeight = innerHeight - (headerHeight + footerHeight + 20);
   const currentMessage = useAppSelector(currentMessageSelector);
   return (
     <InfiniteScroll
       inverse={true}
-      style={{ display: "flex", flexDirection: "column-reverse" }}
+      style={{
+        display: "flex",
+        flexDirection: "column-reverse",
+      }}
       dataLength={currentMessage.messages.length}
       next={() => fetchMore()}
       hasMore={false}
-      height={`${InfiniteScrollHeight}px`}
+      height={`${bodyHeight}px`}
       loader={<h4>Loading</h4>}
     >
       <div
@@ -192,4 +193,4 @@ const ChatRoomBody: React.FC<ChatRoomBodyProps> = ({
   );
 };
 
-export default ChatRoomBody;
+export default Body;

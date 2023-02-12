@@ -35,3 +35,10 @@ export interface IMessage {
   messages: IMessageItem[];
   isRead: boolean;
 }
+
+export interface IRequest {
+  _id: string;
+  userId: string;
+  fullname: string;
+  email: string;
+}

@@ -1,5 +1,6 @@
-import { Box } from "@mui/material";
-import React from "react";
+import { Box, Typography } from "@mui/material";
+import React, { useContext } from "react";
+import { ChatRoomContext } from ".";
 
 import NoMessageIllustration from "../../../../assets/img/no-message.svg";
 
@@ -13,6 +14,8 @@ interface ChatRoomMessagesListProps {
 const ChatRoomMessagesList: React.FC<ChatRoomMessagesListProps> = ({
   messageEntity,
 }) => {
+  const { bodyHeight } = useContext(ChatRoomContext);
+
   const isThePreviousMessageSentByTheSameUser = (index: number) => {
     if (index === 0) return false;
     return (
@@ -29,11 +32,15 @@ const ChatRoomMessagesList: React.FC<ChatRoomMessagesListProps> = ({
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          height: "100%",
+          height: bodyHeight - 10,
         }}
       >
-        <img src={NoMessageIllustration} alt="mp" />
-        Start sending you messages.
+        <img
+          src={NoMessageIllustration}
+          alt="mp"
+          className="no-message-illustration"
+        />
+        <Typography variant="subtitle1">Start sending you messages.</Typography>
       </Box>
     );
   } else {
