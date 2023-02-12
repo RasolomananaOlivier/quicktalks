@@ -13,9 +13,15 @@ import {
 } from "@mui/material";
 import React from "react";
 
-interface SuggestionProps {}
+interface SuggestionProps {
+  user: {
+    _id: string;
+    fullname: string;
+    email: string;
+  };
+}
 
-const Suggestion: React.FC<SuggestionProps> = ({}) => {
+const Suggestion: React.FC<SuggestionProps> = ({ user }) => {
   return (
     <Stack
       sx={{
@@ -39,7 +45,7 @@ const Suggestion: React.FC<SuggestionProps> = ({}) => {
               variant="h6"
               color="black"
             >
-              User name
+              {user.fullname}
             </Typography>
           }
           secondary={
@@ -49,7 +55,7 @@ const Suggestion: React.FC<SuggestionProps> = ({}) => {
               variant="body2"
               color="black"
             >
-              test@gmail.com
+              {user.email}
             </Typography>
           }
         />

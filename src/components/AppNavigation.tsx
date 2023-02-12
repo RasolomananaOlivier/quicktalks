@@ -4,7 +4,7 @@ import ChatRoomSection from "../features/message/components/ChatRoomSection";
 import MessagesPage from "../pages/MessagesPage";
 import NotificationPage from "../pages/NotificationPage";
 import RequestPage from "../pages/RequestPage";
-import { Layout } from "./Layout";
+import LayoutWithContext from "./Layout";
 
 const LoginPage = React.lazy(() => import("../pages/LoginPage"));
 const SignupPage = React.lazy(() => import("../pages/SignupPage"));
@@ -21,7 +21,7 @@ export const AppNavigation: FC<IAppNavigationProps> = (props) => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
 
-        <Route path="/home" element={<Layout />}>
+        <Route path="/home" element={<LayoutWithContext />}>
           <Route
             index // Default page when no nested route is specified
             element={<Navigate to="/home/messages" replace={true} />}

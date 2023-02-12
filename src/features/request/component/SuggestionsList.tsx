@@ -4,11 +4,12 @@ import Request from "./Request";
 import { Stack, Typography } from "@mui/material";
 import Suggestion from "./Suggestion";
 import AppHeader from "../../../components/typography/AppHeader";
+import { useSuggestions } from "../hooks/useSuggestions";
 
 interface SuggestionsListProps {}
 
 const SuggestionsList: React.FC<SuggestionsListProps> = ({}) => {
-  const requestCollections: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const suggestions = useSuggestions();
 
   return (
     <Stack sx={{ p: 3 }} spacing={2}>
@@ -20,7 +21,12 @@ const SuggestionsList: React.FC<SuggestionsListProps> = ({}) => {
         exit="exit"
       >
         <AnimatePresence>
-          {requestCollections.map((request) => {
+          {suggestions.map((request) => {
+            const user = {
+              _id: request._id!,
+              fullname: `${request.firstname} ${request.lastname}`,
+              email: request.email.address,
+            };
             return (
               <motion.div
                 // variants={listVariants}
@@ -28,7 +34,7 @@ const SuggestionsList: React.FC<SuggestionsListProps> = ({}) => {
                 key={request._id}
                 style={{ marginBottom: 10 }}
               >
-                <Suggestion />
+                <Suggestion user={user} />
               </motion.div>
             );
           })}

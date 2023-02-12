@@ -8,9 +8,17 @@ import AppDrawer from "./navigation/AppDrawer";
 import SideNavigation from "./navigation/SideNavigation";
 import { useSetupMessagesState } from "../features/message/hooks/useSetupMessagesState";
 import { useSetupFriendsState } from "../features/message/hooks/useSetupFriendsState";
+import { useSocket } from "../hooks/useSocket";
+import { SocketContext } from "../context/socketContext";
 
 function LayoutWithContext() {
-  return <Layout />;
+  const socket = useSocket();
+
+  return (
+    <SocketContext.Provider value={socket}>
+      <Layout />
+    </SocketContext.Provider>
+  );
 }
 
 export function Layout() {
@@ -20,8 +28,6 @@ export function Layout() {
   const navigationOnMobileContext = useContext(NavigationStateOnMobileContext);
 
   return (
-    // <SocketContext.Provider value={socket}>
-
     <Grid container columns={16}>
       {navigationOnMobileContext.show && <AppDrawer />}
 
@@ -33,8 +39,6 @@ export function Layout() {
         <Outlet />
       </Grid>
     </Grid>
-
-    // </SocketContext.Provider >
   );
 }
 export default LayoutWithContext;
