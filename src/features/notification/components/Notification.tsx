@@ -7,10 +7,13 @@ import {
   ListItemButton,
 } from "@mui/material";
 import React from "react";
+import { INotification } from "../../../types";
 
-interface NotificationProps {}
+interface NotificationProps {
+  notification: INotification;
+}
 
-const Notification: React.FC<NotificationProps> = ({}) => {
+const Notification: React.FC<NotificationProps> = ({ notification }) => {
   return (
     <ListItem
       sx={{
@@ -33,7 +36,7 @@ const Notification: React.FC<NotificationProps> = ({}) => {
             variant="body1"
             color="black"
           >
-            Username has accepted you invitation to connect.
+            {notification.message}
           </Typography>
         }
       />

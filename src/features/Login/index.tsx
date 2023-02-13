@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { ILoginValues } from "./types";
 import LoginForm from "./components/LoginForm";
-import { Login } from "../../services/login";
+import { Login } from "../../services/api/login";
 import { useAppDispatch } from "../../hooks/redux";
 import { setUser } from "../../redux/reducers/userSlice";
 import { saveToken } from "../../utils/saveToken";

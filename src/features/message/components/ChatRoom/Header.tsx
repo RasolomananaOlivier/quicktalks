@@ -8,7 +8,7 @@ import { useAppSelector } from "../../../../hooks/redux";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
 import { currentFriendSelector } from "../../../../redux/selectors/currentFriendSelector";
 import { userSelector } from "../../../../redux/selectors/userSelector";
-import { getUserById } from "../../../../services/getUserById";
+import { getUserById } from "../../../../services/api/getUserById";
 import { IUser, IMessage } from "../../../../types";
 import { ChatRootLeftSideContext } from "../../context/leftSideContext";
 import { useGetMessageById } from "../../hooks/useGetMessageById";

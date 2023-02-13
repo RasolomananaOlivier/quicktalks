@@ -42,3 +42,9 @@ export interface IRequest {
   fullname: string;
   email: string;
 }
+
+export interface INotification {
+  _id: string;
+  message: string;
+  destinationId: string;
+}

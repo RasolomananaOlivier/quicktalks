@@ -1,6 +1,6 @@
-import { Client } from "../lib/Client";
-import { IUserServer } from "../types";
-import { getToken } from "../utils/getToken";
+import { Client } from "../../lib/Client";
+import { IUserServer } from "../../types";
+import { getToken } from "../../utils/getToken";
 interface IResponse {
   suggestions: IUserServer[];
 }

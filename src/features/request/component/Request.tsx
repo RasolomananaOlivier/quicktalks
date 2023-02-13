@@ -8,7 +8,9 @@ import {
   Button,
   Stack,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
+import { SocketContext } from "../../../context/socketContext";
+import RequestEvents from "../../../services/events/request";
 import { IRequest } from "../../../types";
 
 interface RequestProps {
@@ -16,6 +18,10 @@ interface RequestProps {
 }
 
 const Request: React.FC<RequestProps> = ({ request }) => {
+  const socket = useContext(SocketContext);
+  const handleClick = () => {
+    RequestEvents.emitAccept(socket, request._id);
+  };
   return (
     <Stack
       sx={{
@@ -61,6 +67,7 @@ const Request: React.FC<RequestProps> = ({ request }) => {
           sx={{ mr: 2 }}
           size="small"
           disableElevation
+          onClick={handleClick}
         >
           Accept
         </Button>

@@ -11,7 +11,11 @@ import {
   Button,
   Stack,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
+import { SocketContext } from "../../../context/socketContext";
+import { useAppSelector } from "../../../hooks/redux";
+import { userSelector } from "../../../redux/selectors/userSelector";
+import RequestEvents from "../../../services/events/request";
 
 interface SuggestionProps {
   user: {
@@ -22,6 +26,15 @@ interface SuggestionProps {
 }
 
 const Suggestion: React.FC<SuggestionProps> = ({ user }) => {
+  const currentUser = useAppSelector(userSelector);
+  const socket = useContext(SocketContext);
+
+  const handleClick = () => {
+    RequestEvents.emitNewRequest(socket, {
+      destinationId: user._id,
+      originId: currentUser._id as string,
+    });
+  };
   return (
     <Stack
       sx={{
@@ -67,6 +80,7 @@ const Suggestion: React.FC<SuggestionProps> = ({ user }) => {
           sx={{ mr: 2 }}
           size="small"
           disableElevation
+          onClick={handleClick}
         >
           Connect
         </Button>

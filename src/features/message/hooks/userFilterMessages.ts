@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../hooks/redux";
 import { messagesSelector } from "../../../redux/selectors/messagesSelector";
-import { getMessageById } from "../../../services/getMessageById";
+import { getMessageById } from "../../../services/api/getMessageById";
 import { IMessage } from "../../../types";
 
 export const useFilterMessage = (userId: string) => {

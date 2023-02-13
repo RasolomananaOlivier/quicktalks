@@ -1,7 +1,7 @@
-import { endpoint } from "../data/endpoints";
-import { ILoginValues } from "../features/Login/types";
-import { Client } from "../lib/Client";
-import { IUserServer } from "../types";
+import { endpoint } from "../../data/endpoints";
+import { ILoginValues } from "../../features/Login/types";
+import { Client } from "../../lib/Client";
+import { IUserServer } from "../../types";
 
 interface ILoginResponse {
   data: IUserServer;

@@ -10,6 +10,7 @@ import { useSetupMessagesState } from "../features/message/hooks/useSetupMessage
 import { useSetupFriendsState } from "../features/message/hooks/useSetupFriendsState";
 import { useSocket } from "../hooks/useSocket";
 import { SocketContext } from "../context/socketContext";
+import { useSetupNotificationState } from "../features/notification/hooks/useSetupNotificationState";
 
 function LayoutWithContext() {
   const socket = useSocket();
@@ -24,6 +25,7 @@ function LayoutWithContext() {
 export function Layout() {
   useSetupMessagesState();
   useSetupFriendsState();
+  useSetupNotificationState();
 
   const navigationOnMobileContext = useContext(NavigationStateOnMobileContext);
 

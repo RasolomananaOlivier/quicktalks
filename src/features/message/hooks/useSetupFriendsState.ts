@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setFriendsState } from "../../../redux/reducers/friendsSlice";
 import { userSelector } from "../../../redux/selectors/userSelector";
-import { getUserFriends } from "../../../services/getUserFriends";
+import { getUserFriends } from "../../../services/api/getUserFriends";
 
 export const useSetupFriendsState = () => {
   const user = useAppSelector(userSelector);

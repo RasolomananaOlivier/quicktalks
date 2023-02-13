@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useRegistration } from "../../hooks/useRegistration";
-import { Register } from "../../../../services/register";
+import { Register } from "../../../../services/api/register";
 import { UserRegistrationContext } from "../../context/userRegistrationContext";
 
 export default function UploadImageForm() {
