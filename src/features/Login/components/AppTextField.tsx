@@ -8,7 +8,6 @@ interface IAppTextFielfProps {
 }
 export default function AppTextField({ formik, value }: IAppTextFielfProps) {
   const valueLowerCase = value === "Email" ? "email" : "password";
-  console.log(formik.errors, formik.touched);
 
   return (
     <TextField
@@ -18,7 +17,6 @@ export default function AppTextField({ formik, value }: IAppTextFielfProps) {
       id={valueLowerCase}
       label={value}
       name={valueLowerCase}
-      autoComplete={valueLowerCase}
       type={valueLowerCase}
       autoFocus={value === "Email"}
       error={

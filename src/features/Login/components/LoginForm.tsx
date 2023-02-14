@@ -87,7 +87,7 @@ const LoginForm = ({ handleSubmit }: ILoginForm) => {
               <LockOutlinedIcon />
             </Avatar> */}
             <Typography component="h1" variant="h3">
-              Welcome!
+              Welcome !
               <br />
               Nice to see you again.
             </Typography>
@@ -98,7 +98,7 @@ const LoginForm = ({ handleSubmit }: ILoginForm) => {
           component="form"
           noValidate
           onSubmit={formik.handleSubmit}
-          sx={{ mt: 1, px: 3.5 }}
+          sx={{ mt: 1 }}
         >
           <AppTextField formik={formik} value="Email" />
           <AppTextField formik={formik} value="Password" />

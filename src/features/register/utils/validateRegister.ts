@@ -1,15 +1,15 @@
 import { IRegisterErrors, IRegisterValues } from "../types";
 
 export function validateSignup(values: IRegisterValues) {
-  const { firstName, lastName, birthday, email } = values;
+  const { firstname, lastname, birthday, email } = values;
 
   const regex = /^[a-zA-Z0-9-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
   let errors: IRegisterErrors = {};
-  if (firstName === "") {
-    errors.firstName = "Required";
+  if (firstname === "") {
+    errors.firstname = "Required";
   }
-  if (lastName === "") {
-    errors.lastName = "Required";
+  if (lastname === "") {
+    errors.lastname = "Required";
   }
   if (birthday === "") {
     errors.birthday = "Required";

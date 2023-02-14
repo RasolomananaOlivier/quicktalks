@@ -11,7 +11,7 @@ export interface IRegisterValues {
 
 export interface IRegisterErrors {
   firstname?: string;
-  lastName?: string;
+  lastname?: string;
   birthday?: string;
   email?: string;
 }

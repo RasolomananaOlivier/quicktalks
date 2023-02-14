@@ -2,3 +2,72 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.side-navigation {
+  background-image: url(../img/sidenav-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.side-navigation-overlay {
+  position: absolute;
+  /* left: -2.5px; */
+  width: 100%;
+  height: 100%;
+  background: #020341;
+  /* filter: blur(2px);1 */
+  opacity: 0.75;
+}
+
+.no-message-illustration {
+  width: 180px;
+  height: 220px;
+}
+
+.disable-scrollbar {
+  scrollbar-width: none;
+}
+
+
+.disable-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.side-icon-container {
+  background-color: #4747e05a;
+  padding: 5px;
+  border-radius: 12px;
+}
+
+.drawer-icon-container {
+  background-color: #002b63;
+  padding: 5px;
+  border-radius: 12px;
+}
+
+.menu-icon-container {
+  background-color: #eeeef1;
+  padding: 3px;
+  border-radius: 12px;
+  width: 30px;
+  height: 30px;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: 0.3s all;
+}
+
+.menu-icon-container:hover {
+  background-color: #e1e1e2;
+
+}
+
+.drawer-list-item {
+  background-color: #606ff3b3;
+  margin: 0 1rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+}
