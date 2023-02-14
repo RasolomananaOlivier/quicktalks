@@ -95,12 +95,7 @@ export default function VerticalTabs() {
             left: "10%",
           }),
         }}
-        icon={
-          <AnimatedIcon
-            animationData={ChatAnimatedIcon}
-            classname="side-icon-container"
-          />
-        }
+        icon={<AnimatedIcon animationData={ChatAnimatedIcon} />}
         iconPosition="start"
         onClick={() => route("/home/messages")}
         {...a11yProps(0)}
@@ -115,12 +110,7 @@ export default function VerticalTabs() {
             left: "5%",
           }),
         }}
-        icon={
-          <AnimatedIcon
-            animationData={AccountIcon}
-            classname="side-icon-container"
-          />
-        }
+        icon={<AnimatedIcon animationData={AccountIcon} />}
         iconPosition="start"
         onClick={() => route("/home/requests")}
         {...a11yProps(0)}
@@ -132,12 +122,7 @@ export default function VerticalTabs() {
           justifyContent: "center",
           position: "relative",
         }}
-        icon={
-          <AnimatedIcon
-            animationData={RingBellIcon}
-            classname="side-icon-container"
-          />
-        }
+        icon={<AnimatedIcon animationData={RingBellIcon} />}
         iconPosition="start"
         onClick={() => route("/home/notifications")}
         {...a11yProps(0)}
@@ -152,12 +137,7 @@ export default function VerticalTabs() {
             right: "5%",
           }),
         }}
-        icon={
-          <AnimatedIcon
-            animationData={SettingsIcon}
-            classname="side-icon-container"
-          />
-        }
+        icon={<AnimatedIcon animationData={SettingsIcon} />}
         iconPosition="start"
         onClick={() => route("/home/settings")}
         {...a11yProps(1)}
@@ -177,10 +157,7 @@ export default function VerticalTabs() {
         icon={
           // @ts-ignore
           <div style={{ transform: "rotate(90deg)" }}>
-            <AnimatedIcon
-              animationData={ArrowUpIcon}
-              classname="side-icon-container"
-            />
+            <AnimatedIcon animationData={ArrowUpIcon} />
           </div>
         }
         iconPosition="start"

@@ -11,8 +11,8 @@ export const useGetMessageById = (messageId: string) => {
   useEffect(() => {
     let result = messages.filter((message) => message._id === messageId)[0];
     async function getMessage() {
-      const msg = await getMessageById(result._id);
-      setMessage(msg);
+      // const msg = await getMessageById(result._id);
+      // setMessage(msg);
     }
     getMessage();
   }, [messageId]);
