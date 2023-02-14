@@ -20,7 +20,7 @@ export interface IUserServer {
 }
 
 export interface IMessageItem {
-  _id: string;
+  _id?: string;
   auth: string;
   type: "text" | "image" | "video";
   content?: string;
@@ -33,7 +33,7 @@ export interface IMessage {
   _id: string;
   authorizedUser: string[];
   messages: IMessageItem[];
-  isRead: boolean;
+  readBy: string[];
 }
 
 export interface IRequest {
@@ -47,4 +47,9 @@ export interface INotification {
   _id: string;
   message: string;
   destinationId: string;
+}
+
+export interface IMessagePayload {
+  messageId: string;
+  messageItem: IMessageItem;
 }

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { NavigationStateOnMobileContext } from "../components/AppProvider";
 import MessagesDesktopView from "../features/message/components/MessageDesktopView";
+import MessagesMobileView from "../features/message/components/MessagesMobileView";
 import { ChatRootLeftSideContext } from "../features/message/context/leftSideContext";
 import { useMobileSize } from "../hooks/useMobileSize";
 
@@ -48,7 +49,7 @@ const MessagesPage: React.FC<MessagesPageProps> = ({}) => {
       // @ts-ignore
       value={{ show: showChatRoomLeftSide, setShow: setShowChatRoomLeftSide }}
     >
-      {!isMobileScreen ? <MessagesDesktopView /> : <div>hey</div>}
+      {!isMobileScreen ? <MessagesDesktopView /> : <MessagesMobileView />}
     </ChatRootLeftSideContext.Provider>
   );
 };

@@ -5,8 +5,8 @@ import { IMessage } from "../../types";
 const initialState: IMessage = {
   _id: "",
   authorizedUser: [],
-  isRead: false,
   messages: [],
+  readBy: [],
 };
 
 export const currentMessageSlice = createSlice({

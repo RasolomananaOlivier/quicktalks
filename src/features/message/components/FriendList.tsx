@@ -1,6 +1,7 @@
 import Userbox from "../../../components/Userbox";
 import { useAppSelector } from "../../../hooks/redux";
 import { friendsSelector } from "../../../redux/selectors/friendsSelector";
+import { messagesSelector } from "../../../redux/selectors/messagesSelector";
 
 export default function FriendsList() {
   const friends = useAppSelector(friendsSelector);

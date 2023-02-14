@@ -1,8 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import { ChatRoomContext } from ".";
-
-import NoMessageIllustration from "../../../../assets/img/no-message.svg";
+import NoMessageIllustration from "../../../../components/lotties/NoMessageIllustration";
 
 import { IMessage } from "../../../../types";
 import MessageBox from "../MessageBox";
@@ -35,11 +34,7 @@ const ChatRoomMessagesList: React.FC<ChatRoomMessagesListProps> = ({
           height: bodyHeight - 10,
         }}
       >
-        <img
-          src={NoMessageIllustration}
-          alt="mp"
-          className="no-message-illustration"
-        />
+        <NoMessageIllustration />
         <Typography variant="subtitle1">Start sending you messages.</Typography>
       </Box>
     );

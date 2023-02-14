@@ -7,11 +7,7 @@ import { useAppSelector } from "../../../../hooks/redux";
 
 import { useMobileSize } from "../../../../hooks/useMobileSize";
 import { currentFriendSelector } from "../../../../redux/selectors/currentFriendSelector";
-import { userSelector } from "../../../../redux/selectors/userSelector";
-import { getUserById } from "../../../../services/api/getUserById";
-import { IUser, IMessage } from "../../../../types";
 import { ChatRootLeftSideContext } from "../../context/leftSideContext";
-import { useGetMessageById } from "../../hooks/useGetMessageById";
 
 interface ChatRoomHeaderProps {}
 
@@ -61,15 +57,15 @@ const Header: React.FC<ChatRoomHeaderProps> = () => {
             <Typography sx={{ fontSize: 12, color: "gray" }}>Actif</Typography>
           </Box>
         </Box>
-        <IconButton
-          aria-label="chat option"
+        <div
+          className="menu-icon-container"
           onClick={() =>
             // @ts-ignore
             chatRoomLeftSideContext.setShow(!chatRoomLeftSideContext.show)
           }
         >
           <Menu />
-        </IconButton>
+        </div>
       </Box>
 
       <Divider

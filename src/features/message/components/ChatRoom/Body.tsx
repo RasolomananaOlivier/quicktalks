@@ -171,11 +171,11 @@ const Body: React.FC<ChatRoomBodyProps> = () => {
       inverse={true}
       style={{
         display: "flex",
-        flexDirection: "column-reverse",
+        flexDirection: "column",
       }}
       dataLength={currentMessage.messages.length}
       next={() => fetchMore()}
-      hasMore={false}
+      hasMore={true}
       height={`${bodyHeight}px`}
       loader={<h4>Loading</h4>}
     >
@@ -183,7 +183,7 @@ const Body: React.FC<ChatRoomBodyProps> = () => {
         style={{
           backgroundColor: "#f2f2f2",
           display: "flex",
-          flexDirection: "column-reverse",
+          flexDirection: "column",
           paddingBottom: "10px",
         }}
       >

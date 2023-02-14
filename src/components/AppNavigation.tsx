@@ -1,13 +1,17 @@
 import React, { FC, Suspense } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import ChatRoomSection from "../features/message/components/ChatRoomSection";
-import MessagesPage from "../pages/MessagesPage";
-import NotificationPage from "../pages/NotificationPage";
-import RequestPage from "../pages/RequestPage";
+
+import Loading from "./lotties/Loading";
 import LayoutWithContext from "./Layout";
 
 const LoginPage = React.lazy(() => import("../pages/LoginPage"));
 const SignupPage = React.lazy(() => import("../pages/SignupPage"));
+const ChatRoomSection = React.lazy(
+  () => import("../features/message/components/ChatRoomSection")
+);
+const MessagesPage = React.lazy(() => import("../pages/MessagesPage"));
+const NotificationPage = React.lazy(() => import("../pages/NotificationPage"));
+const RequestPage = React.lazy(() => import("../pages/RequestPage"));
 
 interface IAppNavigationProps {}
 
@@ -15,7 +19,7 @@ export const AppNavigation: FC<IAppNavigationProps> = (props) => {
   const location = useLocation();
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <Routes location={location} key={location.key}>
         <Route path="/" element={<Navigate to="/login" replace={true} />} />
         <Route path="/login" element={<LoginPage />} />
@@ -32,6 +36,7 @@ export const AppNavigation: FC<IAppNavigationProps> = (props) => {
           </Route>
           <Route path="requests" element={<RequestPage />} />
           <Route path="notifications" element={<NotificationPage />} />
+
           {/* <Route path="settings" element={<SettingPage />} /> */}
         </Route>
       </Routes>

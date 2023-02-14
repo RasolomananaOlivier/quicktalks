@@ -1,15 +1,44 @@
 import { CameraAlt, Send } from "@mui/icons-material";
 import { Box, IconButton, TextField } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ChatRoomContext } from ".";
+import { SocketContext } from "../../../../context/socketContext";
+import { useAppSelector } from "../../../../hooks/redux";
+import { currentMessageSelector } from "../../../../redux/selectors/currentMessageSelector";
+import { userSelector } from "../../../../redux/selectors/userSelector";
+import MessageEvents from "../../../../services/events/message";
+import { IMessagePayload } from "../../../../types";
 
 interface ChatRoomFooterProps {}
 
 const Footer: React.FC<ChatRoomFooterProps> = () => {
+  const [value, setValue] = useState("");
+
   const { footerHeight } = useContext(ChatRoomContext);
   if (!footerHeight) {
     throw new Error("ChatRoomContext required");
   }
+
+  const currentMessage = useAppSelector(currentMessageSelector);
+  const user = useAppSelector(userSelector);
+  const socket = useContext(SocketContext);
+  const handleTextSender = () => {
+    if (value !== "") {
+      const messagePayload: IMessagePayload = {
+        messageId: currentMessage._id,
+        messageItem: {
+          auth: user._id!,
+          authorizedUser: currentMessage.authorizedUser,
+          timeStamp: "2023-01-01",
+          type: "text",
+          content: value,
+        },
+      };
+
+      MessageEvents.emit(socket, messagePayload);
+      setValue("");
+    }
+  };
   return (
     <Box
       sx={{
@@ -27,14 +56,14 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
         placeholder="Type your message"
         multiline
         rows={2}
-        // value={value}
-        // onChange={(e) => setValue(e.target.value)}
-        // onKeyPress={(e) => {
-        //   if (e.key === "Enter") {
-        //     handleTextSender();
-        //     setValue("");
-        //   }
-        // }}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            handleTextSender();
+            setValue("");
+          }
+        }}
       />
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <IconButton
@@ -94,7 +123,7 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
             pl: 1.5,
             pr: 2,
           }}
-          // onClick={handleTextSender}
+          onClick={handleTextSender}
         >
           <Send />
         </IconButton>

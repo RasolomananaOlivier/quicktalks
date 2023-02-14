@@ -14,6 +14,7 @@ const initialState: IMessage[] = [
         authorizedUser: ["1", "2"],
         content: "hello",
         timeStamp: new Date().toString(),
+        readers: ["1", "2"],
       },
       {
         _id: "1",
@@ -22,6 +23,7 @@ const initialState: IMessage[] = [
         authorizedUser: ["1", "2"],
         content: "hello",
         timeStamp: new Date().toString(),
+        readers: ["1", "2"],
       },
 
       {
@@ -31,6 +33,7 @@ const initialState: IMessage[] = [
         authorizedUser: ["1", "2"],
         timeStamp: new Date().toString(),
         imageUrl: "",
+        readers: ["1", "2"],
       },
 
       {
@@ -40,12 +43,13 @@ const initialState: IMessage[] = [
         authorizedUser: ["1", "2"],
         content: "hello",
         timeStamp: new Date().toString(),
+        readers: ["1", "2"],
       },
     ],
-    isRead: false,
   },
 ];
 
+// TODO: Count unread message, setReaders when getting the message
 export const userSlice = createSlice({
   name: "messages",
   initialState,

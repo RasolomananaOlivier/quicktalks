@@ -6,6 +6,8 @@ import MessageImageContent from "./MessageImageContent";
 
 import { IMessageItem } from "../../../../types";
 import MessageTextContent from "./MessageTextContent";
+import { useAppSelector } from "../../../../hooks/redux";
+import { userSelector } from "../../../../redux/selectors/userSelector";
 
 interface MessageBoxProps {
   message: IMessageItem;
@@ -16,7 +18,8 @@ const MessageBox: React.FC<MessageBoxProps> = ({
   message,
   isThePreviousMessageSentByTheSameUser,
 }) => {
-  const isUserMessage = message.auth === "1";
+  const user = useAppSelector(userSelector);
+  const isUserMessage = message.auth === user._id;
 
   const PartenerAvatar = () => {
     if (!isThePreviousMessageSentByTheSameUser) {

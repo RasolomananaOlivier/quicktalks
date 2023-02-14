@@ -13,7 +13,12 @@ import {
 import { Badge } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useMobileSize } from "../../hooks/useMobileSize";
-import { ChatAnimatedIcon } from "../lottieIcons/chatAnimatedIcon";
+import ChatAnimatedIcon from "../lotties/json/chat-outline.json";
+import RingBellIcon from "../lotties/json/notification-bell-outline.json";
+import SettingsIcon from "../lotties/json/settings-cog-outline.json";
+import ArrowUpIcon from "../lotties/json/arrow-up-outline.json";
+import AccountIcon from "../lotties/json/account-outline.json";
+import { AnimatedIcon } from "../lotties/animatedIcon";
 
 export const iconsStyleSmall = {
   borderRadius: "50%",
@@ -90,7 +95,12 @@ export default function VerticalTabs() {
             left: "10%",
           }),
         }}
-        icon={<ChatAnimatedIcon />}
+        icon={
+          <AnimatedIcon
+            animationData={ChatAnimatedIcon}
+            classname="side-icon-container"
+          />
+        }
         iconPosition="start"
         onClick={() => route("/home/messages")}
         {...a11yProps(0)}
@@ -106,13 +116,10 @@ export default function VerticalTabs() {
           }),
         }}
         icon={
-          <Badge
-            // badgeContent={requestCollections.length}
-            max={99}
-            color="error"
-          >
-            <PersonAddAlt1 sx={iconsStyleSmallNav2} />
-          </Badge>
+          <AnimatedIcon
+            animationData={AccountIcon}
+            classname="side-icon-container"
+          />
         }
         iconPosition="start"
         onClick={() => route("/home/requests")}
@@ -126,12 +133,10 @@ export default function VerticalTabs() {
           position: "relative",
         }}
         icon={
-          <Badge
-            color="error"
-            /*  badgeContent={notifications.length} */ max={99}
-          >
-            <NotificationsActive sx={iconsStyleSmallNav2} />
-          </Badge>
+          <AnimatedIcon
+            animationData={RingBellIcon}
+            classname="side-icon-container"
+          />
         }
         iconPosition="start"
         onClick={() => route("/home/notifications")}
@@ -147,7 +152,12 @@ export default function VerticalTabs() {
             right: "5%",
           }),
         }}
-        icon={<Settings sx={iconsStyleSmallNav2} />}
+        icon={
+          <AnimatedIcon
+            animationData={SettingsIcon}
+            classname="side-icon-container"
+          />
+        }
         iconPosition="start"
         onClick={() => route("/home/settings")}
         {...a11yProps(1)}
@@ -164,7 +174,15 @@ export default function VerticalTabs() {
             right: "10%",
           }),
         }}
-        icon={<ExitToApp sx={iconsStyleSmallNav2} />}
+        icon={
+          // @ts-ignore
+          <div style={{ transform: "rotate(90deg)" }}>
+            <AnimatedIcon
+              animationData={ArrowUpIcon}
+              classname="side-icon-container"
+            />
+          </div>
+        }
         iconPosition="start"
         onClick={handleClickOpen}
         {...a11yProps(3)}
