@@ -15,14 +15,30 @@ import { motion } from "framer-motion";
 import { useRegistration } from "../../hooks/useRegistration";
 import { Register } from "../../../../services/api/register";
 import { UserRegistrationContext } from "../../context/userRegistrationContext";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  uploadBytes,
+} from "firebase/storage";
+import storage from "../../../../lib/firebase";
+
+const uploadFirebaseStorage = async (file: File) => {
+  const storageRef = ref(storage, `/avatar/${file.name}`);
+  const uploadTask = await uploadBytes(storageRef, file);
+  const url = await getDownloadURL(uploadTask.ref);
+
+  return url;
+};
 
 export default function UploadImageForm() {
   // STATE FOR SELECTED FILES
   const [selectedFiles, setselectedFiles] = useState<
     string | ArrayBuffer | undefined
   >(undefined);
+  const [file, setfile] = useState<File>();
 
-  const ref = useRef(null);
+  const inputRef = useRef(null);
 
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
@@ -30,6 +46,7 @@ export default function UploadImageForm() {
     const files = e.target.files;
     if (files && files[0]) {
       reader.readAsDataURL(files[0]);
+      setfile(files[0]);
     }
     reader.onload = (readerEvent) => {
       if (readerEvent.target && readerEvent.target.result !== null) {
@@ -44,9 +61,13 @@ export default function UploadImageForm() {
       bio: "",
     },
     onSubmit: async (values) => {
-      if (user) {
-        const res = await Register(user);
-        console.log(res.data);
+      if (user && file) {
+        const url = await uploadFirebaseStorage(file);
+
+        const userWithUrl = { ...user, avatarUrl: url };
+        const res = await Register(userWithUrl);
+
+        console.log(res);
       }
     },
   });
@@ -91,12 +112,18 @@ export default function UploadImageForm() {
             sx={{ pr: 2, mb: 5, display: "flex", justifyContent: "flex-start" }}
           >
             <Avatar
-              src={"selectedFiles"}
+              // @ts-ignore
+              src={selectedFiles}
               alt="user pdp"
               style={{ height: 80, width: 80 }}
             />
             <Box sx={{ mx: 2, pt: 1 }}>
-              <Button variant="contained" component="label">
+              <Button
+                variant="contained"
+                component="label"
+                // @ts-ignore
+                onClick={() => inputRef.current.click()}
+              >
                 Choose an avatar
               </Button>
               <input
@@ -105,7 +132,7 @@ export default function UploadImageForm() {
                 id="raised-button-file"
                 type="file"
                 onChange={addImage}
-                ref={ref}
+                ref={inputRef}
               />
             </Box>
           </Grid>

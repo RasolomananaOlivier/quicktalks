@@ -1,24 +1,11 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React from "react";
 
-import Avatar from "@mui/material/Avatar";
-import styled from "@emotion/styled";
-import {
-  Badge,
-  Divider,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Divider, ListItemButton } from "@mui/material";
 
 import UserboxAvatar from "./UserboxAvatar";
 import UserboxDetails from "./UserboxDetails";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { userSelector } from "../../redux/selectors/userSelector";
-import { Client } from "../../lib/Client";
+import { useAppDispatch } from "../../hooks/redux";
 import { useFilterMessage } from "../../features/message/hooks/userFilterMessages";
 import { setCurrentFriend } from "../../redux/reducers/currentFriendSlice";
 import { IUser } from "../../types";
@@ -27,7 +14,6 @@ import { setCurrentMessage } from "../../redux/reducers/currentMessageSlice";
 interface IUserboxContext {
   handleOpenMessage: () => void;
 }
-const UserboxContext = React.createContext({});
 
 interface IUserBoxProps {
   user: IUser;
@@ -56,8 +42,8 @@ export default function Userbox({ user }: IUserBoxProps) {
         }}
         onClick={handleClick}
       >
-        <UserboxAvatar />
-        <UserboxDetails />
+        <UserboxAvatar username={user.firstname} avatarUrl={user.avatarUrl} />
+        <UserboxDetails fullname={`${user.firstname} ${user.lastname}`} />
       </ListItemButton>
       <Divider variant="inset" />
     </>

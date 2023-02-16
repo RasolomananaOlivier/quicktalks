@@ -5,6 +5,7 @@ export interface IUser {
   email: string;
   password: string;
   friends?: string[];
+  avatarUrl: string;
 }
 
 export interface IUserServer {
@@ -17,6 +18,7 @@ export interface IUserServer {
   };
   password: string;
   friends?: string[];
+  avatarUrl: string;
 }
 
 export interface IMessageItem {

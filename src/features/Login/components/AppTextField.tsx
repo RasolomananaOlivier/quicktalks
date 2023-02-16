@@ -18,7 +18,7 @@ export default function AppTextField({ formik, value }: IAppTextFielfProps) {
       label={value}
       name={valueLowerCase}
       type={valueLowerCase}
-      autoFocus={value === "Email"}
+      
       error={
         formik.touched[valueLowerCase] && formik.errors[valueLowerCase]
           ? true

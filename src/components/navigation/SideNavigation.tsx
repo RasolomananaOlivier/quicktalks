@@ -7,6 +7,8 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Badge from "@mui/material/Badge";
 import VerticalTabs from "./VerticalTabs";
+import { useAppSelector } from "../../hooks/redux";
+import { userSelector } from "../../redux/selectors/userSelector";
 
 /* Item style */
 
@@ -25,6 +27,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 interface BigAvatarProps {}
 
 const BigAvatar: React.FC<BigAvatarProps> = () => {
+  const user = useAppSelector(userSelector);
   return (
     <Box
       display={{ xs: "none", md: "flex" }}
@@ -37,7 +40,11 @@ const BigAvatar: React.FC<BigAvatarProps> = () => {
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         variant="dot"
       >
-        <Avatar alt="Remy Sharp" src={""} sx={{ width: 50, height: 50 }} />
+        <Avatar
+          alt={user.firstname}
+          src={user.avatarUrl}
+          sx={{ width: 50, height: 50 }}
+        />
       </StyledBadge>
     </Box>
   );

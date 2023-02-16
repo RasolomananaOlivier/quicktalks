@@ -1,7 +1,12 @@
 import { Box, ListItemText, Stack, Typography } from "@mui/material";
+
 import React from "react";
 
-export default function UserboxDetails() {
+interface UserboxDetailsProps {
+  fullname: string;
+}
+
+const UserboxDetails: React.FC<UserboxDetailsProps> = ({ fullname }) => {
   return (
     <>
       <ListItemText
@@ -13,7 +18,7 @@ export default function UserboxDetails() {
             fontSize={18}
             fontWeight={"bold"}
           >
-            {"username"}
+            {fullname}
           </Typography>
         }
         secondary={
@@ -56,4 +61,6 @@ export default function UserboxDetails() {
       </Stack>
     </>
   );
-}
+};
+
+export default UserboxDetails;

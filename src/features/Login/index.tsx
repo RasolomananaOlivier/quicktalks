@@ -24,6 +24,7 @@ export const ConnectedLoginForm: FC = () => {
         firstname: data.firstname,
         password: data.password,
         friends: data.friends,
+        avatarUrl: data.avatarUrl,
       })
     );
 

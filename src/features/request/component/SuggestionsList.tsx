@@ -15,7 +15,7 @@ const SuggestionsList: React.FC<SuggestionsListProps> = ({}) => {
   const suggestions = useAppSelector(suggestionsSelector);
   return (
     <Stack sx={{ p: 3 }} spacing={2}>
-      <AppHeader>People you may know</AppHeader>
+      <AppHeader>People you may know.</AppHeader>
       <motion.div
         // variants={containerVariants}
         initial="hidden"
