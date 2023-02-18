@@ -22,7 +22,12 @@ export const useSetupMessagesState = () => {
 
         dispatch(setMessages(msg));
 
-        dispatch(setCurrentMessage(currentMsg));
+        dispatch(
+          setCurrentMessage({
+            ...currentMsg.message,
+            totalMessages: currentMsg.totalMessages,
+          })
+        );
       }
     };
 

@@ -12,6 +12,7 @@ export const useFilterMessage = (userId: string) => {
     messages: [],
     readBy: [],
   });
+  const [totalMessages, settotalMessages] = useState(0);
 
   const messages = useAppSelector(messagesSelector);
   const currentUser = useAppSelector(userSelector);
@@ -21,13 +22,14 @@ export const useFilterMessage = (userId: string) => {
   )[0];
 
   async function getMessage() {
-    const msg = await getMessageById(message._id, currentUser._id!);
-    setLocalMessage(msg);
+    const result = await getMessageById(message._id, currentUser._id!);
+    setLocalMessage(result.message);
+    settotalMessages(result.totalMessages);
   }
 
   useEffect(() => {
     getMessage();
   }, []);
 
-  return localMessage;
+  return { message: localMessage, totalMessages };
 };

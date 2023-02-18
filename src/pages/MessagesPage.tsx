@@ -10,28 +10,10 @@ interface MessagesPageProps {}
 
 const MessagesPage: React.FC<MessagesPageProps> = ({}) => {
   const isMobileScreen = useMobileSize();
-  const [openMessageDetail, setOpenMessageDetail] = useState(isMobileScreen);
-  const [openMessage, setOpenMessage] = useState(false);
+
   const params = useParams();
 
   const [showChatRoomLeftSide, setShowChatRoomLeftSide] = useState(false);
-
-  const handleOpenMessage = () => {
-    setOpenMessage(true);
-    setOpenMessageDetail(false);
-  };
-  const handleCloseMessage = () => {
-    setOpenMessage(false);
-  };
-
-  const handleOpenMessageDetail = () => {
-    setOpenMessageDetail(!openMessageDetail);
-  };
-
-  const handleCloseMessageDetail = () => {
-    setOpenMessageDetail(!openMessageDetail);
-    handleOpenMessage();
-  };
 
   const navigationStateContext = useContext(NavigationStateOnMobileContext);
   useEffect(() => {

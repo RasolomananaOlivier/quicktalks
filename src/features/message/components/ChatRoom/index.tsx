@@ -1,33 +1,7 @@
 import React, { PropsWithChildren, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
-import Header from "./Header";
-import Body from "./Body";
 import { useWindowSize } from "../../hooks/useWindowSize";
-import Footer from "./Footer";
-
-const messageFriendVariants = {
-  hidden: {
-    opacity: 0,
-    x: -100,
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-  },
-  exit: { scale: 0, x: -300, transition: { duration: 0.2 } },
-};
-const userFriendVariants = {
-  hidden: {
-    opacity: 0,
-    x: 100,
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-  },
-  exit: { scale: 0, x: 300, opacity: 0, transition: { duration: 0.2 } },
-};
 
 export const ChatRoomContext = React.createContext({
   headerHeight: 0,
