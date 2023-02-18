@@ -1,13 +1,10 @@
 import React, { PropsWithChildren, useEffect } from "react";
 import Stack from "@mui/material/Stack";
-import { ArrowBackIos, Menu } from "@mui/icons-material";
-
-import { useParams } from "react-router-dom";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
 import Header from "./Header";
 import Body from "./Body";
-import Footer from "./Footer";
 import { useWindowSize } from "../../hooks/useWindowSize";
+import Footer from "./Footer";
 
 const messageFriendVariants = {
   hidden: {
@@ -39,7 +36,7 @@ export const ChatRoomContext = React.createContext({
 });
 
 interface IChatRoom extends PropsWithChildren {}
-export default function ChatRoom({ children }: IChatRoom) {
+const ChatRoom = ({ children }: IChatRoom) => {
   const isMobileScreen = useMobileSize();
   const { innerHeight } = useWindowSize();
 
@@ -67,8 +64,6 @@ export default function ChatRoom({ children }: IChatRoom) {
       </Stack>
     </ChatRoomContext.Provider>
   );
-}
+};
 
-ChatRoom.Header = Header;
-ChatRoom.Body = Body;
-ChatRoom.Footer = Footer;
+export default ChatRoom;

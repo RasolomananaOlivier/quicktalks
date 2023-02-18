@@ -9,9 +9,9 @@ import { useSetupFriendsState } from "../features/message/hooks/useSetupFriendsS
 import { useSocket } from "../hooks/useSocket";
 import { SocketContext } from "../context/socketContext";
 import { useSetupNotificationState } from "../features/notification/hooks/useSetupNotificationState";
-
-const SideNavigation = React.lazy(() => import("./navigation/SideNavigation"));
-const AppDrawer = React.lazy(() => import("./navigation/AppDrawer"));
+import AppDrawer from "./navigation/AppDrawer";
+import SideNavigation from "./navigation/SideNavigation";
+import Loading from "./lotties/Loading";
 
 function LayoutWithContext() {
   const socket = useSocket();
@@ -39,7 +39,9 @@ export function Layout() {
       </Grid>
 
       <Grid item xs={16} lg={15}>
-        <Outlet />
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
       </Grid>
     </Grid>
   );

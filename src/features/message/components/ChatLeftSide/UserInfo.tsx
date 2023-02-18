@@ -7,23 +7,17 @@ import {
 } from "@mui/icons-material";
 import { Avatar, Box, IconButton, Typography } from "@mui/material";
 import React from "react";
+import { useCurrentFriend } from "../../hooks/useCurrentFriend";
 
 export default function UserInfo() {
+  const currentFriend = useCurrentFriend();
   return (
     <Box
       sx={{ display: "flex", flexDirection: "row", justifyContent: "start" }}
     >
       <Avatar
-        src={
-          /* friendInfo.avatarFileName !== ""
-                ? `${baseURL}/pic/avatar/${friendInfo.avatarFileName}`
-                : null */ ""
-        }
-        alt={
-          /*   friendInfo.hasOwnProperty("lastName")
-                ? `${friendInfo.lastName} ${friendInfo.firstName}`
-                : "NO friend" */ ""
-        }
+        src={currentFriend.avatarUrl}
+        alt={currentFriend.firstname}
         sx={{
           width: 100,
           height: 100,
@@ -40,14 +34,12 @@ export default function UserInfo() {
             }
           }
         >
-          {/* {friendInfo.hasOwnProperty("lastName")
-              ? `${friendInfo.lastName} ${friendInfo.firstName}`
-              : "NO friend"} */}
-          UserName
+          {currentFriend._id
+            ? `${currentFriend.firstname} ${currentFriend.lastname}`
+            : "Username"}
         </Typography>
         <Typography color="gray">
-          {/* {friendInfo.hasOwnProperty("email") ? `${friendInfo.email} ` : null} */}
-          User mail
+          {currentFriend._id ? currentFriend.email : "Email Address"}
         </Typography>
         <Box display="flex" justifyContent="space-evenly" pt={1}>
           <IconButton sx={{ bgcolor: "#f0f0f0", mr: 1 }}>

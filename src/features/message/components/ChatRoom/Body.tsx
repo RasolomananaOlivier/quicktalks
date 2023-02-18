@@ -171,7 +171,7 @@ const Body: React.FC<ChatRoomBodyProps> = () => {
       inverse={true}
       style={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "column-reverse",
       }}
       dataLength={currentMessage.messages.length}
       next={() => fetchMore()}

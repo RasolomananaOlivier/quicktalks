@@ -15,21 +15,7 @@ import { motion } from "framer-motion";
 import { useRegistration } from "../../hooks/useRegistration";
 import { Register } from "../../../../services/api/register";
 import { UserRegistrationContext } from "../../context/userRegistrationContext";
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-  uploadBytes,
-} from "firebase/storage";
-import storage from "../../../../lib/firebase";
-
-const uploadFirebaseStorage = async (file: File) => {
-  const storageRef = ref(storage, `/avatar/${file.name}`);
-  const uploadTask = await uploadBytes(storageRef, file);
-  const url = await getDownloadURL(uploadTask.ref);
-
-  return url;
-};
+import FirebaseStorage from "../../../../services/api/firebaseStorage";
 
 export default function UploadImageForm() {
   // STATE FOR SELECTED FILES
@@ -62,7 +48,7 @@ export default function UploadImageForm() {
     },
     onSubmit: async (values) => {
       if (user && file) {
-        const url = await uploadFirebaseStorage(file);
+        const url = await FirebaseStorage.uploadImage(file);
 
         const userWithUrl = { ...user, avatarUrl: url };
         const res = await Register(userWithUrl);

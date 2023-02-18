@@ -5,11 +5,12 @@ import { Divider, ListItemButton } from "@mui/material";
 import UserboxAvatar from "./UserboxAvatar";
 import UserboxDetails from "./UserboxDetails";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useFilterMessage } from "../../features/message/hooks/userFilterMessages";
 import { setCurrentFriend } from "../../redux/reducers/currentFriendSlice";
 import { IUser } from "../../types";
 import { setCurrentMessage } from "../../redux/reducers/currentMessageSlice";
+import { userSelector } from "../../redux/selectors/userSelector";
 
 interface IUserboxContext {
   handleOpenMessage: () => void;
@@ -22,6 +23,7 @@ interface IUserBoxProps {
 export default function Userbox({ user }: IUserBoxProps) {
   const navigate = useNavigate();
   const message = useFilterMessage(user._id!);
+  const currentUser = useAppSelector(userSelector);
 
   const dispatch = useAppDispatch();
 
@@ -33,6 +35,8 @@ export default function Userbox({ user }: IUserBoxProps) {
       navigate(`/home/messages/${message._id}`);
     }
   };
+
+  const isRead = () => message.readBy.some((id) => id === currentUser._id);
   return (
     <>
       <ListItemButton
@@ -43,7 +47,10 @@ export default function Userbox({ user }: IUserBoxProps) {
         onClick={handleClick}
       >
         <UserboxAvatar username={user.firstname} avatarUrl={user.avatarUrl} />
-        <UserboxDetails fullname={`${user.firstname} ${user.lastname}`} />
+        <UserboxDetails
+          read={isRead()}
+          fullname={`${user.firstname} ${user.lastname}`}
+        />
       </ListItemButton>
       <Divider variant="inset" />
     </>

@@ -5,14 +5,16 @@ import Notification from "./Notification";
 import AppHeader from "../../../components/typography/AppHeader";
 import { useAppSelector } from "../../../hooks/redux";
 import { notificationsSelector } from "../../../redux/selectors/notificationSelector";
+import { useMobileSize } from "../../../hooks/useMobileSize";
 
 interface NotificationsListProps {}
 
 const NotificationsList: React.FC<NotificationsListProps> = ({}) => {
   const notifications = useAppSelector(notificationsSelector);
+  const isMobileView = useMobileSize();
   return (
     <Stack sx={{ p: 3 }} spacing={2}>
-      <AppHeader>Notifications</AppHeader>
+      {!isMobileView && <AppHeader>Notifications</AppHeader>}
       <motion.div
         // variants={containerVariants}
         initial="hidden"

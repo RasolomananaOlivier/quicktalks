@@ -4,9 +4,26 @@ import React from "react";
 
 interface UserboxDetailsProps {
   fullname: string;
+  read: boolean;
 }
 
-const UserboxDetails: React.FC<UserboxDetailsProps> = ({ fullname }) => {
+const NewMessageDotIndicator = () => (
+  <Box
+    sx={{
+      width: 20,
+      height: 20,
+      borderRadius: "50%",
+      backgroundColor: "dodgerblue",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      color: "white",
+      fontSize: 14,
+    }}
+  ></Box>
+);
+
+const UserboxDetails: React.FC<UserboxDetailsProps> = ({ fullname, read }) => {
   return (
     <>
       <ListItemText
@@ -43,21 +60,7 @@ const UserboxDetails: React.FC<UserboxDetailsProps> = ({ fullname }) => {
         >
           <div className="last-message">11:50</div>
         </Typography>
-        <Box
-          sx={{
-            width: 20,
-            height: 20,
-            borderRadius: "50%",
-            backgroundColor: "dodgerblue",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "white",
-            fontSize: 14,
-          }}
-        >
-          2
-        </Box>
+        {read ? null : <NewMessageDotIndicator />}
       </Stack>
     </>
   );

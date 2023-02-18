@@ -102,15 +102,15 @@ const NavigationList = () => {
 
 function DrawerBody() {
   return (
-    <div className="side-navigation" style={{ height: "100vh", width: "70vw" }}>
+    <div className="side-navigation" style={{ height: "100vh", width: "85vw" }}>
       <div className="side-navigation-overlay"></div>
       <Typography
         variant="h3"
-        sx={{ py: 2, px: 3, position: "absolute" }}
+        sx={{ pt: 5, pb: 2, px: 3, position: "absolute" }}
         color="white"
         fontWeight={"bold"}
       >
-        Wechat
+        QuickTalks
       </Typography>
       <NavigationList />
     </div>

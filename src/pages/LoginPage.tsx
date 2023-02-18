@@ -1,7 +1,8 @@
 import { Box, Grid, Paper } from "@mui/material";
-import { FC } from "react";
+import { FC, Suspense } from "react";
 import { ConnectedLoginForm } from "../features/Login";
 import Bg from "../assets/img/bg.webp";
+import Loading from "../components/lotties/Loading";
 
 interface ILoginPageProps {}
 
