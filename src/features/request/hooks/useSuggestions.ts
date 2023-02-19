@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setSuggestionsState } from "../../../redux/reducers/suggestionSlice";
 import { userSelector } from "../../../redux/selectors/userSelector";
-import { getUserSuggestions } from "../../../services/api/getUserSuggestions";
-import { IUserServer } from "../../../types";
+import User from "../../../services/api/User";
 
 export const useSetupSuggestions = () => {
   const user = useAppSelector(userSelector);
@@ -11,7 +10,7 @@ export const useSetupSuggestions = () => {
 
   const getSuggestions = async () => {
     if (user._id) {
-      const suggestions = await getUserSuggestions(user._id);
+      const suggestions = await User.getSuggestions(user._id);
 
       dispatch(setSuggestionsState(suggestions));
     }

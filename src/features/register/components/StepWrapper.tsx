@@ -1,10 +1,8 @@
-import React, { useContext, useState } from "react";
-import { IUser } from "../../../types";
-import { IStepContextValue, StepContext } from "../context/stepContext";
+import React from "react";
+import { StepContext } from "../context/stepContext";
 import { UserRegistrationContext } from "../context/userRegistrationContext";
 import { useRegistration } from "../hooks/useRegistration";
 import { useStep } from "../hooks/useStep";
-import { ICompleted, IRegisterValues } from "../types";
 import StepIndicator from "./StepIndicator";
 import StepViewContainer from "./StepViewContainer";
 

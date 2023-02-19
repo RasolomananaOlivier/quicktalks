@@ -7,8 +7,6 @@ import RequestsList from "../features/request/component/RequestsList";
 import SuggestionsList from "../features/request/component/SuggestionsList";
 
 const RequestPage = () => {
-  useSetupNotificationState();
-
   const [value, setValue] = useState(0);
   const handleChange = (e: unknown, newValue: number) => {
     setValue(newValue);

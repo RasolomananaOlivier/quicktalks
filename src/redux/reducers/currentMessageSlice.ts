@@ -1,10 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { IMessage } from "../../types";
+import { ICurrentMessage } from "../../types";
 
-interface ICurrentMessage extends IMessage {
-  totalMessages: number;
-}
 const initialState: ICurrentMessage = {
   _id: "",
   authorizedUser: [],

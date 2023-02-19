@@ -9,13 +9,10 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useContext, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useRegistration } from "../../hooks/useRegistration";
-import { Register } from "../../../../services/api/register";
 import { UserRegistrationContext } from "../../context/userRegistrationContext";
 import FirebaseStorage from "../../../../services/api/firebaseStorage";
+import User from "../../../../services/api/User";
 
 export default function UploadImageForm() {
   // STATE FOR SELECTED FILES
@@ -51,8 +48,9 @@ export default function UploadImageForm() {
         const url = await FirebaseStorage.uploadImage(file);
 
         const userWithUrl = { ...user, avatarUrl: url };
-        const res = await Register(userWithUrl);
+        const res = await User.register(userWithUrl);
 
+        // TODO: redirect after registration
         console.log(res);
       }
     },

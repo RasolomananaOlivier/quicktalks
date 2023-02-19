@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../hooks/redux";
 import { messagesSelector } from "../../../redux/selectors/messagesSelector";
 import { userSelector } from "../../../redux/selectors/userSelector";
-import { getMessageById } from "../../../services/api/getMessageById";
+import Message from "../../../services/api/Message";
 import { IMessage } from "../../../types";
 
 export const useFilterMessage = (userId: string) => {
@@ -22,7 +22,7 @@ export const useFilterMessage = (userId: string) => {
   )[0];
 
   async function getMessage() {
-    const result = await getMessageById(message._id, currentUser._id!);
+    const result = await Message.getOneById(message._id, currentUser._id!);
     setLocalMessage(result.message);
     settotalMessages(result.totalMessages);
   }

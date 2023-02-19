@@ -1,5 +1,4 @@
-import { Box, Stack } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ChatRoomContext } from ".";
 import EndMessage from "../../../../components/lotties/EndMessage";
@@ -7,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { setCurrentMessage } from "../../../../redux/reducers/currentMessageSlice";
 import { currentMessageSelector } from "../../../../redux/selectors/currentMessageSelector";
 import { userSelector } from "../../../../redux/selectors/userSelector";
-import { getMessageById } from "../../../../services/api/getMessageById";
+import Message from "../../../../services/api/Message";
 import ChatRoomMessagesList from "./MessagesList";
 
 const Body = () => {
@@ -23,7 +22,11 @@ const Body = () => {
   const dispatch = useAppDispatch();
 
   const fetchMore = async () => {
-    const result = await getMessageById(currentMessage._id, user._id!, page);
+    const result = await Message.getOneById(
+      currentMessage._id,
+      user._id!,
+      page
+    );
 
     dispatch(
       setCurrentMessage({

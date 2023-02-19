@@ -2,18 +2,18 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { ILoginValues } from "./types";
 import LoginForm from "./components/LoginForm";
-import { Login } from "../../services/api/login";
 import { useAppDispatch } from "../../hooks/redux";
 import { setUser } from "../../redux/reducers/userSlice";
 import { saveToken } from "../../utils/saveToken";
 import { routes } from "../../data/routes";
+import User from "../../services/api/User";
 
 export const ConnectedLoginForm: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (values: ILoginValues) => {
-    const { data, token } = await Login(values);
+    const { data, token } = await User.login(values);
 
     saveToken(token);
     dispatch(

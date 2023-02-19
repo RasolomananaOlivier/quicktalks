@@ -37,6 +37,9 @@ export interface IMessage {
   messages: IMessageItem[];
   readBy: string[];
 }
+export interface ICurrentMessage extends IMessage {
+  totalMessages: number;
+}
 
 export interface IRequest {
   _id: string;

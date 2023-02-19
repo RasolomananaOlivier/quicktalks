@@ -1,10 +1,10 @@
 import { Socket } from "socket.io-client";
 import { Dispatch } from "../../hooks/redux";
 import { setCurrentMessage } from "../../redux/reducers/currentMessageSlice";
-import { IMessage, IMessagePayload } from "../../types";
+import { ICurrentMessage, IMessagePayload } from "../../types";
 
 const handleUpdate = (
-  message: IMessage,
+  message: ICurrentMessage,
   dispatch: Dispatch,
   currentMessageId: string
 ) => {
