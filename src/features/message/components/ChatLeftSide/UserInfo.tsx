@@ -41,14 +41,14 @@ export default function UserInfo() {
         <Typography color="gray">
           {currentFriend._id ? currentFriend.email : "Email Address"}
         </Typography>
-        <Box display="flex" justifyContent="space-evenly" pt={1}>
-          <IconButton sx={{ bgcolor: "#f0f0f0", mr: 1 }}>
+        <Box display="flex" justifyContent="start" pt={1}>
+          <IconButton sx={{ bgcolor: "#f0f0f0", mr: 2 }}>
             <Videocam fontSize="small" />
           </IconButton>
-          <IconButton sx={{ bgcolor: "#f0f0f0", mr: 1 }}>
+          <IconButton sx={{ bgcolor: "#f0f0f0", mr: 2 }}>
             <Call fontSize="small" />
           </IconButton>
-          <IconButton sx={{ bgcolor: "#f0f0f0", mr: 1 }}>
+          <IconButton sx={{ bgcolor: "#f0f0f0", mr: 2 }}>
             <Info fontSize="small" />
           </IconButton>
         </Box>

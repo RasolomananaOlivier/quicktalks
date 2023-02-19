@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 
 import TextField from "@mui/material/TextField";
 import {
@@ -11,18 +11,17 @@ import {
   Button,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
-import { IRegisterValues } from "../../types";
 import { StepContext } from "../../context/stepContext";
 import { validateSignup } from "../../utils/validateRegister";
 import { UserRegistrationContext } from "../../context/userRegistrationContext";
+import { IPersonalInformationValues } from "../../../../types";
 
 export default function PersonalInformationForm() {
   const { handleComplete, completed, activeStep } = useContext(StepContext);
   const { setUserPersonalInfo } = useContext(UserRegistrationContext);
 
-  const formik = useFormik<IRegisterValues>({
+  const formik = useFormik<IPersonalInformationValues>({
     initialValues: {
       firstname: "",
       lastname: "",

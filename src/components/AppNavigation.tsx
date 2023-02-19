@@ -11,6 +11,7 @@ const ChatRoomSection = React.lazy(
 const MessagesPage = React.lazy(() => import("../pages/MessagesPage"));
 const NotificationPage = React.lazy(() => import("../pages/NotificationPage"));
 const RequestPage = React.lazy(() => import("../pages/RequestPage"));
+const SettingPage = React.lazy(() => import("../pages/SettingPage"));
 
 interface IAppNavigationProps {}
 
@@ -56,7 +57,7 @@ export const AppNavigation: FC<IAppNavigationProps> = (props) => {
         <Route path="requests" element={<RequestPage />} />
         <Route path="notifications" element={<NotificationPage />} />
 
-        {/* <Route path="settings" element={<SettingPage />} /> */}
+        <Route path="settings" element={<SettingPage />} />
       </Route>
     </Routes>
   );

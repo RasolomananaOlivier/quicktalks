@@ -18,9 +18,9 @@ const Notification: React.FC<NotificationProps> = ({ notification }) => {
     <ListItem
       sx={{
         display: "flex",
-        p: 1.5,
+        p: 2,
         borderRadius: 3,
-        boxShadow: "0 0 8px rgba(0, 0, 0, 0.2)",
+        border: "1px solid #3f3f3f",
         mb: 2,
       }}
     >

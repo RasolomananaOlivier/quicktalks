@@ -12,7 +12,7 @@ const RequestsList: React.FC<RequestsListProps> = ({}) => {
   const requests = useAppSelector(requestsSelector);
 
   return (
-    <Stack sx={{ p: 3 }} spacing={2}>
+    <Stack sx={{ p: 2 }} spacing={2}>
       <AppHeader>Request to connect.</AppHeader>
       <motion.div
         // variants={containerVariants}

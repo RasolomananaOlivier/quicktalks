@@ -55,3 +55,17 @@ export interface IMessagePayload {
   messageId: string;
   messageItem: IMessageItem;
 }
+
+export interface IPersonalInformationValues {
+  firstname: string;
+  lastname: string;
+  birthday?: string;
+  email: string;
+}
+
+export interface IPersonalInformationErrors {
+  firstname?: string;
+  lastname?: string;
+  birthday?: string;
+  email?: string;
+}
