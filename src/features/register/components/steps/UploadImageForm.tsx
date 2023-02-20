@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import { routes } from "../../../../data/routes";
 import { useAppDispatch } from "../../../../hooks/redux";
 import { setUser } from "../../../../redux/reducers/userSlice";
+import { saveToken } from "../../../../utils/saveToken";
+import { AxiosError } from "axios";
 
 export default function UploadImageForm() {
   // STATE FOR SELECTED FILES
@@ -54,20 +56,25 @@ export default function UploadImageForm() {
         // const url = await FirebaseStorage.uploadImage(file);
 
         const userWithUrl = { ...user, avatarUrl: "url" };
-        const { data, token } = await User.register(userWithUrl);
 
-        dispatch(
-          setUser({
-            _id: data._id,
-            firstname: data.firstname,
-            lastname: data.lastname,
-            email: data.email.address,
-            avatarUrl: data.avatarUrl,
-            friends: data.friends,
-            password: data.password,
-          })
-        );
-        navigate(routes.HOME);
+        try {
+          const { data, token } = await User.register(userWithUrl);
+          saveToken(token);
+          dispatch(
+            setUser({
+              _id: data._id,
+              firstname: data.firstname,
+              lastname: data.lastname,
+              email: data.email.address,
+              avatarUrl: data.avatarUrl,
+              friends: data.friends,
+              password: data.password,
+            })
+          );
+          navigate(routes.HOME);
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
   });
