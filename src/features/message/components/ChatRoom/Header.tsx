@@ -8,13 +8,9 @@ import { useAppSelector } from "../../../../hooks/redux";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
 import { currentFriendSelector } from "../../../../redux/selectors/currentFriendSelector";
 import { ChatRootLeftSideContext } from "../../context/leftSideContext";
+import { useCurrentFriend } from "../../hooks/useCurrentFriend";
 
 interface ChatRoomHeaderProps {}
-
-const useFriendFullname = () => {
-  const user = useAppSelector(currentFriendSelector);
-  return `${user.firstname} ${user.lastname}`;
-};
 
 const Header: React.FC<ChatRoomHeaderProps> = () => {
   const { headerHeight } = useContext(ChatRoomContext);
@@ -26,7 +22,7 @@ const Header: React.FC<ChatRoomHeaderProps> = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const friendFullname = useFriendFullname();
+  const currentFriend = useCurrentFriend();
 
   const chatRoomLeftSideContext = useContext(ChatRootLeftSideContext);
   return (
@@ -37,6 +33,7 @@ const Header: React.FC<ChatRoomHeaderProps> = () => {
           justifyContent: "space-between",
           mx: 1,
           mt: 0.5,
+          p: 0.5,
           height: `${headerHeight}px`,
         }}
       >
@@ -51,9 +48,9 @@ const Header: React.FC<ChatRoomHeaderProps> = () => {
             </IconButton>
           )}
           {/* @ts-ignore */}
-          <Avatar src={""} slt="sdgd" />
+          <Avatar src={currentFriend.avatarUrl} slt="sdgd" />
           <Box sx={{ ml: 2 }}>
-            <Typography>{friendFullname}</Typography>
+            <Typography>{`${currentFriend.firstname} ${currentFriend.lastname}`}</Typography>
             <Typography sx={{ fontSize: 12, color: "gray" }}>Actif</Typography>
           </Box>
         </Box>

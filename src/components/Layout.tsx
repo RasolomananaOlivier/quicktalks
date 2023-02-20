@@ -1,16 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { Suspense, useContext, useEffect, useState } from "react";
 
 import Grid from "@mui/material/Grid";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { NavigationStateOnMobileContext } from "./AppProvider";
-import AppDrawer from "./navigation/AppDrawer";
-import SideNavigation from "./navigation/SideNavigation";
 import { useSetupMessagesState } from "../features/message/hooks/useSetupMessagesState";
 import { useSetupFriendsState } from "../features/message/hooks/useSetupFriendsState";
 import { useSocket } from "../hooks/useSocket";
 import { SocketContext } from "../context/socketContext";
 import { useSetupNotificationState } from "../features/notification/hooks/useSetupNotificationState";
+import AppDrawer from "./navigation/AppDrawer";
+import SideNavigation from "./navigation/SideNavigation";
+import Loading from "./lotties/Loading";
+import { useMobileSize } from "../hooks/useMobileSize";
 
 function LayoutWithContext() {
   const socket = useSocket();
@@ -27,18 +29,21 @@ export function Layout() {
   useSetupFriendsState();
   useSetupNotificationState();
 
-  const navigationOnMobileContext = useContext(NavigationStateOnMobileContext);
+  const params = useParams();
+  const isMobileSize = useMobileSize();
 
   return (
     <Grid container columns={16}>
-      {navigationOnMobileContext.show && <AppDrawer />}
+      {!params.messageId ? <AppDrawer /> : null}
 
       <Grid item lg={1} sx={{ display: { xs: "none", lg: "flex" } }}>
         <SideNavigation />
       </Grid>
 
       <Grid item xs={16} lg={15}>
-        <Outlet />
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
       </Grid>
     </Grid>
   );

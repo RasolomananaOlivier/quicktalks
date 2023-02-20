@@ -1,10 +1,13 @@
-import { IRegisterErrors, IRegisterValues } from "../types";
+import {
+  IPersonalInformationErrors,
+  IPersonalInformationValues,
+} from "../../../types";
 
-export function validateSignup(values: IRegisterValues) {
+export function validateSignup(values: IPersonalInformationValues) {
   const { firstname, lastname, birthday, email } = values;
 
   const regex = /^[a-zA-Z0-9-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
-  let errors: IRegisterErrors = {};
+  let errors: IPersonalInformationErrors = {};
   if (firstname === "") {
     errors.firstname = "Required";
   }

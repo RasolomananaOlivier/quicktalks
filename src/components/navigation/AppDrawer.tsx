@@ -1,5 +1,6 @@
 import { Menu } from "@mui/icons-material";
 import {
+  Badge,
   Box,
   Drawer,
   IconButton,
@@ -18,9 +19,12 @@ import Request from "../lotties/json/account-outline.json";
 import Notification from "../lotties/json/notification-bell-outline.json";
 import Setting from "../lotties/json/settings-cog-outline.json";
 import Logout from "../lotties/json/arrow-up-outline.json";
+import { useBagdeIndicator } from "../../hooks/useBagdeIndicator";
+import { NavLink } from "react-router-dom";
 
 export default function AppDrawer() {
   const [drawerOpened, setDrawerOpened] = useState(false);
+  const { isRequestsEmpty, unreadNotification } = useBagdeIndicator();
 
   const closeDrawer = () => {
     setDrawerOpened(false);
@@ -35,10 +39,16 @@ export default function AppDrawer() {
       sx={{
         display: { xs: "flex", md: "none" },
         p: 2,
+        position: "fixed",
+        width: "92%",
+        backgroundColor: "rgba(255, 255, 255,0.9)",
+        zIndex: 2,
       }}
     >
       <div className="menu-icon-container" onClick={openDrawer}>
-        <Menu />
+        <Badge variant="dot" invisible={isRequestsEmpty && unreadNotification}>
+          <Menu />
+        </Badge>
       </div>
       <PageTitle />
       <Drawer anchor="left" open={drawerOpened} onClose={closeDrawer}>
@@ -79,16 +89,32 @@ const NavigationList = () => {
     },
   ];
 
+  const { isRequestsEmpty, unreadNotification } = useBagdeIndicator();
+  const isRequestItemAndNotEmpty = (label: string) => {
+    return label === "Requests" && isRequestsEmpty;
+  };
+  const isNotificationItemAndUnread = (label: string) => {
+    return label === "Notifications" && unreadNotification;
+  };
   return (
     <Box mt={15}>
       {navigation.map((navItem) => (
         <div className="drawer-list-item">
           <ListItemButton
+            sx={{ width: "100%" }}
             key={navItem.label}
             onClick={() => navigate(navItem.link)}
           >
             <ListItemIcon>
-              <AnimatedIcon animationData={navItem.animationData} />
+              <Badge
+                variant="dot"
+                invisible={
+                  isRequestItemAndNotEmpty(navItem.label) ||
+                  isNotificationItemAndUnread(navItem.label)
+                }
+              >
+                <AnimatedIcon animationData={navItem.animationData} />
+              </Badge>
             </ListItemIcon>
             <ListItemText>
               <Typography color="#fff">{navItem.label}</Typography>
@@ -102,15 +128,15 @@ const NavigationList = () => {
 
 function DrawerBody() {
   return (
-    <div className="side-navigation" style={{ height: "100vh", width: "70vw" }}>
+    <div className="side-navigation" style={{ height: "100vh", width: "85vw" }}>
       <div className="side-navigation-overlay"></div>
       <Typography
         variant="h3"
-        sx={{ py: 2, px: 3, position: "absolute" }}
+        sx={{ pt: 5, pb: 2, px: 3, position: "absolute" }}
         color="white"
         fontWeight={"bold"}
       >
-        Wechat
+        QuickTalks
       </Typography>
       <NavigationList />
     </div>

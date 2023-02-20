@@ -5,6 +5,7 @@ export interface IUser {
   email: string;
   password: string;
   friends?: string[];
+  avatarUrl: string;
 }
 
 export interface IUserServer {
@@ -17,6 +18,7 @@ export interface IUserServer {
   };
   password: string;
   friends?: string[];
+  avatarUrl: string;
 }
 
 export interface IMessageItem {
@@ -35,6 +37,9 @@ export interface IMessage {
   messages: IMessageItem[];
   readBy: string[];
 }
+export interface ICurrentMessage extends IMessage {
+  totalMessages: number;
+}
 
 export interface IRequest {
   _id: string;
@@ -47,9 +52,25 @@ export interface INotification {
   _id: string;
   message: string;
   destinationId: string;
+  isRead: boolean;
 }
 
 export interface IMessagePayload {
   messageId: string;
   messageItem: IMessageItem;
+}
+
+export interface IPersonalInformationValues {
+  firstname: string;
+  lastname: string;
+  birthday?: string;
+  email: string;
+  avatarUrl: string;
+}
+
+export interface IPersonalInformationErrors {
+  firstname?: string;
+  lastname?: string;
+  birthday?: string;
+  email?: string;
 }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { IUser } from "../../../types";
-import { IRegisterValues } from "../types";
+import { IPersonalInformationValues, IUser } from "../../../types";
 
 export const useRegistration = () => {
   const [user, setUser] = useState<IUser>({
@@ -8,9 +7,10 @@ export const useRegistration = () => {
     lastname: "",
     email: "",
     password: "",
+    avatarUrl: "",
   });
 
-  const setUserPersonalInfo = (personnalInfo: IRegisterValues) => {
+  const setUserPersonalInfo = (personnalInfo: IPersonalInformationValues) => {
     setUser({
       ...user,
       firstname: personnalInfo.firstname,

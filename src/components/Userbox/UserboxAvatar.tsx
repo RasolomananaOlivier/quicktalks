@@ -45,12 +45,12 @@ const StyledBadgeOffline = styled(Badge)(({ theme }) => ({
 }));
 
 interface UserboxAvatarProps {
-  isOnline: boolean;
+  isOnline?: boolean;
   avatarUrl: string;
   username: string;
 }
 
-const UserboxAvatar: React.FC = () => {
+const UserboxAvatar: React.FC<UserboxAvatarProps> = ({avatarUrl, username}) => {
   return (
     <ListItemAvatar>
       {true ? (
@@ -59,7 +59,7 @@ const UserboxAvatar: React.FC = () => {
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           variant="dot"
         >
-          <Avatar src={"avatarUrl"} alt={"username"} />
+          <Avatar src={avatarUrl} alt={username} />
         </StyledBadge>
       ) : (
         <StyledBadgeOffline
@@ -67,7 +67,7 @@ const UserboxAvatar: React.FC = () => {
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           variant="dot"
         >
-          <Avatar src={"avatarUrl"} alt={"username"} />
+          <Avatar src={avatarUrl} alt={username} />
         </StyledBadgeOffline>
       )}
     </ListItemAvatar>

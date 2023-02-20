@@ -3,3 +3,10 @@
   width: 800px;
   height: 100vh;
 }
+
+@media screen and (max-width:400px) {
+  .login-illustration {
+    width: 100%;
+    height: 30%;
+  }
+}

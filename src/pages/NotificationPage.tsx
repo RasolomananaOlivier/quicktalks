@@ -6,7 +6,14 @@ interface NotificationPageProps {}
 
 const NotificationPage: React.FC<NotificationPageProps> = () => {
   return (
-    <Stack sx={{ height: "100vh", overflowY: "scroll", px: 35 }}>
+    <Stack
+      sx={{
+        height: "100vh",
+        overflowY: "scroll",
+        px: { xs: 0, md: 35 },
+        mt: { xs: 8, md: 0 },
+      }}
+    >
       <NotificationsList />
     </Stack>
   );

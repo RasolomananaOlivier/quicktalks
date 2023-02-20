@@ -9,6 +9,7 @@ const initialState: IUser = {
   password: "",
   _id: "",
   friends: [],
+  avatarUrl: "",
 };
 
 export const currentFriendSlice = createSlice({

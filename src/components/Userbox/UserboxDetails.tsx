@@ -1,7 +1,35 @@
 import { Box, ListItemText, Stack, Typography } from "@mui/material";
-import React from "react";
 
-export default function UserboxDetails() {
+import React from "react";
+import { IMessageItem } from "../../types";
+
+interface UserboxDetailsProps {
+  fullname: string;
+  read: boolean;
+  lastMessageItem: IMessageItem;
+}
+
+const NewMessageDotIndicator = () => (
+  <Box
+    sx={{
+      width: 20,
+      height: 20,
+      borderRadius: "50%",
+      backgroundColor: "dodgerblue",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      color: "white",
+      fontSize: 14,
+    }}
+  ></Box>
+);
+
+const UserboxDetails: React.FC<UserboxDetailsProps> = ({
+  fullname,
+  read,
+  lastMessageItem,
+}) => {
   return (
     <>
       <ListItemText
@@ -13,7 +41,7 @@ export default function UserboxDetails() {
             fontSize={18}
             fontWeight={"bold"}
           >
-            {"username"}
+            {fullname}
           </Typography>
         }
         secondary={
@@ -24,7 +52,7 @@ export default function UserboxDetails() {
               fontSize={14}
               color="text.secondary"
             >
-              <div className="last-message">Last message</div>
+              <div className="last-message">{lastMessageItem.content}</div>
             </Typography>
           </>
         }
@@ -36,24 +64,12 @@ export default function UserboxDetails() {
           fontSize={14}
           color="text.secondary"
         >
-          <div className="last-message">11:50</div>
+          <div className="last-message">{lastMessageItem.timeStamp}</div>
         </Typography>
-        <Box
-          sx={{
-            width: 20,
-            height: 20,
-            borderRadius: "50%",
-            backgroundColor: "dodgerblue",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "white",
-            fontSize: 14,
-          }}
-        >
-          2
-        </Box>
+        {read ? null : <NewMessageDotIndicator />}
       </Stack>
     </>
   );
-}
+};
+
+export default UserboxDetails;

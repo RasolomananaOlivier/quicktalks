@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../hooks/redux";
 import { messagesSelector } from "../../../redux/selectors/messagesSelector";
 import { userSelector } from "../../../redux/selectors/userSelector";
-import { getMessageById } from "../../../services/api/getMessageById";
-import { IMessage } from "../../../types";
+import Message from "../../../services/api/Message";
+import { IMessage, IMessageItem } from "../../../types";
 
 export const useFilterMessage = (userId: string) => {
   const [localMessage, setLocalMessage] = useState<IMessage>({
@@ -11,6 +11,13 @@ export const useFilterMessage = (userId: string) => {
     authorizedUser: [],
     messages: [],
     readBy: [],
+  });
+  const [totalMessages, setTotalMessages] = useState(0);
+  const [lastMessageItem, setLastMessageItem] = useState<IMessageItem>({
+    auth: "",
+    authorizedUser: [],
+    timeStamp: "",
+    type: "text",
   });
 
   const messages = useAppSelector(messagesSelector);
@@ -21,13 +28,17 @@ export const useFilterMessage = (userId: string) => {
   )[0];
 
   async function getMessage() {
-    const msg = await getMessageById(message._id, currentUser._id!);
-    setLocalMessage(msg);
+    const result = await Message.getOneById(message._id, currentUser._id!);
+    const lastMsgItem = await Message.getLastMessage(message._id);
+
+    setLocalMessage(result.message);
+    setTotalMessages(result.totalMessages);
+    setLastMessageItem(lastMsgItem);
   }
 
   useEffect(() => {
     getMessage();
   }, []);
 
-  return localMessage;
+  return { message: localMessage, totalMessages, lastMessageItem };
 };
