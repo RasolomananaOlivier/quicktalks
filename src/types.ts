@@ -52,6 +52,7 @@ export interface INotification {
   _id: string;
   message: string;
   destinationId: string;
+  isRead: boolean;
 }
 
 export interface IMessagePayload {
@@ -64,6 +65,7 @@ export interface IPersonalInformationValues {
   lastname: string;
   birthday?: string;
   email: string;
+  avatarUrl: string;
 }
 
 export interface IPersonalInformationErrors {

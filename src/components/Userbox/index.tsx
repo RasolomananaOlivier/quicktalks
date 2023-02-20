@@ -25,7 +25,9 @@ interface IUserBoxProps {
 export default function Userbox({ user }: IUserBoxProps) {
   const navigate = useNavigate();
   const isMobileSize = useMobileSize();
-  const { message, totalMessages } = useFilterMessage(user._id!);
+  const { message, totalMessages, lastMessageItem } = useFilterMessage(
+    user._id!
+  );
   const currentMessage = useAppSelector(currentMessageSelector);
   const currentUser = useAppSelector(userSelector);
 
@@ -58,6 +60,7 @@ export default function Userbox({ user }: IUserBoxProps) {
         <UserboxDetails
           read={isRead()}
           fullname={`${user.firstname} ${user.lastname}`}
+          lastMessageItem={lastMessageItem}
         />
       </ListItemButton>
       <Divider variant="inset" />

@@ -22,7 +22,7 @@ const MessagesMobileView: React.FC<MessagesMobileViewProps> = ({}) => {
       }}
     >
       {!params.messageId ? (
-        <Grid item sx={{ width: "100%", height: "100vh" }}>
+        <Grid item sx={{ width: "100%", height: "100vh", mt: 8 }}>
           <Stack spacing={1}>
             <Typography
               color="white"

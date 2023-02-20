@@ -12,6 +12,7 @@ import { useSetupNotificationState } from "../features/notification/hooks/useSet
 import AppDrawer from "./navigation/AppDrawer";
 import SideNavigation from "./navigation/SideNavigation";
 import Loading from "./lotties/Loading";
+import { useMobileSize } from "../hooks/useMobileSize";
 
 function LayoutWithContext() {
   const socket = useSocket();
@@ -29,6 +30,7 @@ export function Layout() {
   useSetupNotificationState();
 
   const params = useParams();
+  const isMobileSize = useMobileSize();
 
   return (
     <Grid container columns={16}>

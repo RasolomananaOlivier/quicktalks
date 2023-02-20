@@ -27,6 +27,7 @@ export default function PersonalInformationForm() {
       lastname: "",
       birthday: "",
       email: "",
+      avatarUrl: "",
     },
     validate: validateSignup,
     onSubmit: (values) => {

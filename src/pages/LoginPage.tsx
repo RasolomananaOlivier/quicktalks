@@ -6,7 +6,6 @@ import Loading from "../components/lotties/Loading";
 
 interface ILoginPageProps {}
 
-// TODO: Redesign login page
 const LoginPage: FC<ILoginPageProps> = (props) => {
   return (
     <Grid container sx={{ overflow: { xs: "hidden", md: "auto" } }}>

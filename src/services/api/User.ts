@@ -1,7 +1,7 @@
 import { endpoint } from "../../data/endpoints";
 import { ILoginValues } from "../../features/Login/types";
 import { Client } from "../../lib/Client";
-import { IUser, IUserServer } from "../../types";
+import { IPersonalInformationValues, IUser, IUserServer } from "../../types";
 import { getToken } from "../../utils/getToken";
 
 const HEADERS_CONFIG = {
@@ -13,7 +13,6 @@ interface ILoginResponse {
   token: string;
 }
 const login = async (user: ILoginValues) => {
-  // TODO: Hanle axios error
   const res = await Client.post<ILoginResponse>(endpoint.LOGIN, user);
   return res.data;
 };
@@ -62,12 +61,24 @@ const getSuggestions = async (userId: string) => {
   return res.data.suggestions;
 };
 
+const updatePersonalInformation = async (
+  userId: string,
+  personalInformation: IPersonalInformationValues
+) => {
+  const update = await Client.put<IUser>(
+    endpoint.user.UPDATE_PERSONAL_INFORMATION(userId),
+    { ...personalInformation }
+  );
+  return update;
+};
+
 const User = {
   login,
   register,
   getOneById,
   getFriends,
   getSuggestions,
+  updatePersonalInformation,
 };
 
 export default User;

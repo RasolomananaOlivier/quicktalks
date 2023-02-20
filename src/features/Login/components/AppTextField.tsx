@@ -5,8 +5,13 @@ import { ILoginValues } from "../types";
 interface IAppTextFielfProps {
   formik: FormikProps<ILoginValues>;
   value: "Email" | "Password";
+  loginError: boolean;
 }
-export default function AppTextField({ formik, value }: IAppTextFielfProps) {
+export default function AppTextField({
+  formik,
+  value,
+  loginError,
+}: IAppTextFielfProps) {
   const valueLowerCase = value === "Email" ? "email" : "password";
 
   return (
@@ -18,9 +23,9 @@ export default function AppTextField({ formik, value }: IAppTextFielfProps) {
       label={value}
       name={valueLowerCase}
       type={valueLowerCase}
-      
       error={
-        formik.touched[valueLowerCase] && formik.errors[valueLowerCase]
+        (formik.touched[valueLowerCase] && formik.errors[valueLowerCase]) ||
+        loginError
           ? true
           : false
       }

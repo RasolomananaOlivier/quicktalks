@@ -1,10 +1,9 @@
 import React from "react";
-import { IUser } from "../../../types";
-import { IRegisterValues } from "../types";
+import { IPersonalInformationValues, IUser } from "../../../types";
 
 export interface IUserRegistration {
   user?: IUser;
-  setUserPersonalInfo?: (personalInfo: IRegisterValues) => void;
+  setUserPersonalInfo?: (personalInfo: IPersonalInformationValues) => void;
   setUserPassword?: (password: string) => void;
 }
 

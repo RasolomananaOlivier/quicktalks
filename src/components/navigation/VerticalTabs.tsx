@@ -19,20 +19,10 @@ import SettingsIcon from "../lotties/json/settings-cog-outline.json";
 import ArrowUpIcon from "../lotties/json/arrow-up-outline.json";
 import AccountIcon from "../lotties/json/account-outline.json";
 import { AnimatedIcon } from "../lotties/animatedIcon";
-
-export const iconsStyleSmall = {
-  borderRadius: "50%",
-  fontSize: 20,
-  p: 0.7,
-  backgroundImage: "linear-gradient(60deg,#ed1845, #22a6df)",
-  color: "white",
-};
-
-const iconsStyleSmallNav2 = {
-  borderRadius: "50%",
-  fontSize: 24,
-  color: "#d9e0e0",
-};
+import { useAppSelector } from "../../hooks/redux";
+import { requestsSelector } from "../../redux/selectors/requestsSelector";
+import { notificationsSelector } from "../../redux/selectors/notificationSelector";
+import { useBagdeIndicator } from "../../hooks/useBagdeIndicator";
 
 function a11yProps(index: number) {
   return {
@@ -40,33 +30,13 @@ function a11yProps(index: number) {
     "aria-controls": `vertical-tabpanel-${index}`,
   };
 }
-{
-  /* <Badge
-  // badgeContent={unreadMessages.length}
-  max={99}
-  color="error"
-  sx={{ fontSize: 10 }}
->
-  <ChatBubble sx={{ fontSize: 20, color: "white" }} />
-</Badge>; */
-}
 
 export default function VerticalTabs() {
   const [value, setvalue] = React.useState(0);
 
   const isMobileScreen = useMobileSize();
   const route = useNavigate();
-
-  /* Show dialog */
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { isRequestsEmpty, unreadNotification } = useBagdeIndicator();
 
   return (
     <Tabs
@@ -110,7 +80,11 @@ export default function VerticalTabs() {
             left: "5%",
           }),
         }}
-        icon={<AnimatedIcon animationData={AccountIcon} />}
+        icon={
+          <Badge variant="dot" invisible={isRequestsEmpty} color="primary">
+            <AnimatedIcon animationData={AccountIcon} />
+          </Badge>
+        }
         iconPosition="start"
         onClick={() => route("/home/requests")}
         {...a11yProps(0)}
@@ -122,7 +96,11 @@ export default function VerticalTabs() {
           justifyContent: "center",
           position: "relative",
         }}
-        icon={<AnimatedIcon animationData={RingBellIcon} />}
+        icon={
+          <Badge variant="dot" color="primary" invisible={!unreadNotification}>
+            <AnimatedIcon animationData={RingBellIcon} />
+          </Badge>
+        }
         iconPosition="start"
         onClick={() => route("/home/notifications")}
         {...a11yProps(0)}
@@ -161,7 +139,7 @@ export default function VerticalTabs() {
           </div>
         }
         iconPosition="start"
-        onClick={handleClickOpen}
+        // onClick={handleClickOpen}
         {...a11yProps(3)}
       />
       {/* <AlertDialog open={open} handleClose={handleClose} /> */}

@@ -17,16 +17,18 @@ export const useSetupMessagesState = () => {
       if (userId) {
         // messages items is always empty
         const msg = await Message.getAll(userId);
-        const currentMsg = await Message.getOneById(msg[0]._id, user._id!);
+        if (msg.length > 0) {
+          const currentMsg = await Message.getOneById(msg[0]._id, user._id!);
 
-        dispatch(setMessages(msg));
+          dispatch(setMessages(msg));
 
-        dispatch(
-          setCurrentMessage({
-            ...currentMsg.message,
-            totalMessages: currentMsg.totalMessages,
-          })
-        );
+          dispatch(
+            setCurrentMessage({
+              ...currentMsg.message,
+              totalMessages: currentMsg.totalMessages,
+            })
+          );
+        }
       }
     };
 

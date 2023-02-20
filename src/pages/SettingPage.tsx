@@ -10,7 +10,7 @@ const SettingPage = () => {
     setValue(newValue);
   };
   return (
-    <Stack>
+    <Stack sx={{ mt: { xs: 8, md: 0 } }}>
       <AppTabs value={value} onChange={handleChange}>
         <AppTab label="Personal Information" />
         <AppTab label="Security" />

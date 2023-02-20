@@ -13,6 +13,10 @@ import { motion } from "framer-motion";
 import { UserRegistrationContext } from "../../context/userRegistrationContext";
 import FirebaseStorage from "../../../../services/api/firebaseStorage";
 import User from "../../../../services/api/User";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../../../data/routes";
+import { useAppDispatch } from "../../../../hooks/redux";
+import { setUser } from "../../../../redux/reducers/userSlice";
 
 export default function UploadImageForm() {
   // STATE FOR SELECTED FILES
@@ -20,6 +24,8 @@ export default function UploadImageForm() {
     string | ArrayBuffer | undefined
   >(undefined);
   const [file, setfile] = useState<File>();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const inputRef = useRef(null);
 
@@ -45,13 +51,23 @@ export default function UploadImageForm() {
     },
     onSubmit: async (values) => {
       if (user && file) {
-        const url = await FirebaseStorage.uploadImage(file);
+        // const url = await FirebaseStorage.uploadImage(file);
 
-        const userWithUrl = { ...user, avatarUrl: url };
-        const res = await User.register(userWithUrl);
+        const userWithUrl = { ...user, avatarUrl: "url" };
+        const { data, token } = await User.register(userWithUrl);
 
-        // TODO: redirect after registration
-        console.log(res);
+        dispatch(
+          setUser({
+            _id: data._id,
+            firstname: data.firstname,
+            lastname: data.lastname,
+            email: data.email.address,
+            avatarUrl: data.avatarUrl,
+            friends: data.friends,
+            password: data.password,
+          })
+        );
+        navigate(routes.HOME);
       }
     },
   });

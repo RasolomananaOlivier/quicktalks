@@ -13,7 +13,7 @@ const RequestPage = () => {
   };
 
   return (
-    <Stack sx={{ height: "100vh", overflowY: "scroll" }}>
+    <Stack sx={{ height: "100vh", overflowY: "scroll", mt: { xs: 8, md: 0 } }}>
       <Box px={2} py={2}>
         <SearchInput />
       </Box>

@@ -34,7 +34,7 @@ function Copyright(props: any) {
     >
       {"Copyright © "}
       <Link color="inherit" href="">
-        WeChat
+        QuickTalks
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -44,9 +44,10 @@ function Copyright(props: any) {
 
 interface ILoginForm {
   handleSubmit: (values: ILoginValues) => void;
+  loginError: boolean;
 }
 
-const LoginForm = ({ handleSubmit }: ILoginForm) => {
+const LoginForm = ({ handleSubmit, loginError }: ILoginForm) => {
   const isMobileScreen = useMobileSize();
 
   const formik = useFormik<ILoginValues>({
@@ -82,26 +83,29 @@ const LoginForm = ({ handleSubmit }: ILoginForm) => {
         }}
       >
         {!isMobileScreen && (
-          <>
-            {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar> */}
-            <Typography component="h1" variant="h3">
-              Welcome !
-              <br />
-              Nice to see you again.
-            </Typography>
-          </>
+          <Typography component="h1" variant="h3">
+            Welcome !
+            <br />
+            Nice to see you again.
+          </Typography>
         )}
 
         <Box
           component="form"
           noValidate
           onSubmit={formik.handleSubmit}
-          sx={{ mt: 1 }}
+          sx={{ mt: 1, mx: { xs: 0, md: 0.7 } }}
         >
-          <AppTextField formik={formik} value="Email" />
-          <AppTextField formik={formik} value="Password" />
+          <AppTextField formik={formik} value="Email" loginError={loginError} />
+          <AppTextField
+            formik={formik}
+            value="Password"
+            loginError={loginError}
+          />
+
+          {loginError && (
+            <Typography color="error">Email or password incorrect.</Typography>
+          )}
 
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

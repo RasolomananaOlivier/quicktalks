@@ -13,6 +13,7 @@ const initialValues: IPersonalInformationValues = {
   lastname: "",
   email: "",
   birthday: "",
+  avatarUrl: "",
 };
 
 const PersonalForm: React.FC<PersonalFormProps> = ({ handleSubmit }) => {

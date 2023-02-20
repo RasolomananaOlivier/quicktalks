@@ -1,10 +1,12 @@
 import { Box, ListItemText, Stack, Typography } from "@mui/material";
 
 import React from "react";
+import { IMessageItem } from "../../types";
 
 interface UserboxDetailsProps {
   fullname: string;
   read: boolean;
+  lastMessageItem: IMessageItem;
 }
 
 const NewMessageDotIndicator = () => (
@@ -23,7 +25,11 @@ const NewMessageDotIndicator = () => (
   ></Box>
 );
 
-const UserboxDetails: React.FC<UserboxDetailsProps> = ({ fullname, read }) => {
+const UserboxDetails: React.FC<UserboxDetailsProps> = ({
+  fullname,
+  read,
+  lastMessageItem,
+}) => {
   return (
     <>
       <ListItemText
@@ -46,7 +52,7 @@ const UserboxDetails: React.FC<UserboxDetailsProps> = ({ fullname, read }) => {
               fontSize={14}
               color="text.secondary"
             >
-              <div className="last-message">Last message</div>
+              <div className="last-message">{lastMessageItem.content}</div>
             </Typography>
           </>
         }
@@ -58,7 +64,7 @@ const UserboxDetails: React.FC<UserboxDetailsProps> = ({ fullname, read }) => {
           fontSize={14}
           color="text.secondary"
         >
-          <div className="last-message">11:50</div>
+          <div className="last-message">{lastMessageItem.timeStamp}</div>
         </Typography>
         {read ? null : <NewMessageDotIndicator />}
       </Stack>
