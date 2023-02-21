@@ -59,6 +59,7 @@ const Body = () => {
           display: "flex",
           flexDirection: "column",
           paddingBottom: "10px",
+          minHeight: bodyHeight,
         }}
       >
         <ChatRoomMessagesList messageEntity={currentMessage} />

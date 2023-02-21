@@ -113,7 +113,14 @@ const NavigationList = () => {
                   isNotificationItemAndUnread(navItem.label)
                 }
               >
-                <AnimatedIcon animationData={navItem.animationData} />
+                <div
+                  style={{
+                    transform:
+                      navItem.label === "Logout" ? "rotate(90deg)" : undefined,
+                  }}
+                >
+                  <AnimatedIcon animationData={navItem.animationData} />
+                </div>
               </Badge>
             </ListItemIcon>
             <ListItemText>

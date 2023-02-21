@@ -1,11 +1,6 @@
 import { AxiosError } from "axios";
-import { useEffect, useState } from "react";
-import {
-  useNavigate,
-  useNavigation,
-  useParams,
-  useRoutes,
-} from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { routes } from "../data/routes";
 import { setCurrentFriend } from "../redux/reducers/currentFriendSlice";
 import { setCurrentMessage } from "../redux/reducers/currentMessageSlice";
