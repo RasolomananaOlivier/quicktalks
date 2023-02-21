@@ -34,6 +34,8 @@ export default function Userbox({ user }: IUserBoxProps) {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
+    console.log("click", message._id);
+
     dispatch(setCurrentFriend(user));
 
     if (message._id !== "") {

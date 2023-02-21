@@ -3,10 +3,15 @@ import { FC, Suspense } from "react";
 import { ConnectedLoginForm } from "../features/Login";
 import Bg from "../assets/img/bg.webp";
 import Loading from "../components/lotties/Loading";
+import { useAuthenticate } from "../hooks/useAuthenticate";
+import { useNavigate, useNavigation, useRoutes } from "react-router-dom";
+import { routes } from "../data/routes";
 
 interface ILoginPageProps {}
 
 const LoginPage: FC<ILoginPageProps> = (props) => {
+  useAuthenticate(true);
+
   return (
     <Grid container sx={{ overflow: { xs: "hidden", md: "auto" } }}>
       <Grid

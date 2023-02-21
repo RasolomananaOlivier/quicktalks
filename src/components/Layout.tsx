@@ -12,11 +12,15 @@ import { useSetupNotificationState } from "../features/notification/hooks/useSet
 import AppDrawer from "./navigation/AppDrawer";
 import SideNavigation from "./navigation/SideNavigation";
 import Loading from "./lotties/Loading";
-import { useMobileSize } from "../hooks/useMobileSize";
+import { useAuthenticate } from "../hooks/useAuthenticate";
 
 function LayoutWithContext() {
-  const socket = useSocket();
+  useAuthenticate();
+  useSetupMessagesState();
+  useSetupFriendsState();
+  useSetupNotificationState();
 
+  const socket = useSocket();
   return (
     <SocketContext.Provider value={socket}>
       <Layout />
@@ -25,12 +29,7 @@ function LayoutWithContext() {
 }
 
 export function Layout() {
-  useSetupMessagesState();
-  useSetupFriendsState();
-  useSetupNotificationState();
-
   const params = useParams();
-  const isMobileSize = useMobileSize();
 
   return (
     <Grid container columns={16}>

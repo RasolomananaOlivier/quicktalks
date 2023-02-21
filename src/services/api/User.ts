@@ -72,6 +72,13 @@ const updatePersonalInformation = async (
   return update;
 };
 
+const authenticate = async () => {
+  const res = await Client.get<IUserServer>(endpoint.auth.AUTHENTICATION, {
+    headers: HEADERS_CONFIG,
+  });
+  return res.data;
+};
+
 const User = {
   login,
   register,
@@ -79,6 +86,7 @@ const User = {
   getFriends,
   getSuggestions,
   updatePersonalInformation,
+  authenticate,
 };
 
 export default User;

@@ -1,6 +1,10 @@
 export const endpoint = {
   LOGIN: "/auth/login",
   REGISTER: "/users",
+  auth: {
+    AUTHENTICATION: "/auth/authenticate",
+  },
+
   user: {
     UPDATE_PERSONAL_INFORMATION: (userId: string) => `/users/${userId}`,
   },

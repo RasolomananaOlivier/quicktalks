@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setCurrentMessage } from "../../../redux/reducers/currentMessageSlice";
 import { setMessages } from "../../../redux/reducers/messageSlice";
@@ -9,7 +8,6 @@ import Message from "../../../services/api/Message";
 export const useSetupMessagesState = () => {
   const user = useAppSelector(userSelector);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const getMessages = async () => {
