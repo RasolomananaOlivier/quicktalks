@@ -4,6 +4,12 @@
   height: 100vh;
 }
 
+.signup-illustration {
+  background-repeat: no-repeat;
+  width: 500px;
+  height: 100vh;
+}
+
 @media screen and (max-width:400px) {
   .login-illustration {
     width: 100%;

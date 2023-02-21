@@ -4,8 +4,7 @@ import { Grid } from "@mui/material";
 import StepWrapper from "../features/register/components/StepWrapper";
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 import Loading from "../components/lotties/Loading";
-
-const steps = ["Information", "Password", "Bio"];
+import Bg from "../assets/img/bg.webp";
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   return (
@@ -20,7 +19,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 export default function SignupPage() {
   return (
     <React.Suspense fallback={<Loading />}>
-      <Box sx={{ width: "100%", pt: 3 }}>
+      <Box sx={{ width: "100%" }}>
         <Grid container>
           <Grid
             item
@@ -30,9 +29,8 @@ export default function SignupPage() {
               height: "100vh",
               display: { xs: "none", md: "flex" },
             }}
-            className="background-signup"
           >
-            hey
+            <img src={Bg} alt="signup image" className="signup-illustration" />
           </Grid>
 
           <Grid
