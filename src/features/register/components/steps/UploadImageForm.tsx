@@ -53,9 +53,9 @@ export default function UploadImageForm() {
     },
     onSubmit: async (values) => {
       if (user && file) {
-        // const url = await FirebaseStorage.uploadImage(file);
+        const url = await FirebaseStorage.uploadImage(file);
 
-        const userWithUrl = { ...user, avatarUrl: "url" };
+        const userWithUrl = { ...user, avatarUrl: url };
 
         try {
           const { data, token } = await User.register(userWithUrl);
