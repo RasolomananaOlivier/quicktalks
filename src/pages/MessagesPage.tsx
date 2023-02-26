@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { NavigationStateOnMobileContext } from "../components/AppProvider";
 import MessagesDesktopView from "../features/message/components/MessageDesktopView";
 import MessagesMobileView from "../features/message/components/MessagesMobileView";
-import { ChatRootLeftSideContext } from "../features/message/context/leftSideContext";
+import { ChatRoomRightSideContext } from "../features/message/context/chatRoomRightSideContext";
 import { useMobileSize } from "../hooks/useMobileSize";
 
 interface MessagesPageProps {}
@@ -13,7 +13,7 @@ const MessagesPage: React.FC<MessagesPageProps> = ({}) => {
 
   const params = useParams();
 
-  const [showChatRoomLeftSide, setShowChatRoomLeftSide] = useState(false);
+  const [chatRoomRightSide, setChatRoomRightSide] = useState(false);
 
   const navigationStateContext = useContext(NavigationStateOnMobileContext);
   useEffect(() => {
@@ -27,12 +27,12 @@ const MessagesPage: React.FC<MessagesPageProps> = ({}) => {
   }, [navigationStateContext, params]);
 
   return (
-    <ChatRootLeftSideContext.Provider
+    <ChatRoomRightSideContext.Provider
       // @ts-ignore
-      value={{ show: showChatRoomLeftSide, setShow: setShowChatRoomLeftSide }}
+      value={{ show: chatRoomRightSide, setShow: setChatRoomRightSide }}
     >
       {!isMobileScreen ? <MessagesDesktopView /> : <MessagesMobileView />}
-    </ChatRootLeftSideContext.Provider>
+    </ChatRoomRightSideContext.Provider>
   );
 };
 

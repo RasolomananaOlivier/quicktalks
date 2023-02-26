@@ -2,7 +2,7 @@ import { ArrowBackIos } from "@mui/icons-material";
 import { IconButton, Stack, Divider, Box } from "@mui/material";
 import React, { useContext } from "react";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
-import { ChatRootLeftSideContext } from "../../context/leftSideContext";
+import { ChatRootLeftSideContext } from "../../context/chatRoomRightSideContext.tsx";
 import SharedFiles from "./SharedFiles";
 import SharedMedia from "./SharedMedia";
 import UserInfo from "./UserInfo";

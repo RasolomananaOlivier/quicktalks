@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 
 import { styled, useTheme } from "@mui/material/styles";
-import { ChatRootLeftSideContext } from "../context/leftSideContext";
+import { ChatRootLeftSideContext } from "../context/chatRoomRightSideContext.tsx";
 import FriendsList from "./FriendList";
 import ChatLeftSide from "./ChatLeftSide";
 import SearchInput from "../../../components/SearchInput";

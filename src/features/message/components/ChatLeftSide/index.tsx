@@ -2,7 +2,7 @@ import { Menu } from "@mui/icons-material";
 import { Box, Drawer, IconButton } from "@mui/material";
 import React, { useContext } from "react";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
-import { ChatRootLeftSideContext } from "../../context/leftSideContext";
+import { ChatRootLeftSideContext } from "../../context/chatRoomRightSideContext.tsx";
 import ChatRoomLeftSideContent from "./ChatRoomLeftSideContent";
 
 interface ChatLeftSideProps {

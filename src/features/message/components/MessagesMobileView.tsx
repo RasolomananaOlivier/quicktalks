@@ -2,9 +2,8 @@ import { Box, Grid, Stack, Typography } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useContext, useEffect } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import { NavigationStateOnMobileContext } from "../../../components/AppProvider";
 import SearchInput from "../../../components/SearchInput";
-import { ChatRootLeftSideContext } from "../context/leftSideContext";
+import { ChatRoomRightSideContext } from "../context/chatRoomRightSideContext";
 import ChatLeftSide from "./ChatLeftSide";
 import FriendsList from "./FriendList";
 
@@ -12,7 +11,7 @@ interface MessagesMobileViewProps {}
 
 const MessagesMobileView: React.FC<MessagesMobileViewProps> = ({}) => {
   const params = useParams();
-  const chatRoomLeftSideContext = useContext(ChatRootLeftSideContext);
+  const chatRoomRightSide = useContext(ChatRoomRightSideContext);
 
   return (
     <Grid
@@ -48,8 +47,8 @@ const MessagesMobileView: React.FC<MessagesMobileViewProps> = ({}) => {
         </Grid>
       ) : (
         <>
-          <AnimatePresence exitBeforeEnter>
-            {!chatRoomLeftSideContext.show && (
+          <AnimatePresence>
+            {!chatRoomRightSide.show && (
               <motion.div
                 style={{
                   width: "100%",
@@ -66,7 +65,7 @@ const MessagesMobileView: React.FC<MessagesMobileViewProps> = ({}) => {
               transition={{ duration: 0.2, ease: "easeOut" }}
               exit={{ x: 400 }}
             >
-              {chatRoomLeftSideContext.show && <ChatLeftSide />}
+              {chatRoomRightSide.show && <ChatLeftSide />}
             </motion.div>
           </AnimatePresence>
         </>

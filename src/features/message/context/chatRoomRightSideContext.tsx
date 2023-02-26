@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ChatRootLeftSideContext = React.createContext({
+export const ChatRoomRightSideContext = React.createContext({
   show: true,
   setShow: () => {},
 });

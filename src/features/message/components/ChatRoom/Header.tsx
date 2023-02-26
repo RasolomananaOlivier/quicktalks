@@ -7,7 +7,7 @@ import { useAppSelector } from "../../../../hooks/redux";
 
 import { useMobileSize } from "../../../../hooks/useMobileSize";
 import { currentFriendSelector } from "../../../../redux/selectors/currentFriendSelector";
-import { ChatRootLeftSideContext } from "../../context/leftSideContext";
+import { ChatRootLeftSideContext } from "../../context/chatRoomRightSideContext.tsx";
 import { useCurrentFriend } from "../../hooks/useCurrentFriend";
 
 interface ChatRoomHeaderProps {}
