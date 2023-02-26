@@ -83,7 +83,7 @@ const NavigationList = () => {
       animationData: Setting,
     },
     {
-      link: "/home/logout",
+      link: "/login",
       label: "Logout",
       animationData: Logout,
     },

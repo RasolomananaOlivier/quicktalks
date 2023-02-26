@@ -1,10 +1,8 @@
-import React from "react";
-
-import { Divider, ListItemButton } from "@mui/material";
+import { Divider, ListItemButton, SxProps, Theme } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import UserboxAvatar from "./UserboxAvatar";
 import UserboxDetails from "./UserboxDetails";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useFilterMessage } from "../../features/message/hooks/userFilterMessages";
 import { setCurrentFriend } from "../../redux/reducers/currentFriendSlice";
@@ -14,16 +12,13 @@ import { userSelector } from "../../redux/selectors/userSelector";
 import { currentMessageSelector } from "../../redux/selectors/currentMessageSelector";
 import { useMobileSize } from "../../hooks/useMobileSize";
 
-interface IUserboxContext {
-  handleOpenMessage: () => void;
-}
-
 interface IUserBoxProps {
   user: IUser;
 }
 
 export default function Userbox({ user }: IUserBoxProps) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const isMobileSize = useMobileSize();
   const { message, totalMessages, lastMessageItem } = useFilterMessage(
     user._id!
@@ -31,11 +26,21 @@ export default function Userbox({ user }: IUserBoxProps) {
   const currentMessage = useAppSelector(currentMessageSelector);
   const currentUser = useAppSelector(userSelector);
 
-  const dispatch = useAppDispatch();
+  const isRead = message.readBy.some((id) => id === currentUser._id);
+
+  const isCurrentlySelected = currentMessage.authorizedUser.some(
+    (id) => id === currentUser._id
+  );
+
+  const listItemButtonStyle: SxProps<Theme> = {
+    borderRadius: 3,
+    mb: 1,
+    bgcolor: !isMobileSize && isCurrentlySelected ? "#f0f0f0" : null,
+  };
+
+  const fullname = `${user.firstname} ${user.lastname}`;
 
   const handleClick = () => {
-    console.log("click", message._id);
-
     dispatch(setCurrentFriend(user));
 
     if (message._id !== "") {
@@ -44,24 +49,13 @@ export default function Userbox({ user }: IUserBoxProps) {
     }
   };
 
-  const isRead = () => message.readBy.some((id) => id === currentUser._id);
-  const isActif = currentMessage.authorizedUser.some(
-    (id) => id === currentUser._id
-  );
   return (
     <>
-      <ListItemButton
-        sx={{
-          borderRadius: 3,
-          mb: 1,
-          bgcolor: !isMobileSize && isActif ? "#f0f0f0" : null,
-        }}
-        onClick={handleClick}
-      >
+      <ListItemButton sx={listItemButtonStyle} onClick={handleClick}>
         <UserboxAvatar username={user.firstname} avatarUrl={user.avatarUrl} />
         <UserboxDetails
-          read={isRead()}
-          fullname={`${user.firstname} ${user.lastname}`}
+          read={isRead}
+          fullname={fullname}
           lastMessageItem={lastMessageItem}
         />
       </ListItemButton>

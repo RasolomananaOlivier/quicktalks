@@ -22,14 +22,11 @@ const NewMessageDotIndicator = () => (
       color: "white",
       fontSize: 14,
     }}
-  ></Box>
+  />
 );
 
-const UserboxDetails: React.FC<UserboxDetailsProps> = ({
-  fullname,
-  read,
-  lastMessageItem,
-}) => {
+const UserboxDetails: React.FC<UserboxDetailsProps> = (props) => {
+  const { fullname, lastMessageItem, read } = props;
   return (
     <>
       <ListItemText

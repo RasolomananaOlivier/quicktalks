@@ -1,8 +1,7 @@
-import { Menu } from "@mui/icons-material";
 import { Box, Drawer, IconButton } from "@mui/material";
 import React, { useContext } from "react";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
-import { ChatRootLeftSideContext } from "../../context/chatRoomRightSideContext.tsx";
+import { ChatRoomRightSideContext } from "../../context/chatRoomRightSideContext";
 import ChatRoomLeftSideContent from "./ChatRoomLeftSideContent";
 
 interface ChatLeftSideProps {
@@ -10,14 +9,14 @@ interface ChatLeftSideProps {
 }
 
 const ChatLeftSide: React.FC<ChatLeftSideProps> = ({ width }) => {
-  const chatRoomLeftSideContext = useContext(ChatRootLeftSideContext);
+  const chatRoomRightSideContext = useContext(ChatRoomRightSideContext);
 
   const isMobileScreen = useMobileSize();
   const responsiveWidth = isMobileScreen ? "100%" : `${width}px`;
 
   return (
     <Drawer
-      open={chatRoomLeftSideContext.show}
+      open={chatRoomRightSideContext.show}
       anchor="right"
       variant="persistent"
       sx={{

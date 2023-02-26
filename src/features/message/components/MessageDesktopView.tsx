@@ -4,10 +4,10 @@ import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 
 import { styled, useTheme } from "@mui/material/styles";
-import { ChatRootLeftSideContext } from "../context/chatRoomRightSideContext.tsx";
 import FriendsList from "./FriendList";
 import ChatLeftSide from "./ChatLeftSide";
 import SearchInput from "../../../components/SearchInput";
+import { ChatRoomRightSideContext } from "../context/chatRoomRightSideContext";
 
 const drawerWidth = 350;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -36,7 +36,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 );
 
 export default function MessagesDesktopView() {
-  const chatRoomLeftSideContext = useContext(ChatRootLeftSideContext);
+  const chatRoomRightSideContext = useContext(ChatRoomRightSideContext);
 
   return (
     <Grid
@@ -87,7 +87,7 @@ export default function MessagesDesktopView() {
         }}
       >
         {/* @ts-ignore */}
-        <Main open={chatRoomLeftSideContext.show}>
+        <Main open={chatRoomRightSideContext.show}>
           <Outlet />
         </Main>
         <ChatLeftSide width={drawerWidth} />

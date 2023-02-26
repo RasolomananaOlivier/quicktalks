@@ -2,7 +2,7 @@ import { ArrowBackIos } from "@mui/icons-material";
 import { IconButton, Stack, Divider, Box } from "@mui/material";
 import React, { useContext } from "react";
 import { useMobileSize } from "../../../../hooks/useMobileSize";
-import { ChatRootLeftSideContext } from "../../context/chatRoomRightSideContext.tsx";
+import { ChatRoomRightSideContext } from "../../context/chatRoomRightSideContext";
 import SharedFiles from "./SharedFiles";
 import SharedMedia from "./SharedMedia";
 import UserInfo from "./UserInfo";
@@ -13,17 +13,16 @@ const ChatRoomLeftSideContent: React.FC<
   ChatRoomLeftSideContentProps
 > = ({}) => {
   const isMobileScreen = useMobileSize();
-  const leftSideContext = useContext(ChatRootLeftSideContext);
+  const chatRoomRightSideContext = useContext(ChatRoomRightSideContext);
+
+  // @ts-ignore
+  const handleButtonClick = () => chatRoomRightSideContext.setShow(false);
+
   return (
     <>
       {isMobileScreen && (
         <Box display="flex">
-          <IconButton
-            onClick={() => {
-              // @ts-ignore
-              leftSideContext.setShow(false);
-            }}
-          >
+          <IconButton onClick={handleButtonClick}>
             <ArrowBackIos />
           </IconButton>
         </Box>

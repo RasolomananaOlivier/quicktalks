@@ -139,7 +139,8 @@ export default function VerticalTabs() {
           </div>
         }
         iconPosition="start"
-        // onClick={handleClickOpen}
+        // TODO: logout feat
+        onClick={() => route("/login")}
         {...a11yProps(3)}
       />
       {/* <AlertDialog open={open} handleClose={handleClose} /> */}
