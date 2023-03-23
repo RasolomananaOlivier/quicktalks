@@ -1,12 +1,6 @@
 import React, { FC, Suspense, useEffect } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-  useNavigation,
-} from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import LandingPage from "../pages/LandingPage";
 import Loading from "./lotties/Loading";
 
 const LayoutWithContext = React.lazy(() => import("./Layout"));
@@ -20,14 +14,12 @@ const NotificationPage = React.lazy(() => import("../pages/NotificationPage"));
 const RequestPage = React.lazy(() => import("../pages/RequestPage"));
 const SettingPage = React.lazy(() => import("../pages/SettingPage"));
 
-interface IAppNavigationProps {}
-
-export const AppNavigation: FC<IAppNavigationProps> = (props) => {
+export const AppNavigation = () => {
   const location = useLocation();
 
   return (
     <Routes location={location} key={location.key}>
-      <Route path="/" element={<Navigate to="/login" replace={true} />} />
+      <Route path="/" element={<LandingPage />} />
       <Route
         path="/login"
         element={

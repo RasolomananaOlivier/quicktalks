@@ -7,7 +7,7 @@ import { useAppSelector } from "../../../../hooks/redux";
 
 import { useMobileSize } from "../../../../hooks/useMobileSize";
 import { currentFriendSelector } from "../../../../redux/selectors/currentFriendSelector";
-import { ChatRootLeftSideContext } from "../../context/chatRoomRightSideContext.tsx";
+import { ChatRoomRightSideContext } from "../../context/chatRoomRightSideContext";
 import { useCurrentFriend } from "../../hooks/useCurrentFriend";
 
 interface ChatRoomHeaderProps {}
@@ -24,7 +24,7 @@ const Header: React.FC<ChatRoomHeaderProps> = () => {
 
   const currentFriend = useCurrentFriend();
 
-  const chatRoomLeftSideContext = useContext(ChatRootLeftSideContext);
+  const chatRoomRightSide = useContext(ChatRoomRightSideContext);
   return (
     <>
       <Box
@@ -58,7 +58,7 @@ const Header: React.FC<ChatRoomHeaderProps> = () => {
           className="menu-icon-container"
           onClick={() =>
             // @ts-ignore
-            chatRoomLeftSideContext.setShow(!chatRoomLeftSideContext.show)
+            chatRoomRightSide.setShow(!chatRoomRightSide.show)
           }
         >
           <Menu />

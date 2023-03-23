@@ -7,10 +7,8 @@ import {
   ListItemIcon,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
-
-import { Navigation } from "@mui/icons-material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { AnimatedIcon } from "../lotties/animatedIcon";
@@ -20,7 +18,6 @@ import Notification from "../lotties/json/notification-bell-outline.json";
 import Setting from "../lotties/json/settings-cog-outline.json";
 import Logout from "../lotties/json/arrow-up-outline.json";
 import { useBagdeIndicator } from "../../hooks/useBagdeIndicator";
-import { NavLink } from "react-router-dom";
 
 export default function AppDrawer() {
   const [drawerOpened, setDrawerOpened] = useState(false);
