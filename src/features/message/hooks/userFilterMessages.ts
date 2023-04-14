@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { messagesSelector } from "../../../redux/selectors/messagesSelector";
 import { userSelector } from "../../../redux/selectors/userSelector";
 import Message from "../../../services/api/Message";
 import { IMessage, IMessageItem } from "../../../types";
+import { messagesUpadatedSelector } from "../../../redux/selectors/messagesUpdatedSelector";
+import { setMessagesUpdated } from "../../../redux/reducers/messagesUpdatedSlice";
 
 export const useFilterMessage = (userId: string) => {
   const [localMessage, setLocalMessage] = useState<IMessage>({
@@ -22,6 +24,9 @@ export const useFilterMessage = (userId: string) => {
 
   const messages = useAppSelector(messagesSelector);
   const currentUser = useAppSelector(userSelector);
+  const messagesUpdated = useAppSelector(messagesUpadatedSelector);
+
+  const dispatch = useAppDispatch();
 
   const message = messages.filter((message) =>
     message.authorizedUser.some((id) => userId === id)
@@ -37,8 +42,19 @@ export const useFilterMessage = (userId: string) => {
   }
 
   useEffect(() => {
-    getMessage();
-  }, []);
+    /**
+     * If the messagesUpdated state is true then fetch the messages
+     */
+    if (messagesUpdated) {
+      console.log("fetching messages");
+
+      getMessage();
+      /**
+       * Set the messagesUpdated state to false so that we don't fetch the messages again
+       */
+      dispatch(setMessagesUpdated(false));
+    }
+  }, [messagesUpdated]);
 
   return { message: localMessage, totalMessages, lastMessageItem };
 };

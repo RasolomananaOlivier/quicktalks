@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useContext, useRef, useState } from "react";
+import React, { FocusEventHandler, useContext, useRef, useState } from "react";
 import { ChatRoomContext } from ".";
 import { SocketContext } from "../../../../context/socketContext";
 import { useAppSelector } from "../../../../hooks/redux";
@@ -16,6 +16,9 @@ import { userSelector } from "../../../../redux/selectors/userSelector";
 import FirebaseStorage from "../../../../services/api/firebaseStorage";
 import MessageEvents from "../../../../services/events/message";
 import { IMessagePayload } from "../../../../types";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setMessagesUpdated } from "../../../../redux/reducers/messagesUpdatedSlice";
 
 interface ChatRoomFooterProps {}
 
@@ -90,6 +93,10 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
   const currentMessage = useAppSelector(currentMessageSelector);
   const user = useAppSelector(userSelector);
   const socket = useContext(SocketContext);
+  const params = useParams<{ messageId: string }>();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleSendMessage = async () => {
     if (value !== "") {
       const messagePayload: IMessagePayload = {
@@ -97,7 +104,7 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
         messageItem: {
           auth: user._id!,
           authorizedUser: currentMessage.authorizedUser,
-          timeStamp: "2023-01-01",
+          timeStamp: new Date().toString(),
           type: "text",
           content: value,
         },
@@ -114,7 +121,7 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
           messageItem: {
             auth: user._id!,
             authorizedUser: currentMessage.authorizedUser,
-            timeStamp: "2023-01-01",
+            timeStamp: new Date().toString(),
             type: "image",
             imageUrl,
           },
@@ -136,6 +143,17 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const closePreviewImage = () => setShow(false);
+
+  const handleFocus = () => {
+    /**
+     * If the user is not in the current message page
+     * then navigate to the current message page
+     */
+    if (!params.messageId) {
+      dispatch(setMessagesUpdated(true));
+      navigate(`/home/messages/${currentMessage._id}`);
+    }
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -163,6 +181,7 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
           multiline
           rows={2}
           value={value}
+          onFocus={() => handleFocus()}
           onChange={(e) => setValue(e.target.value)}
           onKeyPress={(e) => {
             if (e.key === "Enter") {

@@ -11,6 +11,7 @@ import { setCurrentMessage } from "../../redux/reducers/currentMessageSlice";
 import { userSelector } from "../../redux/selectors/userSelector";
 import { currentMessageSelector } from "../../redux/selectors/currentMessageSelector";
 import { useMobileSize } from "../../hooks/useMobileSize";
+import { setMessagesUpdated } from "../../redux/reducers/messagesUpdatedSlice";
 
 interface IUserBoxProps {
   user: IUser;
@@ -47,6 +48,7 @@ export default function Userbox({ user }: IUserBoxProps) {
 
     if (message._id !== "") {
       dispatch(setCurrentMessage({ ...message, totalMessages }));
+      dispatch(setMessagesUpdated(true));
       navigate(`/home/messages/${message._id}`);
     }
   };
