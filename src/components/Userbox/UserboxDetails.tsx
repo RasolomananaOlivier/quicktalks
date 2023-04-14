@@ -12,8 +12,8 @@ interface UserboxDetailsProps {
 const NewMessageDotIndicator = () => (
   <Box
     sx={{
-      width: 20,
-      height: 20,
+      width: 10,
+      height: 10,
       borderRadius: "50%",
       backgroundColor: "dodgerblue",
       display: "flex",
@@ -30,13 +30,14 @@ const UserboxDetails: React.FC<UserboxDetailsProps> = (props) => {
   return (
     <>
       <ListItemText
+        sx={{ m: 0 }}
         primary={
           <Typography
             component="span"
-            variant="h6"
+            variant="subtitle1"
             color="text.primary"
-            fontSize={18}
-            fontWeight={"bold"}
+            fontWeight={"600"}
+            sx={{}}
           >
             {fullname}
           </Typography>
@@ -49,7 +50,9 @@ const UserboxDetails: React.FC<UserboxDetailsProps> = (props) => {
               fontSize={14}
               color="text.secondary"
             >
-              <div className="last-message">{lastMessageItem.content}</div>
+              <div className="last-message">
+                {lastMessageItem.content ?? "No message yet"}
+              </div>
             </Typography>
           </>
         }

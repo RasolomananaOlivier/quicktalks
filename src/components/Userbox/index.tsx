@@ -36,6 +36,8 @@ export default function Userbox({ user }: IUserBoxProps) {
     borderRadius: 3,
     mb: 1,
     bgcolor: !isMobileSize && isCurrentlySelected ? "#f0f0f0" : null,
+    display: "flex",
+    alignItems: "start",
   };
 
   const fullname = `${user.firstname} ${user.lastname}`;

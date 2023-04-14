@@ -50,9 +50,12 @@ interface UserboxAvatarProps {
   username: string;
 }
 
-const UserboxAvatar: React.FC<UserboxAvatarProps> = ({avatarUrl, username}) => {
+const UserboxAvatar: React.FC<UserboxAvatarProps> = ({
+  avatarUrl,
+  username,
+}) => {
   return (
-    <ListItemAvatar>
+    <ListItemAvatar sx={{ pt: 1 }}>
       {true ? (
         <StyledBadge
           overlap="circular"
