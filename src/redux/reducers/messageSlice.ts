@@ -4,7 +4,6 @@ import { IMessage } from "../../types";
 
 const initialState: IMessage[] = [];
 
-// TODO: Count unread message, setReaders when getting the message
 export const userSlice = createSlice({
   name: "messages",
   initialState,

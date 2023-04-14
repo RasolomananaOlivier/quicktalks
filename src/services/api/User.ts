@@ -28,7 +28,7 @@ const register = async (user: IUser) => {
 
 const getOneById = async (userId: string) => {
   const res = await Client.get<IUser>(`/users/${userId}`, {
-    headers: HEADERS_CONFIG,
+    headers: { "x-access-token": getToken() },
   });
 
   return res.data;
@@ -36,7 +36,7 @@ const getOneById = async (userId: string) => {
 
 const getFriends = async (userId: string) => {
   const res = await Client.get<IUserServer[]>(endpoint.FRIENDS(userId), {
-    headers: HEADERS_CONFIG,
+    headers: { "x-access-token": getToken() },
   });
 
   const friends: IUser[] = res.data.map((userServer) => ({
@@ -54,7 +54,7 @@ const getSuggestions = async (userId: string) => {
   const res = await Client.get<ISuggestionResponse>(
     endpoint.SUGGESTIONS(userId),
     {
-      headers: HEADERS_CONFIG,
+      headers: { "x-access-token": getToken() },
     }
   );
 
@@ -74,7 +74,9 @@ const updatePersonalInformation = async (
 
 const authenticate = async () => {
   const res = await Client.get<IUserServer>(endpoint.auth.AUTHENTICATION, {
-    headers: HEADERS_CONFIG,
+    headers: {
+      "x-access-token": getToken(),
+    },
   });
   return res.data;
 };
