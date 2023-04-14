@@ -2,6 +2,8 @@ import { Box, ListItemText, Stack, Typography } from "@mui/material";
 
 import React from "react";
 import { IMessageItem } from "../../types";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 interface UserboxDetailsProps {
   fullname: string;
@@ -27,6 +29,14 @@ const NewMessageDotIndicator = () => (
 
 const UserboxDetails: React.FC<UserboxDetailsProps> = (props) => {
   const { fullname, lastMessageItem, read } = props;
+
+  // Format time
+  dayjs.extend(relativeTime);
+  const time =
+    lastMessageItem.timeStamp !== ""
+      ? dayjs(lastMessageItem.timeStamp).fromNow()
+      : "time ago";
+
   return (
     <>
       <ListItemText
@@ -54,18 +64,21 @@ const UserboxDetails: React.FC<UserboxDetailsProps> = (props) => {
                 {lastMessageItem.content ?? "No message yet"}
               </div>
             </Typography>
+            <Stack sx={{ alignItems: "flex-end" }}>
+              <Typography
+                component="span"
+                variant="body2"
+                fontSize={14}
+                color="text.secondary"
+              >
+                <div className="last-message">{time}</div>
+              </Typography>
+            </Stack>
           </>
         }
       />
+
       <Stack sx={{ alignItems: "flex-end" }}>
-        <Typography
-          component="span"
-          variant="body2"
-          fontSize={14}
-          color="text.secondary"
-        >
-          <div className="last-message">{lastMessageItem.timeStamp}</div>
-        </Typography>
         {read ? null : <NewMessageDotIndicator />}
       </Stack>
     </>
