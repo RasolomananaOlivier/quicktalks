@@ -1,16 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ChatRoomContext } from ".";
-import EndMessage from "../../../../components/lotties/EndMessage";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { setCurrentMessage } from "../../../../redux/reducers/currentMessageSlice";
 import { currentMessageSelector } from "../../../../redux/selectors/currentMessageSelector";
 import { userSelector } from "../../../../redux/selectors/userSelector";
 import Message from "../../../../services/api/Message";
 import ChatRoomMessagesList from "./MessagesList";
+import { motion } from "framer-motion";
+import { Badge, Fab, Zoom } from "@mui/material";
+import { ExpandMoreOutlined } from "@mui/icons-material";
+import EndMessage from "../../../../components/lotties/EndMessage";
 
 const Body = () => {
   const [page, setPage] = useState(2);
+  const [showScrollToBottom, setShowScrollToBottom] = useState(false);
+  const [currentMessagesLength, setcurrentMessagesLength] = useState(0);
 
   const { bodyHeight } = useContext(ChatRoomContext);
   if (!bodyHeight) {
@@ -18,8 +23,40 @@ const Body = () => {
   }
 
   const currentMessage = useAppSelector(currentMessageSelector);
+
   const user = useAppSelector(userSelector);
   const dispatch = useAppDispatch();
+
+  /**
+   * Scroll to bottom when new message is received
+   */
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollToBottom = () => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Verify if bottomRef is in the viewport
+  const isInViewport = (element: HTMLDivElement) => {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= window.innerHeight &&
+      rect.right <= window.innerWidth
+    );
+  };
+
+  const handleScroll = () => {
+    if (bottomRef.current) {
+      if (isInViewport(bottomRef.current)) {
+        setShowScrollToBottom(false);
+      } else {
+        setShowScrollToBottom(true);
+      }
+    }
+  };
 
   const fetchMore = async () => {
     const result = await Message.getOneById(
@@ -27,6 +64,7 @@ const Body = () => {
       user._id!,
       page
     );
+    console.log("result", result.message.messages.length);
 
     dispatch(
       setCurrentMessage({
@@ -48,9 +86,10 @@ const Body = () => {
       }}
       dataLength={currentMessage.totalMessages}
       next={() => fetchMore()}
-      hasMore={currentMessage.totalMessages !== currentMessage.messages.length}
+      hasMore={currentMessage.totalMessages > currentMessage.messages.length}
       height={`${bodyHeight}px`}
       loader={<h4>Loading</h4>}
+      onScroll={handleScroll}
       endMessage={<EndMessage />}
     >
       <div
@@ -59,11 +98,27 @@ const Body = () => {
           display: "flex",
           flexDirection: "column",
           paddingBottom: "10px",
-          minHeight: bodyHeight,
+          position: "relative",
         }}
       >
         <ChatRoomMessagesList messageEntity={currentMessage} />
-      </div>
+
+        <div ref={bottomRef} />
+      </div>{" "}
+      <Zoom in={showScrollToBottom} timeout={300} unmountOnExit>
+        <Fab
+          aria-label="scroll to bottom"
+          sx={{
+            position: "absolute",
+            bottom: 120,
+            right: 30,
+            zIndex: 10,
+          }}
+          onClick={scrollToBottom}
+        >
+          <ExpandMoreOutlined />
+        </Fab>
+      </Zoom>
     </InfiniteScroll>
   );
 };
