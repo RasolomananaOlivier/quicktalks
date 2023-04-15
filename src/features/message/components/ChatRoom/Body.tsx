@@ -1,7 +1,14 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import {
+  Ref,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { ChatRoomContext } from ".";
 import ChatRoomMessagesList from "./MessagesList";
-import { Fab, Zoom } from "@mui/material";
+import { Box, CircularProgress, Fab, Zoom } from "@mui/material";
 import { ExpandMoreOutlined } from "@mui/icons-material";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import { useLoadMessages } from "../../hooks/useLoadMessages";
@@ -103,7 +110,29 @@ const Body = () => {
         onScroll={handleRootScroll}
         ref={rootRefSetter}
       >
-        {(loading || hasNextPage) && <div ref={sentryRef}>loading</div>}
+        {(loading || hasNextPage) && (
+          <Box
+            ref={sentryRef}
+            sx={{
+              position: "relative",
+              top: 10,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Box
+              sx={{
+                borderRadius: "50%",
+                bgcolor: "white",
+                p: 1,
+                width: 20,
+                height: 20,
+              }}
+            >
+              <CircularProgress size={20} />
+            </Box>
+          </Box>
+        )}
         <ChatRoomMessagesList messageEntity={messages} />
 
         <div ref={bottomRef} />
