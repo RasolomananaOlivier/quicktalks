@@ -1,36 +1,59 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { ChatRoomContext } from ".";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
-import { setCurrentMessage } from "../../../../redux/reducers/currentMessageSlice";
-import { currentMessageSelector } from "../../../../redux/selectors/currentMessageSelector";
-import { userSelector } from "../../../../redux/selectors/userSelector";
-import Message from "../../../../services/api/Message";
 import ChatRoomMessagesList from "./MessagesList";
-import { motion } from "framer-motion";
-import { Badge, Fab, Zoom } from "@mui/material";
+import { Fab, Zoom } from "@mui/material";
 import { ExpandMoreOutlined } from "@mui/icons-material";
-import EndMessage from "../../../../components/lotties/EndMessage";
+import useInfiniteScroll from "react-infinite-scroll-hook";
+import { useLoadMessages } from "../../hooks/useLoadMessages";
 
 const Body = () => {
-  const [page, setPage] = useState(2);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
-  const [currentMessagesLength, setcurrentMessagesLength] = useState(0);
-
   const { bodyHeight } = useContext(ChatRoomContext);
   if (!bodyHeight) {
     throw new Error("ChatRoomContext required");
   }
 
-  const currentMessage = useAppSelector(currentMessageSelector);
+  const { loading, messages, hasNextPage, error, loadMore } = useLoadMessages();
 
-  const user = useAppSelector(userSelector);
-  const dispatch = useAppDispatch();
+  const [sentryRef, { rootRef }] = useInfiniteScroll({
+    loading,
+    hasNextPage,
+    onLoadMore: loadMore,
+    disabled: !!error,
+    rootMargin: "0px 0px 400px 0px",
+  });
+  const scrollableRootRef = useRef<HTMLDivElement | null>(null);
+  const lastScrollDistanceToBottomRef = useRef<number>();
+
+  // We keep the scroll position when new items are added etc.
+  useEffect(() => {
+    const scrollableRoot = scrollableRootRef.current;
+    const lastScrollDistanceToBottom =
+      lastScrollDistanceToBottomRef.current ?? 0;
+
+    if (scrollableRoot) {
+      scrollableRoot.scrollTop =
+        scrollableRoot.scrollHeight - lastScrollDistanceToBottom;
+    }
+  }, [messages, rootRef]);
+
+  const rootRefSetter = useCallback(
+    (node: HTMLDivElement) => {
+      rootRef(node);
+      scrollableRootRef.current = node;
+    },
+    [rootRef]
+  );
 
   /**
    * Scroll to bottom when new message is received
    */
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
+
   const scrollToBottom = () => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
@@ -48,7 +71,14 @@ const Body = () => {
     );
   };
 
-  const handleScroll = () => {
+  const handleRootScroll = useCallback(() => {
+    const rootNode = scrollableRootRef.current;
+
+    if (rootNode) {
+      const scrollDistanceToBottom = rootNode.scrollHeight - rootNode.scrollTop;
+      lastScrollDistanceToBottomRef.current = scrollDistanceToBottom;
+    }
+
     if (bottomRef.current) {
       if (isInViewport(bottomRef.current)) {
         setShowScrollToBottom(false);
@@ -56,42 +86,10 @@ const Body = () => {
         setShowScrollToBottom(true);
       }
     }
-  };
-
-  const fetchMore = async () => {
-    const result = await Message.getOneById(
-      currentMessage._id,
-      user._id!,
-      page
-    );
-    console.log("result", result.message.messages.length);
-
-    dispatch(
-      setCurrentMessage({
-        ...result.message,
-        totalMessages: result.totalMessages,
-      })
-    );
-
-    setPage(page + 1);
-  };
+  }, []);
 
   return (
-    <InfiniteScroll
-      inverse={true}
-      style={{
-        display: "flex",
-        flexDirection: "column-reverse",
-        overflowX: "hidden",
-      }}
-      dataLength={currentMessage.totalMessages}
-      next={() => fetchMore()}
-      hasMore={currentMessage.totalMessages > currentMessage.messages.length}
-      height={`${bodyHeight}px`}
-      loader={<h4>Loading</h4>}
-      onScroll={handleScroll}
-      endMessage={<EndMessage />}
-    >
+    <>
       <div
         style={{
           backgroundColor: "#f2f2f2",
@@ -99,12 +97,17 @@ const Body = () => {
           flexDirection: "column",
           paddingBottom: "10px",
           position: "relative",
+          height: bodyHeight,
+          overflowY: "scroll",
         }}
+        onScroll={handleRootScroll}
+        ref={rootRefSetter}
       >
-        <ChatRoomMessagesList messageEntity={currentMessage} />
+        {(loading || hasNextPage) && <div ref={sentryRef}>loading</div>}
+        <ChatRoomMessagesList messageEntity={messages} />
 
         <div ref={bottomRef} />
-      </div>{" "}
+      </div>
       <Zoom in={showScrollToBottom} timeout={300} unmountOnExit>
         <Fab
           aria-label="scroll to bottom"
@@ -119,7 +122,7 @@ const Body = () => {
           <ExpandMoreOutlined />
         </Fab>
       </Zoom>
-    </InfiniteScroll>
+    </>
   );
 };
 

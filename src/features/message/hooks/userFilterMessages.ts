@@ -42,18 +42,7 @@ export const useFilterMessage = (userId: string) => {
   }
 
   useEffect(() => {
-    /**
-     * If the messagesUpdated state is true then fetch the messages
-     */
-    if (messagesUpdated) {
-      console.log("fetching messages");
-
-      getMessage();
-      /**
-       * Set the messagesUpdated state to false so that we don't fetch the messages again
-       */
-      dispatch(setMessagesUpdated(false));
-    }
+    getMessage();
   }, [messagesUpdated]);
 
   return { message: localMessage, totalMessages, lastMessageItem };
