@@ -71,3 +71,9 @@ body {
   margin-bottom: 1rem;
   border-radius: 12px;
 }
+
+.preview-image {
+  background-size: cover;
+  border-radius: 15px;
+  width: 100%;
+}

@@ -47,7 +47,6 @@ const UserboxDetails: React.FC<UserboxDetailsProps> = (props) => {
             variant="subtitle1"
             color="text.primary"
             fontWeight={"600"}
-            sx={{}}
           >
             {fullname}
           </Typography>

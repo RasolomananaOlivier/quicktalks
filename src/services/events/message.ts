@@ -3,6 +3,7 @@ import { Dispatch } from "../../hooks/redux";
 import { setCurrentMessage } from "../../redux/reducers/currentMessageSlice";
 import { ICurrentMessage, IMessagePayload } from "../../types";
 import { setMessagesUpdated } from "../../redux/reducers/messagesUpdatedSlice";
+import { setMessageUpdated } from "../../redux/reducers/messageSlice";
 
 const handleUpdate = (
   message: ICurrentMessage,
@@ -19,7 +20,7 @@ const handleUpdate = (
    * Update the messagesUpadated state to true
    * so that we can fetch the messages from the server
    */
-  dispatch(setMessagesUpdated(true));
+  dispatch(setMessageUpdated({ messageId: message._id, updated: true }));
 };
 
 const emit = (socket: Socket, messagePayload: IMessagePayload) => {

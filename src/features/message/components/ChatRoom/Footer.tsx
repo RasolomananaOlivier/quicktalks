@@ -37,7 +37,7 @@ const style = {
   width: 400,
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: 2,
+  p: 1,
   borderRadius: 5,
 };
 
@@ -56,22 +56,29 @@ const PreviewImage: React.FC<PreviewImageProps> = ({
             justifyContent: "center",
             alignItems: "center",
             mb: 2,
+            width: "100%",
+            overflow: "hidden",
           }}
         >
           <img
             src={file ? URL.createObjectURL(file) : ""}
             alt="thumb"
-            width={"100%"}
-            height={250}
+            className="preview-image"
           />
         </Box>
         <Box
           sx={{
             display: "flex",
-            justifyContent: "flex-end",
+            mb: 0.5,
           }}
         >
-          <Button variant="contained" onClick={handleImageSender}>
+          <Button
+            variant="contained"
+            sx={{ borderRadius: 3 }}
+            fullWidth
+            disableElevation
+            onClick={handleImageSender}
+          >
             Send
           </Button>
         </Box>

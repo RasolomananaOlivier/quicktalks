@@ -36,6 +36,7 @@ export interface IMessage {
   authorizedUser: string[];
   messages: IMessageItem[];
   readBy: string[];
+  updated?: boolean;
 }
 export interface ICurrentMessage extends IMessage {
   totalMessages: number;
