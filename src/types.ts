@@ -6,6 +6,7 @@ export interface IUser {
   password: string;
   friends?: string[];
   avatarUrl: string;
+  birthday?: string;
 }
 
 export interface IUserServer {
@@ -36,9 +37,11 @@ export interface IMessage {
   authorizedUser: string[];
   messages: IMessageItem[];
   readBy: string[];
+  updated?: boolean;
 }
 export interface ICurrentMessage extends IMessage {
   totalMessages: number;
+  sharedMedia?: IMessageItem[];
 }
 
 export interface IRequest {

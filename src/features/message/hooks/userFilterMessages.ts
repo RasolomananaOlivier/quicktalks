@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { messagesSelector } from "../../../redux/selectors/messagesSelector";
 import { userSelector } from "../../../redux/selectors/userSelector";
 import Message from "../../../services/api/Message";
 import { IMessage, IMessageItem } from "../../../types";
+import { setMessageUpdated } from "../../../redux/reducers/messageSlice";
 
 export const useFilterMessage = (userId: string) => {
   const [localMessage, setLocalMessage] = useState<IMessage>({
@@ -23,6 +24,8 @@ export const useFilterMessage = (userId: string) => {
   const messages = useAppSelector(messagesSelector);
   const currentUser = useAppSelector(userSelector);
 
+  const dispatch = useAppDispatch();
+
   const message = messages.filter((message) =>
     message.authorizedUser.some((id) => userId === id)
   )[0];
@@ -37,8 +40,11 @@ export const useFilterMessage = (userId: string) => {
   }
 
   useEffect(() => {
-    getMessage();
-  }, []);
+    if (message.updated === undefined || message.updated === true) {
+      getMessage();
+      dispatch(setMessageUpdated({ messageId: message._id, updated: false }));
+    }
+  }, [message]);
 
   return { message: localMessage, totalMessages, lastMessageItem };
 };

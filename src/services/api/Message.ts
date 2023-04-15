@@ -19,6 +19,20 @@ const getOneById = async (messageId: string, userId: string, page = 1) => {
   return res.data;
 };
 
+const getOneByIdAndByMediaType = async (
+  messageId: string,
+  userId: string,
+  type: "text" | "media" | "file"
+) => {
+  const res = await Client.get<{ message: IMessage }>(
+    endpoint.MESSAGE_BY_TYPE.replace(":messageId", messageId)
+      .replace(":userId", userId)
+      .replace(":type", type)
+  );
+
+  return res.data;
+};
+
 const getLastMessage = async (messageId: string) => {
   const res = await Client.get<IMessageItem>(
     endpoint.message.LAST_IMAGE(messageId)
@@ -27,6 +41,11 @@ const getLastMessage = async (messageId: string) => {
   return res.data;
 };
 
-const Message = { getAll, getOneById, getLastMessage };
+const Message = {
+  getAll,
+  getOneById,
+  getLastMessage,
+  getOneByIdAndByMediaType,
+};
 
 export default Message;

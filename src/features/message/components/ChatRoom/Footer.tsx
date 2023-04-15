@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useContext, useRef, useState } from "react";
+import React, { FocusEventHandler, useContext, useRef, useState } from "react";
 import { ChatRoomContext } from ".";
 import { SocketContext } from "../../../../context/socketContext";
 import { useAppSelector } from "../../../../hooks/redux";
@@ -16,6 +16,9 @@ import { userSelector } from "../../../../redux/selectors/userSelector";
 import FirebaseStorage from "../../../../services/api/firebaseStorage";
 import MessageEvents from "../../../../services/events/message";
 import { IMessagePayload } from "../../../../types";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setMessagesUpdated } from "../../../../redux/reducers/messagesUpdatedSlice";
 
 interface ChatRoomFooterProps {}
 
@@ -26,18 +29,6 @@ interface PreviewImageProps {
   handleImageSender: () => void;
 }
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 2,
-  borderRadius: 5,
-};
-
 const PreviewImage: React.FC<PreviewImageProps> = ({
   file,
   show = false,
@@ -46,29 +37,48 @@ const PreviewImage: React.FC<PreviewImageProps> = ({
 }) => {
   return (
     <Modal open={show} onClose={closePreviewImage} aria-describedby="modal-box">
-      <Box sx={style}>
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: { xs: "90%", md: 400 },
+          bgcolor: "background.paper",
+          boxShadow: 24,
+          p: 1,
+          borderRadius: 5,
+        }}
+      >
         <Box
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             mb: 2,
+            width: "100%",
+            overflow: "hidden",
           }}
         >
           <img
             src={file ? URL.createObjectURL(file) : ""}
             alt="thumb"
-            width={"100%"}
-            height={250}
+            className="preview-image"
           />
         </Box>
         <Box
           sx={{
             display: "flex",
-            justifyContent: "flex-end",
+            mb: 0.5,
           }}
         >
-          <Button variant="contained" onClick={handleImageSender}>
+          <Button
+            variant="contained"
+            sx={{ borderRadius: 3 }}
+            fullWidth
+            disableElevation
+            onClick={handleImageSender}
+          >
             Send
           </Button>
         </Box>
@@ -90,6 +100,10 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
   const currentMessage = useAppSelector(currentMessageSelector);
   const user = useAppSelector(userSelector);
   const socket = useContext(SocketContext);
+  const params = useParams<{ messageId: string }>();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleSendMessage = async () => {
     if (value !== "") {
       const messagePayload: IMessagePayload = {
@@ -97,7 +111,7 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
         messageItem: {
           auth: user._id!,
           authorizedUser: currentMessage.authorizedUser,
-          timeStamp: "2023-01-01",
+          timeStamp: new Date().toString(),
           type: "text",
           content: value,
         },
@@ -114,7 +128,7 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
           messageItem: {
             auth: user._id!,
             authorizedUser: currentMessage.authorizedUser,
-            timeStamp: "2023-01-01",
+            timeStamp: new Date().toString(),
             type: "image",
             imageUrl,
           },
@@ -136,6 +150,17 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const closePreviewImage = () => setShow(false);
+
+  const handleFocus = () => {
+    /**
+     * If the user is not in the current message page
+     * then navigate to the current message page
+     */
+    if (!params.messageId) {
+      dispatch(setMessagesUpdated(true));
+      navigate(`/home/messages/${currentMessage._id}`);
+    }
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -163,6 +188,7 @@ const Footer: React.FC<ChatRoomFooterProps> = () => {
           multiline
           rows={2}
           value={value}
+          onFocus={() => handleFocus()}
           onChange={(e) => setValue(e.target.value)}
           onKeyPress={(e) => {
             if (e.key === "Enter") {

@@ -4,7 +4,6 @@ import { IMessage } from "../../types";
 
 const initialState: IMessage[] = [];
 
-// TODO: Count unread message, setReaders when getting the message
 export const userSlice = createSlice({
   name: "messages",
   initialState,
@@ -12,9 +11,27 @@ export const userSlice = createSlice({
     setMessages: (state, action: PayloadAction<IMessage[]>) => {
       return [...action.payload];
     },
+    setMessageUpdated: (
+      state,
+      action: PayloadAction<{ messageId: string; updated: boolean }>
+    ) => {
+      const { messageId, updated } = action.payload;
+      const message = state.map((message) => {
+        if (message._id === messageId) {
+          return {
+            ...message,
+            updated: updated,
+          };
+        } else {
+          return message;
+        }
+      });
+
+      return message;
+    },
   },
 });
 
-export const { setMessages } = userSlice.actions;
+export const { setMessages, setMessageUpdated } = userSlice.actions;
 
 export default userSlice.reducer;

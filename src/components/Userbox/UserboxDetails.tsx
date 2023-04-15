@@ -2,6 +2,8 @@ import { Box, ListItemText, Stack, Typography } from "@mui/material";
 
 import React from "react";
 import { IMessageItem } from "../../types";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 interface UserboxDetailsProps {
   fullname: string;
@@ -12,8 +14,8 @@ interface UserboxDetailsProps {
 const NewMessageDotIndicator = () => (
   <Box
     sx={{
-      width: 20,
-      height: 20,
+      width: 10,
+      height: 10,
       borderRadius: "50%",
       backgroundColor: "dodgerblue",
       display: "flex",
@@ -27,16 +29,24 @@ const NewMessageDotIndicator = () => (
 
 const UserboxDetails: React.FC<UserboxDetailsProps> = (props) => {
   const { fullname, lastMessageItem, read } = props;
+
+  // Format time
+  dayjs.extend(relativeTime);
+  const time =
+    lastMessageItem.timeStamp !== ""
+      ? dayjs(lastMessageItem.timeStamp).fromNow()
+      : "time ago";
+
   return (
     <>
       <ListItemText
+        sx={{ m: 0 }}
         primary={
           <Typography
             component="span"
-            variant="h6"
+            variant="subtitle1"
             color="text.primary"
-            fontSize={18}
-            fontWeight={"bold"}
+            fontWeight={"600"}
           >
             {fullname}
           </Typography>
@@ -49,20 +59,25 @@ const UserboxDetails: React.FC<UserboxDetailsProps> = (props) => {
               fontSize={14}
               color="text.secondary"
             >
-              <div className="last-message">{lastMessageItem.content}</div>
+              <div className="last-message">
+                {lastMessageItem.content ?? "No message yet"}
+              </div>
             </Typography>
+            <Stack sx={{ alignItems: "flex-end" }}>
+              <Typography
+                component="span"
+                variant="body2"
+                fontSize={14}
+                color="text.secondary"
+              >
+                <div className="last-message">{time}</div>
+              </Typography>
+            </Stack>
           </>
         }
       />
+
       <Stack sx={{ alignItems: "flex-end" }}>
-        <Typography
-          component="span"
-          variant="body2"
-          fontSize={14}
-          color="text.secondary"
-        >
-          <div className="last-message">{lastMessageItem.timeStamp}</div>
-        </Typography>
         {read ? null : <NewMessageDotIndicator />}
       </Stack>
     </>

@@ -18,6 +18,7 @@ import Notification from "../lotties/json/notification-bell-outline.json";
 import Setting from "../lotties/json/settings-cog-outline.json";
 import Logout from "../lotties/json/arrow-up-outline.json";
 import { useBagdeIndicator } from "../../hooks/useBagdeIndicator";
+import LogoutModal from "../../features/Login/components/LogoutModal";
 
 export default function AppDrawer() {
   const [drawerOpened, setDrawerOpened] = useState(false);
@@ -56,6 +57,7 @@ export default function AppDrawer() {
 }
 
 const NavigationList = () => {
+  const [showLogoutModal, setshowLogoutModal] = useState(false);
   const navigate = useNavigate();
 
   const navigation = [
@@ -93,6 +95,14 @@ const NavigationList = () => {
   const isNotificationItemAndUnread = (label: string) => {
     return label === "Notifications" && unreadNotification;
   };
+
+  const handleClick = (link: string) => {
+    if (link === "/login") {
+      setshowLogoutModal(true);
+    } else {
+      navigate(link);
+    }
+  };
   return (
     <Box mt={15}>
       {navigation.map((navItem) => (
@@ -100,7 +110,7 @@ const NavigationList = () => {
           <ListItemButton
             sx={{ width: "100%" }}
             key={navItem.label}
-            onClick={() => navigate(navItem.link)}
+            onClick={() => handleClick(navItem.link)}
           >
             <ListItemIcon>
               <Badge
@@ -126,6 +136,10 @@ const NavigationList = () => {
           </ListItemButton>
         </div>
       ))}
+      <LogoutModal
+        open={showLogoutModal}
+        handleClose={() => setshowLogoutModal(false)}
+      />
     </Box>
   );
 };

@@ -1,5 +1,6 @@
 import { endpoint } from "../../data/endpoints";
 import { ILoginValues } from "../../features/Login/types";
+import { INewPasswordValues } from "../../features/setting/types";
 import { Client } from "../../lib/Client";
 import { IPersonalInformationValues, IUser, IUserServer } from "../../types";
 import { getToken } from "../../utils/getToken";
@@ -28,7 +29,7 @@ const register = async (user: IUser) => {
 
 const getOneById = async (userId: string) => {
   const res = await Client.get<IUser>(`/users/${userId}`, {
-    headers: HEADERS_CONFIG,
+    headers: { "x-access-token": getToken() },
   });
 
   return res.data;
@@ -36,7 +37,7 @@ const getOneById = async (userId: string) => {
 
 const getFriends = async (userId: string) => {
   const res = await Client.get<IUserServer[]>(endpoint.FRIENDS(userId), {
-    headers: HEADERS_CONFIG,
+    headers: { "x-access-token": getToken() },
   });
 
   const friends: IUser[] = res.data.map((userServer) => ({
@@ -54,7 +55,7 @@ const getSuggestions = async (userId: string) => {
   const res = await Client.get<ISuggestionResponse>(
     endpoint.SUGGESTIONS(userId),
     {
-      headers: HEADERS_CONFIG,
+      headers: { "x-access-token": getToken() },
     }
   );
 
@@ -74,8 +75,23 @@ const updatePersonalInformation = async (
 
 const authenticate = async () => {
   const res = await Client.get<IUserServer>(endpoint.auth.AUTHENTICATION, {
-    headers: HEADERS_CONFIG,
+    headers: {
+      "x-access-token": getToken(),
+    },
   });
+  return res.data;
+};
+
+const updatePassword = async (userId: string, data: INewPasswordValues) => {
+  const res = await Client.put(
+    endpoint.user.UPDATE_PASSWORD.replace(":userId", userId),
+    data,
+    {
+      headers: {
+        "x-access-token": getToken(),
+      },
+    }
+  );
   return res.data;
 };
 
@@ -87,6 +103,7 @@ const User = {
   getSuggestions,
   updatePersonalInformation,
   authenticate,
+  updatePassword,
 };
 
 export default User;

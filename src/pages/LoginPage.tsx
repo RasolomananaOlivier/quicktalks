@@ -21,7 +21,12 @@ const LoginPage = () => {
 
       <Grid item xs={12} lg={5} sx={{ pb: { xs: 3, md: 0 } }}>
         <Box sx={{ display: { xs: "block", md: "none" } }}>
-          <img src={Bg} alt="" className="login-illustration" loading="lazy" />
+          <img
+            src="/login-bg-mobile.webp"
+            alt=""
+            className="login-illustration-mobile"
+            loading="lazy"
+          />
         </Box>
         <ConnectedLoginForm />
       </Grid>

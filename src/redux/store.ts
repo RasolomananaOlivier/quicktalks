@@ -7,11 +7,13 @@ import currentMessageReducer from "./reducers/currentMessageSlice";
 import requestReducer from "./reducers/requestSlice";
 import suggestionReducer from "./reducers/suggestionSlice";
 import notificationReducer from "./reducers/notificationSlice";
+import messagesUpdatedReducer from "./reducers/messagesUpdatedSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     messages: messageReducer,
+    messagesUpaded: messagesUpdatedReducer,
     friends: friendReducer,
     currentFriend: currentFriendReducer,
     currentMessage: currentMessageReducer,
