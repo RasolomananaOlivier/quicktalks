@@ -7,11 +7,15 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useFilterMessage } from "../../features/message/hooks/userFilterMessages";
 import { setCurrentFriend } from "../../redux/reducers/currentFriendSlice";
 import { IUser } from "../../types";
-import { setCurrentMessage } from "../../redux/reducers/currentMessageSlice";
+import {
+  setCurrentMessage,
+  setCurrentMessageMedia,
+} from "../../redux/reducers/currentMessageSlice";
 import { userSelector } from "../../redux/selectors/userSelector";
 import { currentMessageSelector } from "../../redux/selectors/currentMessageSelector";
 import { useMobileSize } from "../../hooks/useMobileSize";
 import { setMessagesUpdated } from "../../redux/reducers/messagesUpdatedSlice";
+import { useMessageMedia } from "../../features/message/hooks/useMessageMedia";
 
 interface IUserBoxProps {
   user: IUser;
@@ -24,6 +28,7 @@ export default function Userbox({ user }: IUserBoxProps) {
   const { message, totalMessages, lastMessageItem } = useFilterMessage(
     user._id!
   );
+
   const currentMessage = useAppSelector(currentMessageSelector);
   const currentUser = useAppSelector(userSelector);
 

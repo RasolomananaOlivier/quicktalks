@@ -32,7 +32,7 @@ const Header: React.FC<ChatRoomHeaderProps> = () => {
           display: "flex",
           justifyContent: "space-between",
           mx: 1,
-          mt: 0.5,
+          mt: { xs: 1, md: 2.3 },
           p: 0.5,
           height: `${headerHeight}px`,
         }}

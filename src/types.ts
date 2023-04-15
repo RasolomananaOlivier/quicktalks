@@ -40,6 +40,7 @@ export interface IMessage {
 }
 export interface ICurrentMessage extends IMessage {
   totalMessages: number;
+  sharedMedia?: IMessageItem[];
 }
 
 export interface IRequest {
