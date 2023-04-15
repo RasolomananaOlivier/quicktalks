@@ -1,5 +1,6 @@
 import { endpoint } from "../../data/endpoints";
 import { ILoginValues } from "../../features/Login/types";
+import { INewPasswordValues } from "../../features/setting/types";
 import { Client } from "../../lib/Client";
 import { IPersonalInformationValues, IUser, IUserServer } from "../../types";
 import { getToken } from "../../utils/getToken";
@@ -81,6 +82,19 @@ const authenticate = async () => {
   return res.data;
 };
 
+const updatePassword = async (userId: string, data: INewPasswordValues) => {
+  const res = await Client.put(
+    endpoint.user.UPDATE_PASSWORD.replace(":userId", userId),
+    data,
+    {
+      headers: {
+        "x-access-token": getToken(),
+      },
+    }
+  );
+  return res.data;
+};
+
 const User = {
   login,
   register,
@@ -89,6 +103,7 @@ const User = {
   getSuggestions,
   updatePersonalInformation,
   authenticate,
+  updatePassword,
 };
 
 export default User;

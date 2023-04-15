@@ -7,6 +7,7 @@ export const endpoint = {
 
   user: {
     UPDATE_PERSONAL_INFORMATION: (userId: string) => `/users/${userId}`,
+    UPDATE_PASSWORD: "/users/:userId/password",
   },
   FRIENDS: (userId: string) => "/users/" + userId + "?q=friends",
 

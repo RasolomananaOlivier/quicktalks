@@ -1,4 +1,4 @@
-export let baseURL = "http://localhost:5000";
+export let baseURL = "http://127.0.0:5000";
 
 if (import.meta.env.PROD) {
   baseURL = "https://quicktalks-server.up.railway.app";
