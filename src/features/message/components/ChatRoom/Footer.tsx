@@ -29,18 +29,6 @@ interface PreviewImageProps {
   handleImageSender: () => void;
 }
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 1,
-  borderRadius: 5,
-};
-
 const PreviewImage: React.FC<PreviewImageProps> = ({
   file,
   show = false,
@@ -49,7 +37,19 @@ const PreviewImage: React.FC<PreviewImageProps> = ({
 }) => {
   return (
     <Modal open={show} onClose={closePreviewImage} aria-describedby="modal-box">
-      <Box sx={style}>
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: { xs: "90%", md: 400 },
+          bgcolor: "background.paper",
+          boxShadow: 24,
+          p: 1,
+          borderRadius: 5,
+        }}
+      >
         <Box
           sx={{
             display: "flex",
