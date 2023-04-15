@@ -1,3 +1,4 @@
 export interface INewPasswordValues {
-  password: string;
+  oldpassword: string;
+  newpassword: string;
 }

@@ -7,6 +7,7 @@ const initialState: IUser = {
   lastname: "",
   password: "",
   avatarUrl: "",
+  birthday: "",
 };
 
 export const userSlice = createSlice({

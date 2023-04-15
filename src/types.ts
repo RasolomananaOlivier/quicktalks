@@ -6,6 +6,7 @@ export interface IUser {
   password: string;
   friends?: string[];
   avatarUrl: string;
+  birthday?: string;
 }
 
 export interface IUserServer {
