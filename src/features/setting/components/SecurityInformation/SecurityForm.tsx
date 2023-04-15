@@ -5,34 +5,63 @@ import { INewPasswordValues } from "../../types";
 import { validateNewPassword } from "../../utils/validateNewPassword";
 
 interface SecurityFormProps {
-  handleSubmit: (values: INewPasswordValues) => void;
+  handleSubmit: (values: INewPasswordValues) => Promise<
+    | {
+        oldpassword: any;
+      }
+    | undefined
+  >;
 }
 
 const initialValues: INewPasswordValues = {
-  password: "",
+  oldpassword: "",
+  newpassword: "",
 };
 
 const SecurityForm: React.FC<SecurityFormProps> = ({ handleSubmit }) => {
   const formik = useFormik({
     initialValues,
     validate: validateNewPassword,
-    onSubmit(values, formikHelpers) {
-      handleSubmit(values);
+    async onSubmit(values, formikHelpers) {
+      const res = await handleSubmit(values);
+
+      if (res) {
+        console.log(res);
+
+        formikHelpers.setErrors(res);
+      }
     },
   });
   return (
     <Stack spacing={2.5} component="form" onSubmit={formik.handleSubmit}>
       <TextField
-        name="newPass"
-        label="Your new password"
+        name="oldpassword"
+        label="Enter your old password"
         fullWidth
         required
+        value={formik.values.oldpassword}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        error={!!formik.errors.password}
+        error={!!formik.errors.oldpassword}
         helperText={
-          formik.touched.password && !formik.errors.password
-            ? formik.errors.password
+          formik.touched.oldpassword && !!formik.errors.oldpassword
+            ? formik.errors.oldpassword
+            : null
+        }
+        sx={{ maxWidth: { xs: "100%", md: 600 } }}
+      />
+      <TextField
+        name="newpassword"
+        label="Enter your new password"
+        fullWidth
+        required
+        value={formik.values.newpassword}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={!!formik.errors.newpassword}
+        helperText={
+          formik.touched.newpassword && !formik.errors.newpassword
+            ? formik.errors.newpassword
             : null
         }
         sx={{ maxWidth: { xs: "100%", md: 600 } }}
@@ -40,7 +69,7 @@ const SecurityForm: React.FC<SecurityFormProps> = ({ handleSubmit }) => {
 
       <Box>
         <Button variant="contained" type="submit">
-          Update
+          Save change
         </Button>
       </Box>
     </Stack>
