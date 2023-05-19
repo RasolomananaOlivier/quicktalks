@@ -61,6 +61,7 @@ export const useAuthenticate = (isAuthPage = false) => {
         if (error.response?.status === 401 || error.response?.status === 400) {
           if (!isAuthPage) {
             navigate(routes.LOGIN);
+            return;
           }
         }
       }

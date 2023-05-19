@@ -21,6 +21,7 @@ const Body = () => {
   }
 
   const { loading, messages, hasNextPage, error, loadMore } = useLoadMessages();
+  console.log("messages", messages);
 
   const [sentryRef, { rootRef }] = useInfiniteScroll({
     loading,

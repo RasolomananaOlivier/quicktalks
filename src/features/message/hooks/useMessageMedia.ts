@@ -23,19 +23,21 @@ export const useMessageMedia = (userId: string) => {
     message.authorizedUser.some((id) => userId === id)
   )[0];
 
-  async function getMessageMediaType() {
-    const result = await Message.getOneByIdAndByMediaType(
-      message._id,
-      currentUser._id!,
-      "media"
-    );
+  if (message) {
+    async function getMessageMediaType() {
+      const result = await Message.getOneByIdAndByMediaType(
+        message._id,
+        currentUser._id!,
+        "media"
+      );
 
-    dispatch(setCurrentMessageMedia(result.message));
+      dispatch(setCurrentMessageMedia(result.message));
+    }
+
+    useEffect(() => {
+      getMessageMediaType();
+    }, []);
   }
-
-  useEffect(() => {
-    getMessageMediaType();
-  }, []);
 
   return { message: localMessage };
 };

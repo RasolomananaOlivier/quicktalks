@@ -23,7 +23,7 @@ const ChatRoomMessagesList: React.FC<ChatRoomMessagesListProps> = ({
     );
   };
 
-  if (messageEntity.messages.length === 0) {
+  if (messageEntity.messages?.length === 0) {
     return (
       <Box
         sx={{
@@ -41,7 +41,7 @@ const ChatRoomMessagesList: React.FC<ChatRoomMessagesListProps> = ({
   } else {
     return (
       <>
-        {messageEntity.messages.map((message, index) => (
+        {messageEntity.messages?.map((message, index) => (
           <MessageBox
             key={message._id}
             message={message}

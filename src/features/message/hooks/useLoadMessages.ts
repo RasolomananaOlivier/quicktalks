@@ -16,24 +16,29 @@ export const useLoadMessages = () => {
   const dispatch = useAppDispatch();
 
   const loadMore = async () => {
-    const result = await Message.getOneById(
-      currentMessage._id,
-      user._id!,
-      page
-    );
+    if (currentMessage._id) {
+      const result = await Message.getOneById(
+        currentMessage._id,
+        user._id!,
+        page
+      );
 
-    dispatch(
-      setCurrentMessage({
-        ...result.message,
-        totalMessages: result.totalMessages,
-      })
-    );
+      dispatch(
+        setCurrentMessage({
+          ...result.message,
+          totalMessages: result.totalMessages,
+        })
+      );
 
-    if (result.totalMessages === currentMessage.messages.length) {
+      if (result.totalMessages === currentMessage.messages.length) {
+        sethasNextPage(false);
+      }
+
+      setPage(page + 1);
+    } else {
       sethasNextPage(false);
+      setloading(false);
     }
-
-    setPage(page + 1);
   };
 
   return {

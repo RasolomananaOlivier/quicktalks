@@ -25,6 +25,7 @@ const Header: React.FC<ChatRoomHeaderProps> = () => {
   const currentFriend = useCurrentFriend();
 
   const chatRoomRightSide = useContext(ChatRoomRightSideContext);
+
   return (
     <>
       <Box
@@ -48,9 +49,13 @@ const Header: React.FC<ChatRoomHeaderProps> = () => {
             </IconButton>
           )}
           {/* @ts-ignore */}
-          <Avatar src={currentFriend.avatarUrl} slt="sdgd" />
+          <Avatar src={currentFriend?.avatarUrl} slt="sdgd" />
           <Box sx={{ ml: 2 }}>
-            <Typography>{`${currentFriend.firstname} ${currentFriend.lastname}`}</Typography>
+            <Typography>
+              {currentFriend._id
+                ? `${currentFriend.firstname} ${currentFriend.lastname}`
+                : "No user"}
+            </Typography>
             <Typography sx={{ fontSize: 12, color: "gray" }}>Actif</Typography>
           </Box>
         </Box>
