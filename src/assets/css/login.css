@@ -2,6 +2,9 @@
   background-repeat: no-repeat;
   width: 800px;
   height: 100vh;
+
+  object-fit: cover;
+  object-position: center;
 }
 
 .signup-illustration {

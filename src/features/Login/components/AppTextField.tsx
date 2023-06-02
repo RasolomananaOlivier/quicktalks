@@ -6,11 +6,13 @@ interface IAppTextFielfProps {
   formik: FormikProps<ILoginValues>;
   value: "Email" | "Password";
   loginError: boolean;
+  loading: boolean;
 }
 export default function AppTextField({
   formik,
   value,
   loginError,
+  loading,
 }: IAppTextFielfProps) {
   const valueLowerCase = value === "Email" ? "email" : "password";
 
@@ -23,6 +25,7 @@ export default function AppTextField({
       label={value}
       name={valueLowerCase}
       type={valueLowerCase}
+      disabled={loading}
       error={
         (formik.touched[valueLowerCase] && formik.errors[valueLowerCase]) ||
         loginError

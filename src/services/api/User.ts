@@ -68,7 +68,10 @@ const updatePersonalInformation = async (
 ) => {
   const update = await Client.put<IUser>(
     endpoint.user.UPDATE_PERSONAL_INFORMATION(userId),
-    { ...personalInformation }
+    { ...personalInformation },
+    {
+      headers: { "x-access-token": getToken() },
+    }
   );
   return update;
 };

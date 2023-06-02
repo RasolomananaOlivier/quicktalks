@@ -1,28 +1,20 @@
 import {
-  Avatar,
   Box,
-  Button,
   Checkbox,
   FormControlLabel,
   Grid,
   Link,
-  Paper,
-  SxProps,
-  TextField,
-  Theme,
+  Button,
   Typography,
-  TypographyClasses,
+  CircularProgress,
 } from "@mui/material";
-import { CommonProps } from "@mui/material/OverridableComponent";
-import { SystemProps } from "@mui/system";
 import { useFormik } from "formik";
-import { ElementType, ReactNode } from "react";
 
-// import Bg2 from "src/Assets/img/customer.png";
 import { useMobileSize } from "../../../hooks/useMobileSize";
 import { ILoginValues } from "../types";
 import { validateLogin } from "../utils/validateLogin";
 import AppTextField from "./AppTextField";
+import { Login, LoginOutlined } from "@mui/icons-material";
 
 function Copyright(props: any) {
   return (
@@ -45,9 +37,10 @@ function Copyright(props: any) {
 interface ILoginForm {
   handleSubmit: (values: ILoginValues) => void;
   loginError: boolean;
+  loading: boolean;
 }
 
-const LoginForm = ({ handleSubmit, loginError }: ILoginForm) => {
+const LoginForm = ({ handleSubmit, loginError, loading }: ILoginForm) => {
   const isMobileScreen = useMobileSize();
 
   const formik = useFormik<ILoginValues>({
@@ -96,8 +89,14 @@ const LoginForm = ({ handleSubmit, loginError }: ILoginForm) => {
           onSubmit={formik.handleSubmit}
           sx={{ mt: 1, mx: { xs: 0, md: 0.7 } }}
         >
-          <AppTextField formik={formik} value="Email" loginError={loginError} />
           <AppTextField
+            loading={loading}
+            formik={formik}
+            value="Email"
+            loginError={loginError}
+          />
+          <AppTextField
+            loading={loading}
             formik={formik}
             value="Password"
             loginError={loginError}
@@ -112,13 +111,19 @@ const LoginForm = ({ handleSubmit, loginError }: ILoginForm) => {
             label="Remember me"
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, pb: { xs: 1, md: 0 } }}
+            type="submit"
+            disabled={loading}
+            startIcon={
+              loading ? <CircularProgress size={20} /> : <LoginOutlined />
+            }
+            sx={{ my: 1 }}
+            disableElevation
           >
-            Sign In
+            Sign in
           </Button>
+
           <Grid container>
             <Grid
               item

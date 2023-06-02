@@ -11,13 +11,15 @@ import { Axios, AxiosError } from "axios";
 
 export const ConnectedLoginForm: FC = () => {
   const [loginError, setLoginError] = useState(false);
+  const [loading, setloading] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (values: ILoginValues) => {
+    setloading(true);
+
     try {
       const { token, data } = await User.login(values);
-
       saveToken(token);
       dispatch(
         setUser({
@@ -30,7 +32,6 @@ export const ConnectedLoginForm: FC = () => {
           avatarUrl: data.avatarUrl,
         })
       );
-
       navigate(routes.HOME);
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -38,7 +39,15 @@ export const ConnectedLoginForm: FC = () => {
           setLoginError(true);
         }
       }
+    } finally {
+      setloading(false);
     }
   };
-  return <LoginForm handleSubmit={handleSubmit} loginError={loginError} />;
+  return (
+    <LoginForm
+      handleSubmit={handleSubmit}
+      loginError={loginError}
+      loading={loading}
+    />
+  );
 };
