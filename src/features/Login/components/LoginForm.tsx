@@ -15,6 +15,8 @@ import { ILoginValues } from "../types";
 import { validateLogin } from "../utils/validateLogin";
 import AppTextField from "./AppTextField";
 import { Login, LoginOutlined } from "@mui/icons-material";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 function Copyright(props: any) {
   return (
@@ -52,6 +54,25 @@ const LoginForm = ({ handleSubmit, loginError, loading }: ILoginForm) => {
     onSubmit: handleSubmit,
   });
 
+  const loginGoogle = useGoogleLogin({
+    onSuccess: async (response) => {
+      console.log("ok", response);
+      const res = await axios.get(
+        "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" +
+          response.access_token,
+        {
+          headers: {
+            Authorization: "Bearer " + response.access_token,
+            Accept: "application/json",
+          },
+        }
+      );
+
+      console.log(res);
+    },
+    onError: (response) => console.log("bad", response),
+  });
+
   return (
     <>
       {isMobileScreen && (
@@ -71,12 +92,12 @@ const LoginForm = ({ handleSubmit, loginError, loading }: ILoginForm) => {
           mx: { xs: 3, md: 6 },
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          alignItems: "start",
           justifyContent: "start",
         }}
       >
         {!isMobileScreen && (
-          <Typography component="h1" variant="h3">
+          <Typography component="h1" variant="h4">
             Welcome !
             <br />
             Nice to see you again.
@@ -118,7 +139,7 @@ const LoginForm = ({ handleSubmit, loginError, loading }: ILoginForm) => {
             startIcon={
               loading ? <CircularProgress size={20} /> : <LoginOutlined />
             }
-            sx={{ my: 1 }}
+            sx={{ mt: 1, mb: 2 }}
             disableElevation
           >
             Sign in
@@ -151,6 +172,18 @@ const LoginForm = ({ handleSubmit, loginError, loading }: ILoginForm) => {
               </Link>
             </Grid>
           </Grid>
+
+          <Box display="flex" justifyContent="center" my={2}>
+            <Typography color="gray">
+              Or create an account using social media
+            </Typography>
+          </Box>
+
+          <Box display="flex" justifyContent="center">
+            <Button onClick={() => loginGoogle()}>Google</Button>
+            <Button>Facebook</Button>
+          </Box>
+
           <Copyright sx={{ mt: 5 }} />
         </Box>
       </Box>
